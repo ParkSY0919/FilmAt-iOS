@@ -10,7 +10,10 @@ import Foundation
 import Alamofire
 
 enum TMDBTargetType {
-    
+    case getTrendingAPI(request: TrendingRequestModel)
+    case getSearchAPI(query: String)
+    case getImageAPI(movieID: String)
+    case getCreditAPI(movieID: String)
 }
 
 extension TMDBTargetType: TargetType {
@@ -24,24 +27,46 @@ extension TMDBTargetType: TargetType {
     }
     
     var method: HTTPMethod {
+        return .get
+    }
+    
+    var utilPath: String {
         switch self {
+        case .getTrendingAPI:
+            return "/trending/movie/"
+        case .getSearchAPI:
+            return "/search/movie"
+        case .getImageAPI, .getCreditAPI:
+            return "/movie/"
         }
     }
     
     var path: String {
         switch self {
+        case .getTrendingAPI:
+            return "day"
+        case .getSearchAPI:
+            return ""
+        case .getImageAPI(movieID: let movieID):
+            return "\(movieID)/images"
+        case .getCreditAPI(movieID: let movieID):
+            return "\(movieID)/credits"
         }
     }
-    
     
     var parameters: RequestParams? {
         switch self {
+        case .getSearchAPI(let request):
+            return .query(request)
+        case .getTrendingAPI(let request):
+            return .query(request)
+        case .getImageAPI, .getCreditAPI:
+            return .none
         }
     }
     
-    var encoding: ParameterEncoding {
-        switch self {
-        }
+    var encoding: Alamofire.ParameterEncoding {
+        return URLEncoding.default
     }
     
     var header: Alamofire.HTTPHeaders {
@@ -57,4 +82,5 @@ extension TMDBTargetType: TargetType {
             ]
         return header
     }
+    
 }

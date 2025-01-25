@@ -15,16 +15,9 @@ class OnBoardingViewController: UIViewController {
         print("onboarding vc")
         view.backgroundColor = .red
         
-        guard let baseURL = Bundle.main.object(forInfoDictionaryKey: Config.Keys.Plist.baseURL) as? String,
-              let url = URL(string: baseURL) else {
-            fatalError("🚨BASE_URL을 찾을 수 없습니다🚨")
+        NetworkManager.shared.getTMDBAPI(apiHandler: .getTrendingAPI(request: TrendingRequestModel(language: "ko-KR")), responseModel: TrendingResponseModel.self) { result, networkResult in
+            print("result: \(result)")
         }
-        
-        guard let accessToken = Bundle.main.object(forInfoDictionaryKey: Config.Keys.Plist.accessToken) as? String else {
-            fatalError("🚨BASE_URL을 찾을 수 없습니다🚨")
-        }
-        
-        print("baseURL : \(baseURL)\n accessToken : \(accessToken)")
     }
     
 
@@ -39,3 +32,5 @@ class OnBoardingViewController: UIViewController {
     */
 
 }
+
+

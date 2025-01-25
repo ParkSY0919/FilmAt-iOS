@@ -38,6 +38,8 @@
 		9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB462D4526AA007B6910 /* NetworkResultType.swift */; };
 		9E61BB492D45274E007B6910 /* TMDBTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB482D45274E007B6910 /* TMDBTargetType.swift */; };
 		9EC78D262D454B1200248B19 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D252D454B1200248B19 /* NetworkManager.swift */; };
+		9EC78D2A2D454F4A00248B19 /* TrendingRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D292D454F4A00248B19 /* TrendingRequestModel.swift */; };
+		9EC78D2C2D454F5E00248B19 /* TrendingResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D2B2D454F5E00248B19 /* TrendingResponseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		9E61BB462D4526AA007B6910 /* NetworkResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResultType.swift; sourceTree = "<group>"; };
 		9E61BB482D45274E007B6910 /* TMDBTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBTargetType.swift; sourceTree = "<group>"; };
 		9EC78D252D454B1200248B19 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		9EC78D292D454F4A00248B19 /* TrendingRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingRequestModel.swift; sourceTree = "<group>"; };
+		9EC78D2B2D454F5E00248B19 /* TrendingResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingResponseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,7 +216,7 @@
 		9E61BAFC2D45197F007B6910 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				9E61BAFE2D4519E3007B6910 /* Base */,
+				9EC78D272D454ED300248B19 /* TrendingDTO */,
 				9E61BB482D45274E007B6910 /* TMDBTargetType.swift */,
 				9EC78D252D454B1200248B19 /* NetworkManager.swift */,
 			);
@@ -227,13 +231,6 @@
 				9E61BB142D451C48007B6910 /* Base */,
 			);
 			path = Presentation;
-			sourceTree = "<group>";
-		};
-		9E61BAFE2D4519E3007B6910 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Base;
 			sourceTree = "<group>";
 		};
 		9E61BB002D451A71007B6910 /* TabBar */ = {
@@ -280,6 +277,15 @@
 			children = (
 			);
 			path = Literals;
+			sourceTree = "<group>";
+		};
+		9EC78D272D454ED300248B19 /* TrendingDTO */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D292D454F4A00248B19 /* TrendingRequestModel.swift */,
+				9EC78D2B2D454F5E00248B19 /* TrendingResponseModel.swift */,
+			);
+			path = TrendingDTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,6 +376,7 @@
 				9E61BB072D451AF6007B6910 /* UserDefaultsManager.swift in Sources */,
 				9E61BB032D451AA3007B6910 /* OnBoardingViewController.swift in Sources */,
 				9E61BADD2D43DEF7007B6910 /* AppDelegate.swift in Sources */,
+				9EC78D2A2D454F4A00248B19 /* TrendingRequestModel.swift in Sources */,
 				9E61BADE2D43DEF7007B6910 /* SceneDelegate.swift in Sources */,
 				9E61BB3A2D451F08007B6910 /* ScreenUtils.swift in Sources */,
 				9E61BB3E2D451F97007B6910 /* TargetType.swift in Sources */,
@@ -390,6 +397,7 @@
 				9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */,
 				9E61BB0F2D451C1F007B6910 /* UIAlertManager.swift in Sources */,
 				9E61BB092D451B9A007B6910 /* Config.swift in Sources */,
+				9EC78D2C2D454F5E00248B19 /* TrendingResponseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
