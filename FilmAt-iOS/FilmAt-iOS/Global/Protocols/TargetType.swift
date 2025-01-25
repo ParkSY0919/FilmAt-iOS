@@ -10,7 +10,7 @@ import Alamofire
 import Foundation
 
 protocol TargetType: URLRequestConvertible {
-    var baseURL: String { get }
+    var baseURL: URL { get }
     var method: HTTPMethod { get }
     var header: HTTPHeaders { get }
     var path: String { get }
@@ -21,7 +21,7 @@ protocol TargetType: URLRequestConvertible {
 extension TargetType {
     // URLRequestConvertible 구현
     func asURLRequest() throws -> URLRequest {
-        let url = try baseURL.asURL()
+        let url = baseURL
         var urlRequest = try URLRequest(url: url.appendingPathComponent(path), method: method)
         urlRequest.headers = header
 

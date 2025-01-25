@@ -34,10 +34,9 @@
 		9E61BB3A2D451F08007B6910 /* ScreenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB392D451F08007B6910 /* ScreenUtils.swift */; };
 		9E61BB3C2D451F11007B6910 /* ObservablePattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB3B2D451F11007B6910 /* ObservablePattern.swift */; };
 		9E61BB3E2D451F97007B6910 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB3D2D451F97007B6910 /* TargetType.swift */; };
-		9E61BB402D452027007B6910 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB3F2D452027007B6910 /* BaseTargetType.swift */; };
-		9E61BB422D45211E007B6910 /* HeaderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB412D45211E007B6910 /* HeaderType.swift */; };
 		9E61BB442D45226B007B6910 /* ViewTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB432D45226B007B6910 /* ViewTransitionType.swift */; };
 		9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB462D4526AA007B6910 /* NetworkResultType.swift */; };
+		9E61BB492D45274E007B6910 /* TMDBTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB482D45274E007B6910 /* TMDBTargetType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,10 +65,9 @@
 		9E61BB392D451F08007B6910 /* ScreenUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenUtils.swift; sourceTree = "<group>"; };
 		9E61BB3B2D451F11007B6910 /* ObservablePattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePattern.swift; sourceTree = "<group>"; };
 		9E61BB3D2D451F97007B6910 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
-		9E61BB3F2D452027007B6910 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
-		9E61BB412D45211E007B6910 /* HeaderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderType.swift; sourceTree = "<group>"; };
 		9E61BB432D45226B007B6910 /* ViewTransitionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTransitionType.swift; sourceTree = "<group>"; };
 		9E61BB462D4526AA007B6910 /* NetworkResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResultType.swift; sourceTree = "<group>"; };
+		9E61BB482D45274E007B6910 /* TMDBTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBTargetType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,7 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				9E61BB462D4526AA007B6910 /* NetworkResultType.swift */,
-				9E61BB412D45211E007B6910 /* HeaderType.swift */,
 				9E61BB432D45226B007B6910 /* ViewTransitionType.swift */,
 			);
 			path = Enums;
@@ -214,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				9E61BAFE2D4519E3007B6910 /* Base */,
+				9E61BB482D45274E007B6910 /* TMDBTargetType.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -231,7 +229,6 @@
 		9E61BAFE2D4519E3007B6910 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				9E61BB3F2D452027007B6910 /* BaseTargetType.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -371,7 +368,6 @@
 				9E61BB032D451AA3007B6910 /* OnBoardingViewController.swift in Sources */,
 				9E61BADD2D43DEF7007B6910 /* AppDelegate.swift in Sources */,
 				9E61BADE2D43DEF7007B6910 /* SceneDelegate.swift in Sources */,
-				9E61BB422D45211E007B6910 /* HeaderType.swift in Sources */,
 				9E61BB3A2D451F08007B6910 /* ScreenUtils.swift in Sources */,
 				9E61BB3E2D451F97007B6910 /* TargetType.swift in Sources */,
 				9E61BB152D451C48007B6910 /* BaseView.swift in Sources */,
@@ -380,10 +376,10 @@
 				9E61BB442D45226B007B6910 /* ViewTransitionType.swift in Sources */,
 				9E61BB2C2D451C79007B6910 /* UIView+.swift in Sources */,
 				9E61BB2D2D451C79007B6910 /* UIStackView+.swift in Sources */,
+				9E61BB492D45274E007B6910 /* TMDBTargetType.swift in Sources */,
 				9E61BB382D451DD9007B6910 /* DateFormatterManager.swift in Sources */,
 				9E61BB2E2D451C79007B6910 /* UILabel+.swift in Sources */,
 				9E61BB3C2D451F11007B6910 /* ObservablePattern.swift in Sources */,
-				9E61BB402D452027007B6910 /* BaseTargetType.swift in Sources */,
 				9E61BB2F2D451C79007B6910 /* UIButton+.swift in Sources */,
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
@@ -409,6 +405,7 @@
 /* Begin XCBuildConfiguration section */
 		9E61BAAF2D43D46F007B6910 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E61BB0C2D451BE8007B6910 /* Secret.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -441,6 +438,7 @@
 		};
 		9E61BAB02D43D46F007B6910 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E61BB0C2D451BE8007B6910 /* Secret.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
