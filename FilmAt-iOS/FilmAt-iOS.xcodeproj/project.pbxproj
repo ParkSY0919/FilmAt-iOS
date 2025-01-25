@@ -296,8 +296,8 @@
 		9EC78D2D2D45504300248B19 /* SearchDTO */ = {
 			isa = PBXGroup;
 			children = (
-				9EC78D302D4550E600248B19 /* SearchResponseModel.swift */,
 				9EC78D322D45511500248B19 /* SearchRequestModel.swift */,
+				9EC78D302D4550E600248B19 /* SearchResponseModel.swift */,
 			);
 			path = SearchDTO;
 			sourceTree = "<group>";
