@@ -15,7 +15,7 @@ class OnBoardingViewController: UIViewController {
         print("onboarding vc")
         view.backgroundColor = .red
         
-        NetworkManager.shared.getTMDBAPI(apiHandler: .getImageAPI(movieID: 610251), responseModel: ImageResponseModel.self) { result, networkResult in
+        NetworkManager.shared.getTMDBAPI(apiHandler: .getCreditAPI(movieID: 610251), responseModel: CreditResponseModel.self) { result, networkResult in
             print("result: \(result)")
         }
     }
