@@ -8,5 +8,5 @@
 import Foundation
 
 struct TrendingRequestModel: Encodable {
-    let language: String
+    let language: String = "ko-KR"
 }
