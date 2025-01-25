@@ -216,9 +216,9 @@
 		9E61BAFC2D45197F007B6910 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				9EC78D272D454ED300248B19 /* TrendingDTO */,
-				9E61BB482D45274E007B6910 /* TMDBTargetType.swift */,
 				9EC78D252D454B1200248B19 /* NetworkManager.swift */,
+				9E61BB482D45274E007B6910 /* TMDBTargetType.swift */,
+				9EC78D272D454ED300248B19 /* TrendingDTO */,
 			);
 			path = Network;
 			sourceTree = "<group>";
