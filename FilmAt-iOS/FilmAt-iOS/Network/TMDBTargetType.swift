@@ -12,8 +12,8 @@ import Alamofire
 enum TMDBTargetType {
     case getTrendingAPI(request: TrendingRequestModel)
     case getSearchAPI(request: SearchRequestModel)
-    case getImageAPI(movieID: String)
-    case getCreditAPI(movieID: String)
+    case getImageAPI(movieID: Int)
+    case getCreditAPI(movieID: Int)
 }
 
 extension TMDBTargetType: TargetType {

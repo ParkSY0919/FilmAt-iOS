@@ -42,6 +42,7 @@
 		9EC78D2C2D454F5E00248B19 /* TrendingResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D2B2D454F5E00248B19 /* TrendingResponseModel.swift */; };
 		9EC78D312D4550E600248B19 /* SearchResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D302D4550E600248B19 /* SearchResponseModel.swift */; };
 		9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D322D45511500248B19 /* SearchRequestModel.swift */; };
+		9EC78D362D4553FE00248B19 /* ImageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D352D4553FE00248B19 /* ImageResponseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		9EC78D2B2D454F5E00248B19 /* TrendingResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingResponseModel.swift; sourceTree = "<group>"; };
 		9EC78D302D4550E600248B19 /* SearchResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseModel.swift; sourceTree = "<group>"; };
 		9EC78D322D45511500248B19 /* SearchRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequestModel.swift; sourceTree = "<group>"; };
+		9EC78D352D4553FE00248B19 /* ImageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResponseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 			children = (
 				9EC78D272D454ED300248B19 /* TrendingDTO */,
 				9EC78D2D2D45504300248B19 /* SearchDTO */,
+				9EC78D342D45523200248B19 /* ImageDTO */,
 				9EC78D252D454B1200248B19 /* NetworkManager.swift */,
 				9E61BB482D45274E007B6910 /* TMDBTargetType.swift */,
 			);
@@ -300,6 +303,14 @@
 				9EC78D302D4550E600248B19 /* SearchResponseModel.swift */,
 			);
 			path = SearchDTO;
+			sourceTree = "<group>";
+		};
+		9EC78D342D45523200248B19 /* ImageDTO */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D352D4553FE00248B19 /* ImageResponseModel.swift */,
+			);
+			path = ImageDTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -386,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EC78D362D4553FE00248B19 /* ImageResponseModel.swift in Sources */,
 				9E61BB052D451AC1007B6910 /* TabBarController.swift in Sources */,
 				9E61BB072D451AF6007B6910 /* UserDefaultsManager.swift in Sources */,
 				9E61BB032D451AA3007B6910 /* OnBoardingViewController.swift in Sources */,
