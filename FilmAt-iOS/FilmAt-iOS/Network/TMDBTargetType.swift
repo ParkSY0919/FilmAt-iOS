@@ -11,7 +11,7 @@ import Alamofire
 
 enum TMDBTargetType {
     case getTrendingAPI(request: TrendingRequestModel)
-    case getSearchAPI(query: String)
+    case getSearchAPI(request: SearchRequestModel)
     case getImageAPI(movieID: String)
     case getCreditAPI(movieID: String)
 }
@@ -56,9 +56,9 @@ extension TMDBTargetType: TargetType {
     
     var parameters: RequestParams? {
         switch self {
-        case .getSearchAPI(let request):
-            return .query(request)
         case .getTrendingAPI(let request):
+            return .query(request)
+        case .getSearchAPI(let request):
             return .query(request)
         case .getImageAPI, .getCreditAPI:
             return .none

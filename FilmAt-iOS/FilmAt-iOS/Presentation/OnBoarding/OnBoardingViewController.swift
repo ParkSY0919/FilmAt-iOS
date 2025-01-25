@@ -15,7 +15,7 @@ class OnBoardingViewController: UIViewController {
         print("onboarding vc")
         view.backgroundColor = .red
         
-        NetworkManager.shared.getTMDBAPI(apiHandler: .getTrendingAPI(request: TrendingRequestModel(language: "ko-KR")), responseModel: TrendingResponseModel.self) { result, networkResult in
+        NetworkManager.shared.getTMDBAPI(apiHandler: .getSearchAPI(request: SearchRequestModel(query: "하얼빈")), responseModel: SearchResponseModel.self) { result, networkResult in
             print("result: \(result)")
         }
     }
