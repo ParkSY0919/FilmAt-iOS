@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - TrendingRequestModel
 struct TrendingRequestModel: Encodable {
     let language: String = "ko-KR"
 }

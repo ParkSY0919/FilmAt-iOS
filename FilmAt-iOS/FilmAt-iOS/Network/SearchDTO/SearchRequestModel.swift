@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - SearchRequestModel
 struct SearchRequestModel: Encodable {
     let query: String
     let language: String = "ko-KR"
