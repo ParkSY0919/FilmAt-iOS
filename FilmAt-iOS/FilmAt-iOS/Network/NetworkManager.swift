@@ -1,0 +1,55 @@
+//
+//  NetworkManager.swift
+//  FilmAt-iOS
+//
+//  Created by 박신영 on 1/26/25.
+//
+
+import Foundation
+
+import Alamofire
+
+final class NetworkManager {
+    
+    static let shared = NetworkManager()
+    
+    private init() {}
+    
+    func returnErrorType(_ statusCode: Int) -> NetworkResultType {
+        switch statusCode {
+        case (200..<299):
+            return .success
+        case 400:
+            return .badRequest
+        case 401:
+            return .unauthorized
+        case 403:
+            return .forbidden
+        case 404:
+            return .notFound
+        case (500...):
+            return .serverError
+        default:
+            return .anotherError
+        }
+    }
+    
+    func getTMDBAPI<T: Decodable>(apiHandler: TMDBTargetType,
+                                  responseModel: T.Type,
+                                  complitionHandler: @escaping (T, NetworkResultType) -> (Void)) {
+        AF.request(apiHandler)
+            .responseDecodable(of: T.self) { response in
+                debugPrint(response)
+                switch response.result {
+                case .success(let result):
+                    print("success")
+                    let networkResultType = self.returnErrorType(response.response?.statusCode ?? 0)
+                    complitionHandler(result, networkResultType)
+                case .failure(let error):
+                    print("failure\n", error)
+                }
+            }
+    }
+    
+}
+

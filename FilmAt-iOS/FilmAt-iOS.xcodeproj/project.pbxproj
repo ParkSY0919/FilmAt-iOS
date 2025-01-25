@@ -37,6 +37,7 @@
 		9E61BB442D45226B007B6910 /* ViewTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB432D45226B007B6910 /* ViewTransitionType.swift */; };
 		9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB462D4526AA007B6910 /* NetworkResultType.swift */; };
 		9E61BB492D45274E007B6910 /* TMDBTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB482D45274E007B6910 /* TMDBTargetType.swift */; };
+		9EC78D262D454B1200248B19 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D252D454B1200248B19 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		9E61BB432D45226B007B6910 /* ViewTransitionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTransitionType.swift; sourceTree = "<group>"; };
 		9E61BB462D4526AA007B6910 /* NetworkResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResultType.swift; sourceTree = "<group>"; };
 		9E61BB482D45274E007B6910 /* TMDBTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBTargetType.swift; sourceTree = "<group>"; };
+		9EC78D252D454B1200248B19 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 			children = (
 				9E61BAFE2D4519E3007B6910 /* Base */,
 				9E61BB482D45274E007B6910 /* TMDBTargetType.swift */,
+				9EC78D252D454B1200248B19 /* NetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				9E61BB282D451C79007B6910 /* UIFont+.swift in Sources */,
 				9E61BB442D45226B007B6910 /* ViewTransitionType.swift in Sources */,
 				9E61BB2C2D451C79007B6910 /* UIView+.swift in Sources */,
+				9EC78D262D454B1200248B19 /* NetworkManager.swift in Sources */,
 				9E61BB2D2D451C79007B6910 /* UIStackView+.swift in Sources */,
 				9E61BB492D45274E007B6910 /* TMDBTargetType.swift in Sources */,
 				9E61BB382D451DD9007B6910 /* DateFormatterManager.swift in Sources */,
