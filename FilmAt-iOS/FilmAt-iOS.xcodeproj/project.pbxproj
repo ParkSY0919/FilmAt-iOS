@@ -37,6 +37,7 @@
 		9E61BB402D452027007B6910 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB3F2D452027007B6910 /* BaseTargetType.swift */; };
 		9E61BB422D45211E007B6910 /* HeaderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB412D45211E007B6910 /* HeaderType.swift */; };
 		9E61BB442D45226B007B6910 /* ViewTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB432D45226B007B6910 /* ViewTransitionType.swift */; };
+		9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BB462D4526AA007B6910 /* NetworkResultType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		9E61BB3F2D452027007B6910 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		9E61BB412D45211E007B6910 /* HeaderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderType.swift; sourceTree = "<group>"; };
 		9E61BB432D45226B007B6910 /* ViewTransitionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTransitionType.swift; sourceTree = "<group>"; };
+		9E61BB462D4526AA007B6910 /* NetworkResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResultType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 		9E61BAFA2D451843007B6910 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				9E61BB462D4526AA007B6910 /* NetworkResultType.swift */,
 				9E61BB412D45211E007B6910 /* HeaderType.swift */,
 				9E61BB432D45226B007B6910 /* ViewTransitionType.swift */,
 			);
@@ -384,6 +387,7 @@
 				9E61BB2F2D451C79007B6910 /* UIButton+.swift in Sources */,
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
+				9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */,
 				9E61BB0F2D451C1F007B6910 /* UIAlertManager.swift in Sources */,
 				9E61BB092D451B9A007B6910 /* Config.swift in Sources */,
 			);
