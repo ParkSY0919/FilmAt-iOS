@@ -30,12 +30,16 @@ extension UILabel {
     }
     
     // 기본 라벨 속성 설정 메소드
-    func setLabel(text: String? = "", alignment: NSTextAlignment = .center, numberOfLines: Int = 0, textColor: UIColor, font: UIFont) {
+    func setLabelUI(_ text: String,
+                    font: UIFont,
+                    textColor: UIColor = UIColor(resource: .title),
+                    alignment: NSTextAlignment = .left,
+                    numberOfLines: Int = 1) {
         self.text = text
+        self.font = font
+        self.textColor = textColor
         self.textAlignment = alignment
         self.numberOfLines = numberOfLines
-        self.textColor = textColor
-        self.font = font
     }
     
 }
