@@ -7,30 +7,32 @@
 
 import UIKit
 
-class OnBoardingViewController: UIViewController {
+final class OnBoardingViewController: BaseViewController {
+    
+    private let onBoardingView = OnBoardingView()
+    
+    override func loadView() {
+        view = onBoardingView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("onboarding vc")
-        view.backgroundColor = .red
-        
-        NetworkManager.shared.getTMDBAPI(apiHandler: .getCreditAPI(movieID: 610251), responseModel: CreditResponseModel.self) { result, networkResult in
-            print("result: \(result)")
-        }
+        setAddTarget()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
-
+private extension OnBoardingViewController {
+    
+    func setAddTarget() {
+        onBoardingView.startButton.doneButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc
+    func startButtonTapped() {
+        print(#function)
+        viewTransition(viewController: OnBoardingViewController()/*추후 프로필 설정화면으로 교체*/, transitionStyle: .push)
+    }
+    
+}

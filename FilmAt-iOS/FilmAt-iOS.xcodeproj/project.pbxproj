@@ -44,6 +44,8 @@
 		9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D322D45511500248B19 /* SearchRequestModel.swift */; };
 		9EC78D362D4553FE00248B19 /* ImageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D352D4553FE00248B19 /* ImageResponseModel.swift */; };
 		9EC78D392D45551A00248B19 /* CreditResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D382D45551A00248B19 /* CreditResponseModel.swift */; };
+		9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */; };
+		9EC78D402D466CF400248B19 /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D3F2D466CF400248B19 /* DoneButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +84,8 @@
 		9EC78D322D45511500248B19 /* SearchRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequestModel.swift; sourceTree = "<group>"; };
 		9EC78D352D4553FE00248B19 /* ImageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResponseModel.swift; sourceTree = "<group>"; };
 		9EC78D382D45551A00248B19 /* CreditResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditResponseModel.swift; sourceTree = "<group>"; };
+		9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
+		9EC78D3F2D466CF400248B19 /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +191,7 @@
 		9E61BAF82D45182F007B6910 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				9EC78D3F2D466CF400248B19 /* DoneButton.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -237,9 +242,9 @@
 		9E61BAFD2D451988007B6910 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				9E61BB142D451C48007B6910 /* Base */,
 				9E61BB012D451A79007B6910 /* OnBoarding */,
 				9E61BB002D451A71007B6910 /* TabBar */,
-				9E61BB142D451C48007B6910 /* Base */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -256,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				9E61BB022D451AA3007B6910 /* OnBoardingViewController.swift */,
+				9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 				9E61BB362D451D72007B6910 /* UIImageView+.swift in Sources */,
 				9EC78D392D45551A00248B19 /* CreditResponseModel.swift in Sources */,
 				9E61BB282D451C79007B6910 /* UIFont+.swift in Sources */,
+				9EC78D402D466CF400248B19 /* DoneButton.swift in Sources */,
 				9E61BB442D45226B007B6910 /* ViewTransitionType.swift in Sources */,
 				9E61BB2C2D451C79007B6910 /* UIView+.swift in Sources */,
 				9EC78D262D454B1200248B19 /* NetworkManager.swift in Sources */,
@@ -434,6 +441,7 @@
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
 				9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */,
+				9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */,
 				9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */,
 				9E61BB0F2D451C1F007B6910 /* UIAlertManager.swift in Sources */,
 				9E61BB092D451B9A007B6910 /* Config.swift in Sources */,
