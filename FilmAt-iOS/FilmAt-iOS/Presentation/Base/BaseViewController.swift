@@ -25,7 +25,7 @@ class BaseViewController: UIViewController {
     func setLayout() {}
     
     func setStyle() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(resource: .background)
     }
     
     func setChildrenViewLayout<T: BaseView>(view: T) {
