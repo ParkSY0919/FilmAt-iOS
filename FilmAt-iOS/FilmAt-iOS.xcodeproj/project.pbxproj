@@ -214,9 +214,6 @@
 			isa = PBXGroup;
 			children = (
 				9EC78D3F2D466CF400248B19 /* DoneButton.swift */,
-				9EC78D492D47240500248B19 /* ProfileNicknameView.swift */,
-				9EC78D5A2D4750F900248B19 /* ProfileImageView.swift */,
-				9EC78D5D2D475E3200248B19 /* ProfileImageCollectionViewCell.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -371,6 +368,7 @@
 		9EC78D4D2D47378400248B19 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9EC78D492D47240500248B19 /* ProfileNicknameView.swift */,
 				9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */,
 			);
 			path = View;
@@ -414,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC78D5F2D47675700248B19 /* ViewModel */,
+				9EC78D622D4794EA00248B19 /* Cell */,
 				9EC78D572D47509A00248B19 /* View */,
 			);
 			path = Image;
@@ -422,6 +421,7 @@
 		9EC78D572D47509A00248B19 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9EC78D5A2D4750F900248B19 /* ProfileImageView.swift */,
 				9EC78D582D4750B500248B19 /* ProfileImageViewController.swift */,
 			);
 			path = View;
@@ -433,6 +433,14 @@
 				9EC78D602D47676800248B19 /* ProfileImageViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9EC78D622D4794EA00248B19 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D5D2D475E3200248B19 /* ProfileImageCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
