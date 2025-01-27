@@ -9,32 +9,95 @@ import UIKit
 
 final class ProfileNicknameViewController: BaseViewController {
     
+    private let viewModel: ProfileNicknameViewModel
+    
     private let profileNicknameView = ProfileNicknameView()
     
-    init() {
+    init(viewModel: ProfileNicknameViewModel) {
+        self.viewModel = viewModel
+        
         super.init(navTitle: "프로필 설정", navLeftBtnType: .pop, navRightBtnType: .none)
     }
     
     override func loadView() {
         view = profileNicknameView
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setDelegate()
         setAddTarget()
+        bindViewModel()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        profileNicknameView.nicknameTextField.becomeFirstResponder()
+    }
+
+}
+
+private extension ProfileNicknameViewController {
     
-    private func setAddTarget() {
+    func setDelegate() {
+        profileNicknameView.nicknameTextField.delegate = self
+    }
+    
+    func setAddTarget() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileContainerTapped))
         profileNicknameView.profileContainer.addGestureRecognizer(tapGesture)
+        
+        profileNicknameView.nicknameTextField.addTarget(self,
+                                                        action: #selector(textFieldDidChange),
+                                                        for: .editingChanged)
+        
+        profileNicknameView.doneButtonComponent.doneButton.addTarget(self,
+                                                                     action: #selector(doneButtonComponentTapped),
+                                                                     for: .touchUpInside)
+    }
+    
+    func bindViewModel() {
+        self.viewModel.nicknameText.bind { [weak self] text in
+            guard let text else { return }
+            self?.viewModel.validateNickname(text)
+        }
+        
+        self.viewModel.isValidNickname.bind { [weak self] state in
+            guard let state else { return }
+            self?.profileNicknameView.changeProfileNicknameState(stateLabelType: state)
+        }
     }
     
     @objc
-    private func profileContainerTapped() {
-        print(#function)
+    func profileContainerTapped() {
+        print(#function, "profile Image 설정화면으로 고우!")
     }
+    
+    @objc
+    func textFieldDidChange(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        viewModel.nicknameText.value = text
+    }
+    
+    @objc
+    func doneButtonComponentTapped() {
+        print(#function, "메인화면으로 고우!")
+        viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
+    }
+    
+}
 
+extension ProfileNicknameViewController: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        profileNicknameView.nicknameTextField.resignFirstResponder()
+        return true
+    }
+    
 }

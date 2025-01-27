@@ -32,7 +32,7 @@ private extension OnBoardingViewController {
     @objc
     func startButtonTapped() {
         print(#function)
-        viewTransition(viewController: ProfileNicknameViewController(), transitionStyle: .push)
+        viewTransition(viewController: ProfileNicknameViewController(viewModel: ProfileNicknameViewModel()), transitionStyle: .push)
     }
     
 }

@@ -19,10 +19,14 @@ final class ProfileNicknameView: BaseView {
     private let underLine = UIView()
     let nicknameTextField = UITextField()
     private let stateLabel = UILabel()
-    let doneButton = DoneButton(title: "완료", doneBtnState: .unsatisfied)
+    let doneButtonComponent = DoneButton(title: "완료", doneBtnState: .unsatisfied)
     
     override func setHierarchy() {
-        self.addSubviews(profileContainer, underLine, nicknameTextField, stateLabel, doneButton)
+        self.addSubviews(profileContainer,
+                         underLine,
+                         nicknameTextField,
+                         stateLabel,
+                         doneButtonComponent)
         
         profileContainer.addSubviews(profileImageView, cameraImageView)
     }
@@ -59,7 +63,7 @@ final class ProfileNicknameView: BaseView {
             $0.leading.equalTo(nicknameTextField.snp.leading)
         }
         
-        doneButton.snp.makeConstraints {
+        doneButtonComponent.snp.makeConstraints {
             $0.top.equalTo(stateLabel.snp.bottom).offset(20)
             $0.horizontalEdges.equalTo(underLine)
             $0.height.equalTo(45)
@@ -86,7 +90,14 @@ final class ProfileNicknameView: BaseView {
             $0.font = .filmAtFont(.body_regular_16)
         }
         
-        stateLabel.setLabelUI("stateLabel", font: .filmAtFont(.body_regular_16), textColor: UIColor(resource: .point))
+        stateLabel.do {
+            $0.setLabelUI("stateLabel",
+                          font: .filmAtFont(.body_regular_16),
+                          textColor: UIColor(resource: .point))
+            $0.isHidden = true
+        }
+        
+        doneButtonComponent.isUserInteractionEnabled = false
     }
     
     private func setRandomProfileImage() {
@@ -104,5 +115,21 @@ final class ProfileNicknameView: BaseView {
         }
     }
     
+    func changeProfileNicknameState(stateLabelType: StateLabelType) {
+        stateLabel.do {
+            $0.text = stateLabelType.text
+            $0.textColor = stateLabelType.textColor
+            $0.isHidden = false
+        }
+        
+        if stateLabelType == .success {
+            doneButtonComponent.doneBtnState = .satisfied
+            doneButtonComponent.isUserInteractionEnabled = true
+        } else {
+            doneButtonComponent.doneBtnState = .unsatisfied
+            doneButtonComponent.isUserInteractionEnabled = false
+        }
+        doneButtonComponent.changeDoneBtnState()
+    }
+    
 }
-

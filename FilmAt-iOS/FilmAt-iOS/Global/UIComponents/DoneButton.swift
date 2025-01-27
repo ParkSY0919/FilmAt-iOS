@@ -44,4 +44,11 @@ final class DoneButton: BaseView {
         }
     }
     
+    func changeDoneBtnState() {
+        doneButton.do {
+            $0.layer.borderColor = doneBtnState.borderColor
+            $0.setTitleColor(doneBtnState.titleColor, for: .normal)
+        }
+    }
+    
 }
