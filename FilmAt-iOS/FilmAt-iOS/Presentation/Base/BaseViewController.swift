@@ -12,10 +12,12 @@ import Then
 
 class BaseViewController: UIViewController {
     
+    var navTitle: String?
     var navLeftBtnType: NavigationLeftBtnType
     var navRightBtnType: NavigationRightBtnType
     
-    init(navLeftBtnType: NavigationLeftBtnType = .none, navRightBtnType: NavigationRightBtnType = .none) {
+    init(navTitle: String? = nil , navLeftBtnType: NavigationLeftBtnType = .none, navRightBtnType: NavigationRightBtnType = .none) {
+        self.navTitle = navTitle
         self.navLeftBtnType = navLeftBtnType
         self.navRightBtnType = navRightBtnType
         
@@ -37,6 +39,15 @@ class BaseViewController: UIViewController {
     func setStyle() {
         navigationController?.navigationBar.tintColor = UIColor(resource: .point)
         view.backgroundColor = UIColor(resource: .background)
+        
+        switch navTitle==nil {
+        case true:
+            print("navTitle is nil")
+        case false:
+            print("navTitle is not nil")
+            navigationItem.title = navTitle
+            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        }
         
         switch navLeftBtnType {
         case .pop:

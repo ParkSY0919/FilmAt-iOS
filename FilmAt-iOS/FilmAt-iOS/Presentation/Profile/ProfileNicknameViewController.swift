@@ -10,7 +10,7 @@ import UIKit
 final class ProfileNicknameViewController: BaseViewController {
     
     init() {
-        super.init(navLeftBtnType: .pop, navRightBtnType: .none)
+        super.init(navTitle: "프로필 설정", navLeftBtnType: .pop, navRightBtnType: .none)
     }
     
 
