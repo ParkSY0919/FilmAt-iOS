@@ -12,6 +12,16 @@ import Then
 
 class BaseViewController: UIViewController {
     
+    var navLeftBtnType: NavigationLeftBtnType
+    var navRightBtnType: NavigationRightBtnType
+    
+    init(navLeftBtnType: NavigationLeftBtnType = .none, navRightBtnType: NavigationRightBtnType = .none) {
+        self.navLeftBtnType = navLeftBtnType
+        self.navRightBtnType = navRightBtnType
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +35,30 @@ class BaseViewController: UIViewController {
     func setLayout() {}
     
     func setStyle() {
+        navigationController?.navigationBar.tintColor = UIColor(resource: .point)
         view.backgroundColor = UIColor(resource: .background)
+        
+        switch navLeftBtnType {
+        case .pop:
+            let navLeftItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(popBtnTapped))
+            navigationItem.leftBarButtonItem = navLeftItem
+        case .dismiss:
+            let navLeftItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .done, target: self, action: #selector(dismissBtnTapped))
+            navigationItem.leftBarButtonItem = navLeftItem
+        case .none:
+            print("navLeft Btn None")
+        }
+        
+        switch navRightBtnType {
+        case .search:
+            let navRightItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: self, action: #selector(searchBtnTapped))
+            navigationItem.rightBarButtonItem = navRightItem
+        case .like:
+            let navRightItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .done, target: self, action: #selector(likeBtnTapped))
+            navigationItem.rightBarButtonItem = navRightItem
+        case .none:
+            print("navRight Btn None")
+        }
     }
     
     func setChildrenViewLayout<T: BaseView>(view: T) {
@@ -46,6 +79,31 @@ class BaseViewController: UIViewController {
             nav.modalPresentationStyle = .fullScreen
             return self.present(nav, animated: true)
         }
+    }
+    
+    @objc
+    private func popBtnTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    private func dismissBtnTapped() {
+        self.dismiss(animated: true)
+    }
+    
+    @objc
+    func searchBtnTapped() {
+        print(#function)
+    }
+    
+    @objc
+    func likeBtnTapped() {
+        print(#function)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }

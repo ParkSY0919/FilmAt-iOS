@@ -47,6 +47,8 @@
 		9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */; };
 		9EC78D402D466CF400248B19 /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D3F2D466CF400248B19 /* DoneButton.swift */; };
 		9EC78D422D471A0800248B19 /* DoneButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D412D471A0800248B19 /* DoneButtonState.swift */; };
+		9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */; };
+		9EC78D482D471F6F00248B19 /* NavigationButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +90,8 @@
 		9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		9EC78D3F2D466CF400248B19 /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
 		9EC78D412D471A0800248B19 /* DoneButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonState.swift; sourceTree = "<group>"; };
+		9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewController.swift; sourceTree = "<group>"; };
+		9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +220,7 @@
 				9E61BB462D4526AA007B6910 /* NetworkResultType.swift */,
 				9E61BB432D45226B007B6910 /* ViewTransitionType.swift */,
 				9EC78D412D471A0800248B19 /* DoneButtonState.swift */,
+				9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -247,6 +252,7 @@
 			children = (
 				9E61BB142D451C48007B6910 /* Base */,
 				9E61BB012D451A79007B6910 /* OnBoarding */,
+				9EC78D432D471A5B00248B19 /* Profile */,
 				9E61BB002D451A71007B6910 /* TabBar */,
 			);
 			path = Presentation;
@@ -331,6 +337,14 @@
 				9EC78D382D45551A00248B19 /* CreditResponseModel.swift */,
 			);
 			path = CreditDTO;
+			sourceTree = "<group>";
+		};
+		9EC78D432D471A5B00248B19 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -422,11 +436,13 @@
 				9E61BB072D451AF6007B6910 /* UserDefaultsManager.swift in Sources */,
 				9E61BB032D451AA3007B6910 /* OnBoardingViewController.swift in Sources */,
 				9E61BADD2D43DEF7007B6910 /* AppDelegate.swift in Sources */,
+				9EC78D482D471F6F00248B19 /* NavigationButtonType.swift in Sources */,
 				9EC78D2A2D454F4A00248B19 /* TrendingRequestModel.swift in Sources */,
 				9E61BADE2D43DEF7007B6910 /* SceneDelegate.swift in Sources */,
 				9E61BB3A2D451F08007B6910 /* ScreenUtils.swift in Sources */,
 				9E61BB3E2D451F97007B6910 /* TargetType.swift in Sources */,
 				9E61BB152D451C48007B6910 /* BaseView.swift in Sources */,
+				9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */,
 				9E61BB362D451D72007B6910 /* UIImageView+.swift in Sources */,
 				9EC78D392D45551A00248B19 /* CreditResponseModel.swift in Sources */,
 				9E61BB282D451C79007B6910 /* UIFont+.swift in Sources */,
