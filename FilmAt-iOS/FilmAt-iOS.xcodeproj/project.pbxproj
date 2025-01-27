@@ -51,6 +51,7 @@
 		9EC78D482D471F6F00248B19 /* NavigationButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */; };
 		9EC78D4A2D47240500248B19 /* ProfileNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D492D47240500248B19 /* ProfileNicknameView.swift */; };
 		9EC78D4C2D47356F00248B19 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D4B2D47356F00248B19 /* UITextField+.swift */; };
+		9EC78D522D4737E800248B19 /* ProfileNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonType.swift; sourceTree = "<group>"; };
 		9EC78D492D47240500248B19 /* ProfileNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameView.swift; sourceTree = "<group>"; };
 		9EC78D4B2D47356F00248B19 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,8 +349,8 @@
 		9EC78D432D471A5B00248B19 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				9EC78D4E2D47378900248B19 /* ViewModel */,
-				9EC78D4D2D47378400248B19 /* View */,
+				9EC78D532D4737EB00248B19 /* Nickname */,
+				9EC78D542D4737F500248B19 /* Image */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -364,6 +366,7 @@
 		9EC78D4E2D47378900248B19 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -383,6 +386,22 @@
 				9E61BB042D451AC1007B6910 /* TabBarController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9EC78D532D4737EB00248B19 /* Nickname */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D4E2D47378900248B19 /* ViewModel */,
+				9EC78D4D2D47378400248B19 /* View */,
+			);
+			path = Nickname;
+			sourceTree = "<group>";
+		};
+		9EC78D542D4737F500248B19 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -479,6 +498,7 @@
 				9EC78D2A2D454F4A00248B19 /* TrendingRequestModel.swift in Sources */,
 				9E61BADE2D43DEF7007B6910 /* SceneDelegate.swift in Sources */,
 				9E61BB3A2D451F08007B6910 /* ScreenUtils.swift in Sources */,
+				9EC78D522D4737E800248B19 /* ProfileNicknameViewModel.swift in Sources */,
 				9E61BB3E2D451F97007B6910 /* TargetType.swift in Sources */,
 				9E61BB152D451C48007B6910 /* BaseView.swift in Sources */,
 				9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */,
