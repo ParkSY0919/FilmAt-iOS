@@ -62,6 +62,7 @@
 		9EC78D6A2D479E6F00248B19 /* CinemaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D692D479E6F00248B19 /* CinemaView.swift */; };
 		9EC78D6D2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D6C2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift */; };
 		9EC78D6F2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */; };
+		9EC78D722D47D94200248B19 /* CinemaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D712D47D94200248B19 /* CinemaViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +119,7 @@
 		9EC78D692D479E6F00248B19 /* CinemaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaView.swift; sourceTree = "<group>"; };
 		9EC78D6C2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		9EC78D712D47D94200248B19 /* CinemaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -458,6 +460,7 @@
 		9EC78D632D47960100248B19 /* Cinema */ = {
 			isa = PBXGroup;
 			children = (
+				9EC78D702D47D93300248B19 /* ViewModel */,
 				9EC78D6B2D47B9C300248B19 /* Cell */,
 				9EC78D642D47962700248B19 /* View */,
 			);
@@ -480,6 +483,14 @@
 				9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		9EC78D702D47D93300248B19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D712D47D94200248B19 /* CinemaViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -609,6 +620,7 @@
 				9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */,
 				9EC78D6F2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift in Sources */,
 				9EC78D5B2D4750F900248B19 /* ProfileImageView.swift in Sources */,
+				9EC78D722D47D94200248B19 /* CinemaViewModel.swift in Sources */,
 				9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */,
 				9E61BB0F2D451C1F007B6910 /* UIAlertManager.swift in Sources */,
 				9E61BB092D451B9A007B6910 /* Config.swift in Sources */,

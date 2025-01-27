@@ -20,6 +20,10 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        posterImage.image = nil
+        movieTitleLabel.text = nil
+        subtitleLabel.text = nil
+        subtitleLabel.textColor = nil
         likeButton.setImage(nil, for: .normal)
     }
     
@@ -77,10 +81,25 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func setTodayMovieCellUI() {
+    func setTodayMovieCellUI(imageURL: String, title: String, subtitle: String) {
         likeButton.do {
             $0.setImage(UIImage(systemName: "heart"), for: .normal)
             $0.tintColor = UIColor(resource: .point)
+        }
+        
+        posterImage.setImageKfDownSampling(with: imageURL, cornerRadius: 10)
+        movieTitleLabel.text = title
+        switch subtitle.isEmpty {
+        case true:
+            subtitleLabel.do {
+                $0.text = "제공되는 줄거리가 없습니다\n"
+                $0.textColor = UIColor(resource: .gray1)
+            }
+        case false:
+            subtitleLabel.do {
+                $0.text = subtitle
+                $0.textColor = UIColor(resource: .title)
+            }
         }
     }
     

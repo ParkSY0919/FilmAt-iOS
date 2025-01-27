@@ -15,15 +15,19 @@ enum CinemaCollectionViewType {
 final class CinemaViewController: BaseViewController {
     
     private let dummyArr = ["스파이더만", "현빈", "록시땅", "액션가면", "케케몬"]
+    private let viewModel: CinemaViewModel
     
     private let cinemaView = CinemaView()
     
-    init() {
+    init(viewModel: CinemaViewModel) {
+        self.viewModel = viewModel
+        
         super.init(navTitle: "FilmAt", navRightBtnType: .search)
     }
     
     override func loadView() {
         view = cinemaView
+        viewModel.getTodayMovieData()
     }
 
     override func viewDidLoad() {
@@ -31,6 +35,7 @@ final class CinemaViewController: BaseViewController {
 
         setDelegate()
         setAddTarget()
+        bindViewModel()
     }
 
     override func searchBtnTapped() {
@@ -55,6 +60,20 @@ private extension CinemaViewController {
         
         let resetTapGesture = UITapGestureRecognizer(target: self, action: #selector(recentSearchResetBtnTapped))
         cinemaView.recentSearchResetButton.addGestureRecognizer(resetTapGesture)
+    }
+    
+    func bindViewModel() {
+        viewModel.todayMovieAPIResult.bind { [weak self] flag in
+            guard let flag else { return }
+            switch flag {
+            case true:
+                DispatchQueue.main.async {
+                    self?.cinemaView.todayMovieCollectionView.reloadData()
+                }
+            case false:
+                print("todayMovieAPIResult false")
+            }
+        }
     }
     
     func returnCinemaCollectionType(collectionView: UICollectionView) -> CinemaCollectionViewType {
@@ -93,7 +112,7 @@ extension CinemaViewController: UICollectionViewDataSource {
         case .recentSearch:
             return dummyArr.count
         case .todayMovie:
-            return dummyArr.count
+            return viewModel.todayMovieList.count
         }
     }
     
@@ -106,7 +125,12 @@ extension CinemaViewController: UICollectionViewDataSource {
             return cell
         case .todayMovie:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.cellIdentifier, for: indexPath) as! TodayMovieCollectionViewCell
-            cell.setTodayMovieCellUI()
+            let item = viewModel.todayMovieList[indexPath.item]
+            
+            let imageURL = item.posterPath
+            let title = item.title
+            let subtitle = item.overview
+            cell.setTodayMovieCellUI(imageURL: imageURL, title: title, subtitle: subtitle)
             
             return cell
         }

@@ -15,7 +15,7 @@ final class NetworkManager {
     
     private init() {}
     
-    func returnErrorType(_ statusCode: Int) -> NetworkResultType {
+    private func returnErrorType(_ statusCode: Int) -> NetworkResultType {
         switch statusCode {
         case (200..<299):
             return .success
