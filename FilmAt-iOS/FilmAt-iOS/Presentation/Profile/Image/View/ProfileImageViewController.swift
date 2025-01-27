@@ -10,7 +10,6 @@ import UIKit
 final class ProfileImageViewController: BaseViewController {
     
     var onChange: ((UIImage)->Void)?
-    
     private let viewModel: ProfileImageViewModel
     
     private lazy var profileImageView = ProfileImageView(profileImage: viewModel.currentImage.value ?? UIImage())
