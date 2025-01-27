@@ -5,7 +5,7 @@
 //  Created by 박신영 on 1/25/25.
 //
 
-import Foundation
+import UIKit
 
 final class UserDefaultsManager {
     
@@ -20,6 +20,34 @@ final class UserDefaultsManager {
         set {
             return UserDefaults.standard.set(newValue, forKey: "isNotFirstLoading")
         }
+    }
+    
+    var nickname: String {
+        get {
+            return UserDefaults.standard.string(forKey: "nickname") ?? "no data"
+        }
+        set {
+            return UserDefaults.standard.set(newValue, forKey: "nickname")
+        }
+    }
+    
+    //추후 저장하는 image 데이터가 커지면 터짐
+    var profileImage: UIImage {
+        get {
+            guard let imageData = UserDefaults.standard.data(forKey: "profileImage"),
+                  let image = UIImage(data: imageData)
+            else {
+                return UIImage()
+            }
+            return image
+        }
+        set {
+            return UserDefaults.standard.set(returnImageData(UIImage: newValue), forKey: "profileImage")
+        }
+    }
+    
+    private func returnImageData(UIImage value: UIImage) -> Data {
+        return value.jpegData(compressionQuality: 0.8) ?? Data()
     }
     
 }

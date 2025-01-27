@@ -16,7 +16,7 @@ final class OnBoardingView: BaseView {
     private let viewTitleLabel = UILabel()
     private let subtitleLabel = UILabel()
     
-    let startButton = DoneButton(title: "시작하기")
+    let startButton = DoneButton(title: "시작하기", doneBtnState: .satisfied)
     
     
     override func setHierarchy() {

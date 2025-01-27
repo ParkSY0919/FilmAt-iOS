@@ -46,6 +46,13 @@
 		9EC78D392D45551A00248B19 /* CreditResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D382D45551A00248B19 /* CreditResponseModel.swift */; };
 		9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */; };
 		9EC78D402D466CF400248B19 /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D3F2D466CF400248B19 /* DoneButton.swift */; };
+		9EC78D422D471A0800248B19 /* DoneButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D412D471A0800248B19 /* DoneButtonState.swift */; };
+		9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */; };
+		9EC78D482D471F6F00248B19 /* NavigationButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */; };
+		9EC78D4A2D47240500248B19 /* ProfileNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D492D47240500248B19 /* ProfileNicknameView.swift */; };
+		9EC78D4C2D47356F00248B19 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D4B2D47356F00248B19 /* UITextField+.swift */; };
+		9EC78D522D4737E800248B19 /* ProfileNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */; };
+		9EC78D562D47468500248B19 /* StateLabelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D552D47468500248B19 /* StateLabelType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +93,13 @@
 		9EC78D382D45551A00248B19 /* CreditResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditResponseModel.swift; sourceTree = "<group>"; };
 		9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		9EC78D3F2D466CF400248B19 /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
+		9EC78D412D471A0800248B19 /* DoneButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonState.swift; sourceTree = "<group>"; };
+		9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewController.swift; sourceTree = "<group>"; };
+		9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonType.swift; sourceTree = "<group>"; };
+		9EC78D492D47240500248B19 /* ProfileNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameView.swift; sourceTree = "<group>"; };
+		9EC78D4B2D47356F00248B19 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewModel.swift; sourceTree = "<group>"; };
+		9EC78D552D47468500248B19 /* StateLabelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateLabelType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC78D3F2D466CF400248B19 /* DoneButton.swift */,
+				9EC78D492D47240500248B19 /* ProfileNicknameView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -213,6 +228,9 @@
 			children = (
 				9E61BB462D4526AA007B6910 /* NetworkResultType.swift */,
 				9E61BB432D45226B007B6910 /* ViewTransitionType.swift */,
+				9EC78D412D471A0800248B19 /* DoneButtonState.swift */,
+				9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */,
+				9EC78D552D47468500248B19 /* StateLabelType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -244,6 +262,7 @@
 			children = (
 				9E61BB142D451C48007B6910 /* Base */,
 				9E61BB012D451A79007B6910 /* OnBoarding */,
+				9EC78D432D471A5B00248B19 /* Profile */,
 				9E61BB002D451A71007B6910 /* TabBar */,
 			);
 			path = Presentation;
@@ -252,7 +271,7 @@
 		9E61BB002D451A71007B6910 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				9E61BB042D451AC1007B6910 /* TabBarController.swift */,
+				9EC78D502D4737A700248B19 /* View */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -260,8 +279,7 @@
 		9E61BB012D451A79007B6910 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
-				9E61BB022D451AA3007B6910 /* OnBoardingViewController.swift */,
-				9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */,
+				9EC78D4F2D47379000248B19 /* View */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -285,6 +303,7 @@
 				9E61BB1C2D451C79007B6910 /* UILabel+.swift */,
 				9E61BB1F2D451C79007B6910 /* UIFont+.swift */,
 				9E61BB352D451D72007B6910 /* UIImageView+.swift */,
+				9EC78D4B2D47356F00248B19 /* UITextField+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -328,6 +347,64 @@
 				9EC78D382D45551A00248B19 /* CreditResponseModel.swift */,
 			);
 			path = CreditDTO;
+			sourceTree = "<group>";
+		};
+		9EC78D432D471A5B00248B19 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D532D4737EB00248B19 /* Nickname */,
+				9EC78D542D4737F500248B19 /* Image */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		9EC78D4D2D47378400248B19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9EC78D4E2D47378900248B19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9EC78D4F2D47379000248B19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */,
+				9E61BB022D451AA3007B6910 /* OnBoardingViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9EC78D502D4737A700248B19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E61BB042D451AC1007B6910 /* TabBarController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9EC78D532D4737EB00248B19 /* Nickname */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D4E2D47378900248B19 /* ViewModel */,
+				9EC78D4D2D47378400248B19 /* View */,
+			);
+			path = Nickname;
+			sourceTree = "<group>";
+		};
+		9EC78D542D4737F500248B19 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,20 +493,25 @@
 			files = (
 				9EC78D362D4553FE00248B19 /* ImageResponseModel.swift in Sources */,
 				9E61BB052D451AC1007B6910 /* TabBarController.swift in Sources */,
+				9EC78D4C2D47356F00248B19 /* UITextField+.swift in Sources */,
 				9E61BB072D451AF6007B6910 /* UserDefaultsManager.swift in Sources */,
 				9E61BB032D451AA3007B6910 /* OnBoardingViewController.swift in Sources */,
 				9E61BADD2D43DEF7007B6910 /* AppDelegate.swift in Sources */,
+				9EC78D482D471F6F00248B19 /* NavigationButtonType.swift in Sources */,
 				9EC78D2A2D454F4A00248B19 /* TrendingRequestModel.swift in Sources */,
 				9E61BADE2D43DEF7007B6910 /* SceneDelegate.swift in Sources */,
 				9E61BB3A2D451F08007B6910 /* ScreenUtils.swift in Sources */,
+				9EC78D522D4737E800248B19 /* ProfileNicknameViewModel.swift in Sources */,
 				9E61BB3E2D451F97007B6910 /* TargetType.swift in Sources */,
 				9E61BB152D451C48007B6910 /* BaseView.swift in Sources */,
+				9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */,
 				9E61BB362D451D72007B6910 /* UIImageView+.swift in Sources */,
 				9EC78D392D45551A00248B19 /* CreditResponseModel.swift in Sources */,
 				9E61BB282D451C79007B6910 /* UIFont+.swift in Sources */,
 				9EC78D402D466CF400248B19 /* DoneButton.swift in Sources */,
 				9E61BB442D45226B007B6910 /* ViewTransitionType.swift in Sources */,
 				9E61BB2C2D451C79007B6910 /* UIView+.swift in Sources */,
+				9EC78D562D47468500248B19 /* StateLabelType.swift in Sources */,
 				9EC78D262D454B1200248B19 /* NetworkManager.swift in Sources */,
 				9E61BB2D2D451C79007B6910 /* UIStackView+.swift in Sources */,
 				9EC78D312D4550E600248B19 /* SearchResponseModel.swift in Sources */,
@@ -437,10 +519,12 @@
 				9E61BB382D451DD9007B6910 /* DateFormatterManager.swift in Sources */,
 				9E61BB2E2D451C79007B6910 /* UILabel+.swift in Sources */,
 				9E61BB3C2D451F11007B6910 /* ObservablePattern.swift in Sources */,
+				9EC78D422D471A0800248B19 /* DoneButtonState.swift in Sources */,
 				9E61BB2F2D451C79007B6910 /* UIButton+.swift in Sources */,
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
 				9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */,
+				9EC78D4A2D47240500248B19 /* ProfileNicknameView.swift in Sources */,
 				9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */,
 				9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */,
 				9E61BB0F2D451C1F007B6910 /* UIAlertManager.swift in Sources */,

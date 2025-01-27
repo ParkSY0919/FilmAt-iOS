@@ -9,6 +9,7 @@ import Foundation
 
 enum ViewTransitionType {
     case push
+    case pushWithRootVC
     case present
     case presentWithNav
     case presentFullScreenWithNav

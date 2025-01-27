@@ -18,16 +18,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController()
         window?.makeKeyAndVisible()
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-            let isNotFirstLoading = UserDefaultsManager.shared.isNotFirstLoading
-            print("isNotFirstLoading : \(isNotFirstLoading)")
-            switch isNotFirstLoading {
-            case true:
-                self.window?.rootViewController = TabBarController()
-            case false:
-                self.window?.rootViewController = OnBoardingViewController()
-            }
-        }
+        self.window?.rootViewController = UINavigationController(rootViewController: ProfileNicknameViewController(viewModel: ProfileNicknameViewModel()))
+        
+        
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+//            let isNotFirstLoading = UserDefaultsManager.shared.isNotFirstLoading
+//            print("isNotFirstLoading : \(isNotFirstLoading)")
+//            switch isNotFirstLoading {
+//            case true:
+//                self.window?.rootViewController = TabBarController()
+//            case false:
+//                
+//                self.window?.rootViewController = UINavigationController(rootViewController: OnBoardingViewController())
+//            }
+//        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
