@@ -9,7 +9,7 @@ import UIKit
 
 final class ProfileNicknameViewController: BaseViewController {
     
-    private let profileNicknameView = ProfileNickNameView()
+    private let profileNicknameView = ProfileNicknameView()
     
     init() {
         super.init(navTitle: "프로필 설정", navLeftBtnType: .pop, navRightBtnType: .none)

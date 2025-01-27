@@ -10,14 +10,14 @@ import UIKit
 import SnapKit
 import Then
 
-final class ProfileNickNameView: BaseView {
+final class ProfileNicknameView: BaseView {
     
     let profileContainer = UIView()
     private let profileImageView = UIImageView()
     private let cameraImageView = UIImageView()
     
     private let underLine = UIView()
-    private let nicknameTextField = UITextField()
+    let nicknameTextField = UITextField()
     private let stateLabel = UILabel()
     let doneButton = DoneButton(title: "완료", doneBtnState: .unsatisfied)
     
@@ -86,7 +86,7 @@ final class ProfileNickNameView: BaseView {
             $0.font = .filmAtFont(.body_regular_16)
         }
         
-        stateLabel.setLabelUI("stateLabel", font: .filmAtFont(.body_regular_16), textColor: UIColor(resource: .point))        
+        stateLabel.setLabelUI("stateLabel", font: .filmAtFont(.body_regular_16), textColor: UIColor(resource: .point))
     }
     
     private func setRandomProfileImage() {
