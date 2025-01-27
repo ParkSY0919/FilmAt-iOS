@@ -46,6 +46,15 @@ final class UserDefaultsManager {
         }
     }
     
+    var joinDate: String {
+        get {
+            return UserDefaults.standard.string(forKey: "joinDate") ?? "no data"
+        }
+        set {
+            return UserDefaults.standard.set(newValue, forKey: "joinDate")
+        }
+    }
+    
     private func returnImageData(UIImage value: UIImage) -> Data {
         return value.jpegData(compressionQuality: 0.8) ?? Data()
     }

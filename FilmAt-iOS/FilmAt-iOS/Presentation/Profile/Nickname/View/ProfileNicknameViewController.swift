@@ -100,6 +100,9 @@ private extension ProfileNicknameViewController {
         
         UserDefaultsManager.shared.isNotFirstLoading = true
         
+        let joinDate = DateFormatterManager.shard.setDateStringFromDate(date: Date(), format: "yy.MM.dd")
+        UserDefaultsManager.shared.joinDate = joinDate
+        
         viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
     }
     
