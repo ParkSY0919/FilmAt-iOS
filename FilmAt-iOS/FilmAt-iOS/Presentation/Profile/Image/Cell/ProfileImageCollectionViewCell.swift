@@ -11,8 +11,7 @@ import SnapKit
 import Then
 
 final class ProfileImageCollectionViewCell: BaseCollectionViewCell {
-    
-    let profileContainer = UIView()
+
     let profileImageView = UIImageView()
     
     override func setHierarchy() {

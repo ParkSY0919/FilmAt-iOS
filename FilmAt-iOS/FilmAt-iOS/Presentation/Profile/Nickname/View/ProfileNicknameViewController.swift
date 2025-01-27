@@ -98,7 +98,12 @@ private extension ProfileNicknameViewController {
         let image = profileNicknameView.profileImageView.image
         UserDefaultsManager.shared.profileImage = image ?? UIImage()
         
-//        viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
+        UserDefaultsManager.shared.isNotFirstLoading = true
+        
+        let joinDate = DateFormatterManager.shard.setDateStringFromDate(date: Date(), format: "yy.MM.dd")
+        UserDefaultsManager.shared.joinDate = joinDate
+        
+        viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
     }
     
 }

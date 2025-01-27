@@ -7,25 +7,45 @@
 
 import UIKit
 
-class TabBarController: UIViewController {
-
+class TabBarController: UITabBarController {
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        print("tabbar vc")
-        view.backgroundColor = .blue
-        // Do any additional setup after loading the view.
+        super.viewDidLoad ()
+        
+        setTabBarControllerStyle()
+        setTabBarAppearence ()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setTabBarControllerStyle() {
+        let cinemaVC = UINavigationController(rootViewController: CinemaViewController())
+        cinemaVC.tabBarItem = UITabBarItem(title: "CINEMA",
+                                          image: UIImage(systemName: "popcorn"),
+                                          selectedImage: UIImage(systemName: "popcorn"))
+        
+        let upcomingVC = UINavigationController(rootViewController: CinemaViewController())
+        upcomingVC.tabBarItem = UITabBarItem(title: "UPCOMING",
+                                           image: UIImage(systemName: "film.stack"),
+                                           selectedImage: UIImage(systemName: "film.stack"))
+        
+        let profileVC = UINavigationController(rootViewController: CinemaViewController())
+        profileVC.tabBarItem = UITabBarItem(title: "PROFILE",
+                                            image: UIImage(systemName: "person.crop.circle"),
+                                            selectedImage: UIImage(systemName: "person.crop.circle"))
+        
+        
+        
+        setViewControllers([cinemaVC, upcomingVC, profileVC], animated: true)
+        
+        self.selectedIndex = 0
     }
-    */
-
+    
+    private func setTabBarAppearence () {
+        let appearence = UITabBarAppearance ()
+        appearence.configureWithTransparentBackground()
+        appearence.backgroundColor = UIColor(resource: .background)
+        tabBar.standardAppearance = appearence
+        tabBar.scrollEdgeAppearance = appearence
+        tabBar.tintColor = UIColor(resource: .point)
+    }
+    
 }
