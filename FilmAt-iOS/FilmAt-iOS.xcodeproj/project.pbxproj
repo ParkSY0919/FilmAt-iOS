@@ -271,8 +271,8 @@
 			children = (
 				9E61BB142D451C48007B6910 /* Base */,
 				9E61BB012D451A79007B6910 /* OnBoarding */,
-				9EC78D432D471A5B00248B19 /* Profile */,
 				9E61BB002D451A71007B6910 /* TabBar */,
+				9EC78D432D471A5B00248B19 /* Profile */,
 				9EC78D632D47960100248B19 /* Cinema */,
 			);
 			path = Presentation;
