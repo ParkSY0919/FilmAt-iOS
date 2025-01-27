@@ -53,6 +53,8 @@
 		9EC78D4C2D47356F00248B19 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D4B2D47356F00248B19 /* UITextField+.swift */; };
 		9EC78D522D4737E800248B19 /* ProfileNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */; };
 		9EC78D562D47468500248B19 /* StateLabelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D552D47468500248B19 /* StateLabelType.swift */; };
+		9EC78D592D4750B500248B19 /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D582D4750B500248B19 /* ProfileImageViewController.swift */; };
+		9EC78D5B2D4750F900248B19 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D5A2D4750F900248B19 /* ProfileImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,8 @@
 		9EC78D4B2D47356F00248B19 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewModel.swift; sourceTree = "<group>"; };
 		9EC78D552D47468500248B19 /* StateLabelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateLabelType.swift; sourceTree = "<group>"; };
+		9EC78D582D4750B500248B19 /* ProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
+		9EC78D5A2D4750F900248B19 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +211,7 @@
 			children = (
 				9EC78D3F2D466CF400248B19 /* DoneButton.swift */,
 				9EC78D492D47240500248B19 /* ProfileNicknameView.swift */,
+				9EC78D5A2D4750F900248B19 /* ProfileImageView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -403,8 +408,17 @@
 		9EC78D542D4737F500248B19 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				9EC78D572D47509A00248B19 /* View */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		9EC78D572D47509A00248B19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D582D4750B500248B19 /* ProfileImageViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,6 +517,7 @@
 				9E61BB3A2D451F08007B6910 /* ScreenUtils.swift in Sources */,
 				9EC78D522D4737E800248B19 /* ProfileNicknameViewModel.swift in Sources */,
 				9E61BB3E2D451F97007B6910 /* TargetType.swift in Sources */,
+				9EC78D592D4750B500248B19 /* ProfileImageViewController.swift in Sources */,
 				9E61BB152D451C48007B6910 /* BaseView.swift in Sources */,
 				9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */,
 				9E61BB362D451D72007B6910 /* UIImageView+.swift in Sources */,
@@ -526,6 +541,7 @@
 				9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */,
 				9EC78D4A2D47240500248B19 /* ProfileNicknameView.swift in Sources */,
 				9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */,
+				9EC78D5B2D4750F900248B19 /* ProfileImageView.swift in Sources */,
 				9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */,
 				9E61BB0F2D451C1F007B6910 /* UIAlertManager.swift in Sources */,
 				9E61BB092D451B9A007B6910 /* Config.swift in Sources */,
