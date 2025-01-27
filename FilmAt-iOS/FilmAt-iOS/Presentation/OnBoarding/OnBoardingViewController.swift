@@ -32,7 +32,7 @@ private extension OnBoardingViewController {
     @objc
     func startButtonTapped() {
         print(#function)
-        viewTransition(viewController: OnBoardingViewController()/*추후 프로필 설정화면으로 교체*/, transitionStyle: .push)
+        viewTransition(viewController: ProfileNicknameViewController(), transitionStyle: .push)
     }
     
 }
