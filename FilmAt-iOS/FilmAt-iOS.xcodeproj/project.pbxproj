@@ -50,6 +50,7 @@
 		9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */; };
 		9EC78D482D471F6F00248B19 /* NavigationButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */; };
 		9EC78D4A2D47240500248B19 /* ProfileNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D492D47240500248B19 /* ProfileNickNameView.swift */; };
+		9EC78D4C2D47356F00248B19 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D4B2D47356F00248B19 /* UITextField+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewController.swift; sourceTree = "<group>"; };
 		9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonType.swift; sourceTree = "<group>"; };
 		9EC78D492D47240500248B19 /* ProfileNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNickNameView.swift; sourceTree = "<group>"; };
+		9EC78D4B2D47356F00248B19 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +299,7 @@
 				9E61BB1C2D451C79007B6910 /* UILabel+.swift */,
 				9E61BB1F2D451C79007B6910 /* UIFont+.swift */,
 				9E61BB352D451D72007B6910 /* UIImageView+.swift */,
+				9EC78D4B2D47356F00248B19 /* UITextField+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 			files = (
 				9EC78D362D4553FE00248B19 /* ImageResponseModel.swift in Sources */,
 				9E61BB052D451AC1007B6910 /* TabBarController.swift in Sources */,
+				9EC78D4C2D47356F00248B19 /* UITextField+.swift in Sources */,
 				9E61BB072D451AF6007B6910 /* UserDefaultsManager.swift in Sources */,
 				9E61BB032D451AA3007B6910 /* OnBoardingViewController.swift in Sources */,
 				9E61BADD2D43DEF7007B6910 /* AppDelegate.swift in Sources */,
