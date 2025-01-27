@@ -52,6 +52,9 @@ private extension CinemaViewController {
     func setAddTarget() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileBoxTapped))
         cinemaView.profileBox.addGestureRecognizer(tapGesture)
+        
+        let resetTapGesture = UITapGestureRecognizer(target: self, action: #selector(recentSearchResetBtnTapped))
+        cinemaView.recentSearchResetButton.addGestureRecognizer(resetTapGesture)
     }
     
     func returnCinemaCollectionType(collectionView: UICollectionView) -> CinemaCollectionViewType {
@@ -70,6 +73,11 @@ private extension CinemaViewController {
             self?.cinemaView.profileBox.changeProfileBoxData()
         }
         viewTransition(viewController: vc, transitionStyle: .presentWithNav)
+    }
+    
+    @objc
+    func recentSearchResetBtnTapped() {
+        print(#function)
     }
     
 }
@@ -97,8 +105,8 @@ extension CinemaViewController: UICollectionViewDataSource {
             
             return cell
         case .todayMovie:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchCollectionViewCell.cellIdentifier, for: indexPath) as! RecentSearchCollectionViewCell
-            cell.setCellUI(titleText: dummyArr[indexPath.item])
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.cellIdentifier, for: indexPath) as! TodayMovieCollectionViewCell
+            cell.setTodayMovieCellUI()
             
             return cell
         }

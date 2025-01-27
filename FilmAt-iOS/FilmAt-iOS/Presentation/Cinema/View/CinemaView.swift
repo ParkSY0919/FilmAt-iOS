@@ -15,6 +15,7 @@ final class CinemaView: BaseView {
     let profileBox = ProfileBox()
     
     private let recentSearchLabel = UILabel()
+    let recentSearchResetButton = UILabel()
     lazy var recentSearchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     private let todayMovieLabel = UILabel()
@@ -23,6 +24,7 @@ final class CinemaView: BaseView {
     override func setHierarchy() {
         self.addSubviews(profileBox,
                          recentSearchLabel,
+                         recentSearchResetButton,
                          recentSearchCollectionView,
                          todayMovieLabel,
                          todayMovieCollectionView)
@@ -37,7 +39,12 @@ final class CinemaView: BaseView {
         
         recentSearchLabel.snp.makeConstraints {
             $0.top.equalTo(profileBox.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().inset(15)
+        }
+        
+        recentSearchResetButton.snp.makeConstraints {
+            $0.top.equalTo(recentSearchLabel.snp.top)
+            $0.trailing.equalToSuperview().inset(15)
         }
         
         recentSearchCollectionView.snp.makeConstraints {
@@ -63,6 +70,14 @@ final class CinemaView: BaseView {
                                      font: .filmAtFont(.title_heavy_16),
                                      textColor: .title)
         
+        recentSearchResetButton.do {
+            $0.isUserInteractionEnabled = true
+            $0.setLabelUI("전체 삭제",
+                          font: .filmAtFont(.body_medium_14),
+                          textColor: UIColor(resource: .point),
+                          alignment: .right)
+        }
+        
         recentSearchCollectionView.do {
             $0.backgroundColor = UIColor(resource: .background)
             $0.collectionViewLayout = setRecentSearchCollectionViewLayout()
@@ -73,7 +88,11 @@ final class CinemaView: BaseView {
                                      font: .filmAtFont(.title_heavy_16),
                                      textColor: .title)
         
-        todayMovieCollectionView.backgroundColor = .brown
+        todayMovieCollectionView.do {
+            $0.backgroundColor = UIColor(resource: .background)
+            $0.collectionViewLayout = setTodayMovieCollectionViewLayout()
+            $0.register(TodayMovieCollectionViewCell.self, forCellWithReuseIdentifier: TodayMovieCollectionViewCell.cellIdentifier)
+        }
     }
     
 }
@@ -85,6 +104,16 @@ private extension CinemaView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
         layout.estimatedItemSize = CGSize(width: 100, height: 30)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        return layout
+    }
+    
+    func setTodayMovieCollectionViewLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 20
+        layout.itemSize = CGSize(width: ScreenUtils.width/1.8, height: 370)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
         return layout
