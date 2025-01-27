@@ -100,4 +100,12 @@ final class ProfileBox: BaseView {
                                 alignment: .center)
     }
     
+    func changeProfileBoxData() {
+        let nickname = UserDefaultsManager.shared.nickname
+        let image = UserDefaultsManager.shared.profileImage
+
+        nicknameLabel.text = nickname
+        profileImageView.image = image
+    }
+    
 }

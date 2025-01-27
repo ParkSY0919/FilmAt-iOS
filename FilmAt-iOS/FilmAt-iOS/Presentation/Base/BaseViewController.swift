@@ -67,6 +67,9 @@ class BaseViewController: UIViewController {
         case .like:
             let navRightItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .done, target: self, action: #selector(likeBtnTapped))
             navigationItem.rightBarButtonItem = navRightItem
+        case .save:
+            let navRightItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(saveBtnTapped))
+            navigationItem.rightBarButtonItem = navRightItem
         case .none:
             print("navRight Btn None")
         }
@@ -117,6 +120,12 @@ class BaseViewController: UIViewController {
     @objc
     func likeBtnTapped() {
         print(#function)
+    }
+    
+    @objc
+    func saveBtnTapped() {
+        print(#function)
+        self.dismiss(animated: true)
     }
     
     @available(*, unavailable)

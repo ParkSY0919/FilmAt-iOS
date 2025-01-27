@@ -42,6 +42,11 @@ private extension CinemaViewController {
     @objc
     func profileBoxTapped() {
         print(#function)
+        let vc = ProfileNicknameViewController(viewModel: ProfileNicknameViewModel(), isPushType: false)
+        vc.onChange = { [weak self] in
+            self?.cinemaView.profileBox.changeProfileBoxData()
+        }
+        viewTransition(viewController: vc, transitionStyle: .presentWithNav)
     }
     
 }

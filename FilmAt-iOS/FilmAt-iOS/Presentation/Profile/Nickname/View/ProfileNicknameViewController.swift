@@ -9,14 +9,22 @@ import UIKit
 
 final class ProfileNicknameViewController: BaseViewController {
     
+    var onChange: (()->Void)?
+    private let isPushType: Bool
     private let viewModel: ProfileNicknameViewModel
     
     private let profileNicknameView = ProfileNicknameView()
     
-    init(viewModel: ProfileNicknameViewModel) {
+    init(viewModel: ProfileNicknameViewModel, isPushType: Bool) {
+        print(#function)
         self.viewModel = viewModel
+        self.isPushType = isPushType
         
-        super.init(navTitle: "프로필 설정", navLeftBtnType: .pop, navRightBtnType: .none)
+        if isPushType {
+            super.init(navTitle: "프로필 설정", navLeftBtnType: .pop, navRightBtnType: .none)
+        } else {
+            super.init(navTitle: "프로필 설정", navLeftBtnType: .dismiss, navRightBtnType: .save)
+        }
     }
     
     override func loadView() {
@@ -29,12 +37,26 @@ final class ProfileNicknameViewController: BaseViewController {
         setDelegate()
         setAddTarget()
         bindViewModel()
+        setHandlingUserDefaultsData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        profileNicknameView.nicknameTextField.becomeFirstResponder()
+        guard let text = profileNicknameView.nicknameTextField.text
+        else { return }
+        
+        if text.isEmpty {
+            profileNicknameView.nicknameTextField.becomeFirstResponder()
+        }
+    }
+    
+    override func saveBtnTapped() {
+        print(#function)
+        
+        saveUserDefaults(isPushType: false)
+        onChange?()
+        super.saveBtnTapped()
     }
 
 }
@@ -70,6 +92,48 @@ private extension ProfileNicknameViewController {
         }
     }
     
+    func setHandlingUserDefaultsData() {
+        switch isPushType {
+        case true:
+            profileNicknameView.doneButtonComponent.isHidden = false
+        case false:
+            profileNicknameView.doneButtonComponent.isHidden = true
+            
+            let nickname = UserDefaultsManager.shared.nickname
+            let profileImage = UserDefaultsManager.shared.profileImage
+            
+            profileNicknameView.nicknameTextField.text = nickname
+            profileNicknameView.profileImageView.image = profileImage
+        }
+    }
+    
+    func saveUserDefaults(isPushType: Bool) {
+        switch isPushType {
+        case true:
+            guard let text = profileNicknameView.nicknameTextField.text else { return }
+            UserDefaultsManager.shared.nickname = text
+            
+            let image = profileNicknameView.profileImageView.image
+            UserDefaultsManager.shared.profileImage = image ?? UIImage()
+            
+            UserDefaultsManager.shared.isNotFirstLoading = true
+            
+            let joinDate = DateFormatterManager.shard.setDateStringFromDate(date: Date(), format: "yy.MM.dd")
+            UserDefaultsManager.shared.joinDate = joinDate
+        case false:
+            guard let text = profileNicknameView.nicknameTextField.text else { return }
+            UserDefaultsManager.shared.nickname = text
+            
+            let image = profileNicknameView.profileImageView.image
+            UserDefaultsManager.shared.profileImage = image ?? UIImage()
+        }
+    }
+    
+}
+
+//MARK: - @objc func
+private extension ProfileNicknameViewController {
+    
     @objc
     func profileContainerTapped() {
         print(#function, "profile Image 설정화면으로 고우!")
@@ -92,16 +156,7 @@ private extension ProfileNicknameViewController {
     @objc
     func doneButtonComponentTapped() {
         print(#function, "메인화면으로 고우!")
-        guard let text = profileNicknameView.nicknameTextField.text else { return }
-        UserDefaultsManager.shared.nickname = text
-        
-        let image = profileNicknameView.profileImageView.image
-        UserDefaultsManager.shared.profileImage = image ?? UIImage()
-        
-        UserDefaultsManager.shared.isNotFirstLoading = true
-        
-        let joinDate = DateFormatterManager.shard.setDateStringFromDate(date: Date(), format: "yy.MM.dd")
-        UserDefaultsManager.shared.joinDate = joinDate
+        saveUserDefaults(isPushType: true)
         
         viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
     }

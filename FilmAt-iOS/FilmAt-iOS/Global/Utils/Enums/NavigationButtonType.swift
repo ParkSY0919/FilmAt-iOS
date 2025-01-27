@@ -16,6 +16,7 @@ enum NavigationLeftBtnType {
 enum NavigationRightBtnType {
     case search
     case like
+    case save
     case none
 }
 
