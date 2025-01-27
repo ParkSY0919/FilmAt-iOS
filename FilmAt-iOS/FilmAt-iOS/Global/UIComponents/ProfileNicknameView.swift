@@ -13,7 +13,7 @@ import Then
 final class ProfileNicknameView: BaseView {
     
     let profileContainer = UIView()
-    private let profileImageView = UIImageView()
+    let profileImageView = UIImageView()
     private let cameraImageView = UIImageView()
     
     private let underLine = UIView()

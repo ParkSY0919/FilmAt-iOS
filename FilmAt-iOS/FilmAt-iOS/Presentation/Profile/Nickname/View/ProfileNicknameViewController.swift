@@ -84,7 +84,13 @@ private extension ProfileNicknameViewController {
     @objc
     func doneButtonComponentTapped() {
         print(#function, "메인화면으로 고우!")
-        viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
+        guard let text = profileNicknameView.nicknameTextField.text else { return }
+        UserDefaultsManager.shared.nickname = text
+        
+        let image = profileNicknameView.profileImageView.image
+        UserDefaultsManager.shared.profileImage = image ?? UIImage()
+        
+//        viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
     }
     
 }
