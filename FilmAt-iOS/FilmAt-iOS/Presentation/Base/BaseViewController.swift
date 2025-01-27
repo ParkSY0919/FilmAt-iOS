@@ -80,6 +80,13 @@ class BaseViewController: UIViewController {
         switch transitionStyle {
         case .push:
             self.navigationController?.pushViewController(viewController, animated: true)
+        case .pushWithRootVC:
+            guard let windowScene =  UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = windowScene.windows.first
+            else { return }
+
+            window.rootViewController = UINavigationController(rootViewController: viewController)
+            window.makeKeyAndVisible()
         case .present:
             return self.present(viewController, animated: true)
         case .presentWithNav:
