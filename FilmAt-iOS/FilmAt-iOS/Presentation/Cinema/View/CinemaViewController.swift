@@ -40,6 +40,7 @@ final class CinemaViewController: BaseViewController {
 
     override func searchBtnTapped() {
         print(#function)
+        viewModel.recentSearchList.value?.append("#####")
     }
 
 }
@@ -63,6 +64,15 @@ private extension CinemaViewController {
     }
     
     func bindViewModel() {
+        viewModel.recentSearchList.bind { [weak self] data in
+            guard let data else { return }
+            
+            DispatchQueue.main.async {
+                self?.cinemaView.setRecentSearchListState(isEmpty: data.isEmpty)
+                self?.cinemaView.recentSearchCollectionView.reloadData()
+            }
+        }
+        
         viewModel.todayMovieAPIResult.bind { [weak self] flag in
             guard let flag else { return }
             switch flag {
@@ -110,7 +120,8 @@ extension CinemaViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch returnCinemaCollectionType(collectionView: collectionView) {
         case .recentSearch:
-            return dummyArr.count
+            guard let recentSearchList = viewModel.recentSearchList.value else { return 2 }
+            return recentSearchList.count
         case .todayMovie:
             return viewModel.todayMovieList.count
         }
@@ -120,7 +131,9 @@ extension CinemaViewController: UICollectionViewDataSource {
         switch returnCinemaCollectionType(collectionView: collectionView) {
         case .recentSearch:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchCollectionViewCell.cellIdentifier, for: indexPath) as! RecentSearchCollectionViewCell
-            cell.setCellUI(titleText: dummyArr[indexPath.item])
+            let recentSeachList = viewModel.recentSearchList.value ?? []
+            
+            cell.setCellUI(titleText: recentSeachList[indexPath.item])
             
             return cell
         case .todayMovie:
