@@ -9,26 +9,32 @@ import UIKit
 
 final class ProfileNicknameViewController: BaseViewController {
     
+    private let profileNicknameView = ProfileNickNameView()
+    
     init() {
         super.init(navTitle: "프로필 설정", navLeftBtnType: .pop, navRightBtnType: .none)
+    }
+    
+    override func loadView() {
+        view = profileNicknameView
     }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setAddTarget()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    private func setAddTarget() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileContainerTapped))
+        profileNicknameView.profileContainer.addGestureRecognizer(tapGesture)
     }
-    */
+    
+    @objc
+    private func profileContainerTapped() {
+        print(#function)
+    }
 
 }

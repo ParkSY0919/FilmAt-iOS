@@ -49,6 +49,7 @@
 		9EC78D422D471A0800248B19 /* DoneButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D412D471A0800248B19 /* DoneButtonState.swift */; };
 		9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */; };
 		9EC78D482D471F6F00248B19 /* NavigationButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */; };
+		9EC78D4A2D47240500248B19 /* ProfileNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D492D47240500248B19 /* ProfileNickNameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		9EC78D412D471A0800248B19 /* DoneButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonState.swift; sourceTree = "<group>"; };
 		9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewController.swift; sourceTree = "<group>"; };
 		9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonType.swift; sourceTree = "<group>"; };
+		9EC78D492D47240500248B19 /* ProfileNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNickNameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC78D3F2D466CF400248B19 /* DoneButton.swift */,
+				9EC78D492D47240500248B19 /* ProfileNickNameView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
 				9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */,
+				9EC78D4A2D47240500248B19 /* ProfileNickNameView.swift in Sources */,
 				9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */,
 				9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */,
 				9E61BB0F2D451C1F007B6910 /* UIAlertManager.swift in Sources */,

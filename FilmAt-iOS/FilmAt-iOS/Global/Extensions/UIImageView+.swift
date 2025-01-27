@@ -12,10 +12,11 @@ import Kingfisher
 extension UIImageView {
     
     func setImageView(image: UIImage, cornerRadius: CGFloat) {
+        self.clipsToBounds = true
         self.image = image
         self.contentMode = .scaleAspectFit
         self.layer.cornerRadius = cornerRadius
-        self.layer.borderWidth = 0.1
+        self.layer.borderWidth = 1.5
         self.layer.borderColor = .none
     }
     
