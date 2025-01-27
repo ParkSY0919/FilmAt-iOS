@@ -100,7 +100,7 @@ class BaseViewController: UIViewController {
     }
     
     @objc
-    private func popBtnTapped() {
+    func popBtnTapped() {
         self.navigationController?.popViewController(animated: true)
     }
     

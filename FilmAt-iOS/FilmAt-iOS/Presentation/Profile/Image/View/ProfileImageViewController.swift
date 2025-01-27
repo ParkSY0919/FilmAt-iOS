@@ -10,6 +10,8 @@ import UIKit
 final class ProfileImageViewController: BaseViewController {
     
     let profileImage: UIImage
+    var onChange: ((UIImage)->Void)?
+    
     private lazy var profileImageView = ProfileImageView(profileImage: self.profileImage)
     
     init(profileImage: UIImage) {
@@ -27,5 +29,9 @@ final class ProfileImageViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    override func popBtnTapped() {
+        onChange?(profileImageView.profileImageView.image ?? UIImage())
+        
+        super.popBtnTapped()
+    }
 }

@@ -74,7 +74,13 @@ private extension ProfileNicknameViewController {
     func profileContainerTapped() {
         print(#function, "profile Image 설정화면으로 고우!")
         let image = profileNicknameView.profileImageView.image ?? UIImage()
-        viewTransition(viewController: ProfileImageViewController(profileImage: image), transitionStyle: .push)
+        let vc = ProfileImageViewController(profileImage: image)
+        vc.onChange = { image in
+            DispatchQueue.main.async {
+                self.profileNicknameView.profileImageView.image = image
+            }
+        }
+        viewTransition(viewController: vc, transitionStyle: .push)
     }
     
     @objc

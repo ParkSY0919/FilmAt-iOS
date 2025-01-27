@@ -14,7 +14,7 @@ final class ProfileImageView: BaseView {
     
     var profileImage: UIImage
     private let profileContainer = UIView()
-    private let profileImageView = UIImageView()
+    let profileImageView = UIImageView()
     private let cameraImageView = UIImageView()
     
     init(profileImage: UIImage) {
