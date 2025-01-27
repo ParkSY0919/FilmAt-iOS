@@ -57,6 +57,7 @@
 		9EC78D5B2D4750F900248B19 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D5A2D4750F900248B19 /* ProfileImageView.swift */; };
 		9EC78D5E2D475E3200248B19 /* ProfileImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D5D2D475E3200248B19 /* ProfileImageCollectionViewCell.swift */; };
 		9EC78D612D47676900248B19 /* ProfileImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D602D47676800248B19 /* ProfileImageViewModel.swift */; };
+		9EC78D662D47963E00248B19 /* CinemaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D652D47963E00248B19 /* CinemaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		9EC78D5A2D4750F900248B19 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		9EC78D5D2D475E3200248B19 /* ProfileImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC78D602D47676800248B19 /* ProfileImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewModel.swift; sourceTree = "<group>"; };
+		9EC78D652D47963E00248B19 /* CinemaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +273,7 @@
 				9E61BB012D451A79007B6910 /* OnBoarding */,
 				9EC78D432D471A5B00248B19 /* Profile */,
 				9E61BB002D451A71007B6910 /* TabBar */,
+				9EC78D632D47960100248B19 /* Cinema */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -443,6 +446,22 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		9EC78D632D47960100248B19 /* Cinema */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D642D47962700248B19 /* View */,
+			);
+			path = Cinema;
+			sourceTree = "<group>";
+		};
+		9EC78D642D47962700248B19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D652D47963E00248B19 /* CinemaViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -532,6 +551,7 @@
 				9E61BB052D451AC1007B6910 /* TabBarController.swift in Sources */,
 				9EC78D4C2D47356F00248B19 /* UITextField+.swift in Sources */,
 				9E61BB072D451AF6007B6910 /* UserDefaultsManager.swift in Sources */,
+				9EC78D662D47963E00248B19 /* CinemaViewController.swift in Sources */,
 				9E61BB032D451AA3007B6910 /* OnBoardingViewController.swift in Sources */,
 				9E61BADD2D43DEF7007B6910 /* AppDelegate.swift in Sources */,
 				9EC78D5E2D475E3200248B19 /* ProfileImageCollectionViewCell.swift in Sources */,

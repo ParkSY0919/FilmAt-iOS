@@ -98,7 +98,9 @@ private extension ProfileNicknameViewController {
         let image = profileNicknameView.profileImageView.image
         UserDefaultsManager.shared.profileImage = image ?? UIImage()
         
-//        viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
+        UserDefaultsManager.shared.isNotFirstLoading = true
+        
+        viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
     }
     
 }
