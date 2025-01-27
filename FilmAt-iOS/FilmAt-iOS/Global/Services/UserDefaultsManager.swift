@@ -55,6 +55,15 @@ final class UserDefaultsManager {
         }
     }
     
+    var saveMovieCount: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: "saveMovieCount")
+        }
+        set {
+            return UserDefaults.standard.set(newValue, forKey: "saveMovieCount")
+        }
+    }
+    
     private func returnImageData(UIImage value: UIImage) -> Data {
         return value.jpegData(compressionQuality: 0.8) ?? Data()
     }
