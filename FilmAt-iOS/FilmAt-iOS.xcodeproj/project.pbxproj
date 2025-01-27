@@ -52,6 +52,7 @@
 		9EC78D4A2D47240500248B19 /* ProfileNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D492D47240500248B19 /* ProfileNicknameView.swift */; };
 		9EC78D4C2D47356F00248B19 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D4B2D47356F00248B19 /* UITextField+.swift */; };
 		9EC78D522D4737E800248B19 /* ProfileNicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */; };
+		9EC78D562D47468500248B19 /* StateLabelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D552D47468500248B19 /* StateLabelType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		9EC78D492D47240500248B19 /* ProfileNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameView.swift; sourceTree = "<group>"; };
 		9EC78D4B2D47356F00248B19 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		9EC78D512D4737E800248B19 /* ProfileNicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNicknameViewModel.swift; sourceTree = "<group>"; };
+		9EC78D552D47468500248B19 /* StateLabelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateLabelType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 				9E61BB432D45226B007B6910 /* ViewTransitionType.swift */,
 				9EC78D412D471A0800248B19 /* DoneButtonState.swift */,
 				9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */,
+				9EC78D552D47468500248B19 /* StateLabelType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				9EC78D402D466CF400248B19 /* DoneButton.swift in Sources */,
 				9E61BB442D45226B007B6910 /* ViewTransitionType.swift in Sources */,
 				9E61BB2C2D451C79007B6910 /* UIView+.swift in Sources */,
+				9EC78D562D47468500248B19 /* StateLabelType.swift in Sources */,
 				9EC78D262D454B1200248B19 /* NetworkManager.swift in Sources */,
 				9E61BB2D2D451C79007B6910 /* UIStackView+.swift in Sources */,
 				9EC78D312D4550E600248B19 /* SearchResponseModel.swift in Sources */,
