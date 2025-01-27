@@ -14,9 +14,11 @@ final class DoneButton: BaseView {
     
     let doneButton = UIButton()
     private let title: String
+    var doneBtnState: DoneButtonState
     
-    init(title: String) {
+    init(title: String, doneBtnState: DoneButtonState) {
         self.title = title
+        self.doneBtnState = doneBtnState
         
         super.init(frame: .zero)
     }
@@ -36,9 +38,9 @@ final class DoneButton: BaseView {
             $0.clipsToBounds = true
             $0.layer.borderWidth = 1
             $0.layer.cornerRadius = 45/2
-            $0.layer.borderColor = UIColor.point.cgColor
+            $0.layer.borderColor = doneBtnState.borderColor
             $0.setTitle(title, for: .normal)
-            $0.setTitleColor(UIColor(resource: .point), for: .normal)
+            $0.setTitleColor(doneBtnState.titleColor, for: .normal)
         }
     }
     

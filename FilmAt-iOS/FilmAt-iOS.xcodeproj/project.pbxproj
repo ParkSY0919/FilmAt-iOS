@@ -46,6 +46,7 @@
 		9EC78D392D45551A00248B19 /* CreditResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D382D45551A00248B19 /* CreditResponseModel.swift */; };
 		9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */; };
 		9EC78D402D466CF400248B19 /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D3F2D466CF400248B19 /* DoneButton.swift */; };
+		9EC78D422D471A0800248B19 /* DoneButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D412D471A0800248B19 /* DoneButtonState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		9EC78D382D45551A00248B19 /* CreditResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditResponseModel.swift; sourceTree = "<group>"; };
 		9EC78D3D2D466B5400248B19 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		9EC78D3F2D466CF400248B19 /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
+		9EC78D412D471A0800248B19 /* DoneButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 			children = (
 				9E61BB462D4526AA007B6910 /* NetworkResultType.swift */,
 				9E61BB432D45226B007B6910 /* ViewTransitionType.swift */,
+				9EC78D412D471A0800248B19 /* DoneButtonState.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				9E61BB382D451DD9007B6910 /* DateFormatterManager.swift in Sources */,
 				9E61BB2E2D451C79007B6910 /* UILabel+.swift in Sources */,
 				9E61BB3C2D451F11007B6910 /* ObservablePattern.swift in Sources */,
+				9EC78D422D471A0800248B19 /* DoneButtonState.swift in Sources */,
 				9E61BB2F2D451C79007B6910 /* UIButton+.swift in Sources */,
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
