@@ -9,9 +9,16 @@ import UIKit
 
 final class ProfileImageViewController: BaseViewController {
     
-    init() {
-        
+    let profileImage: UIImage
+    private lazy var profileImageView = ProfileImageView(profileImage: self.profileImage)
+    
+    init(profileImage: UIImage) {
+        self.profileImage = profileImage
         super.init(navTitle: "프로필 이미지 설정", navLeftBtnType: .pop)
+    }
+    
+    override func loadView() {
+        view = profileImageView
     }
 
     override func viewDidLoad() {
