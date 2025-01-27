@@ -7,7 +7,14 @@
 
 import UIKit
 
+enum CinemaCollectionViewType {
+    case recentSearch
+    case todayMovie
+}
+
 final class CinemaViewController: BaseViewController {
+    
+    private let dummyArr = ["스파이더만", "현빈", "록시땅", "액션가면", "케케몬"]
     
     private let cinemaView = CinemaView()
     
@@ -22,7 +29,7 @@ final class CinemaViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("CinemaViewController")
+        setDelegate()
         setAddTarget()
     }
 
@@ -34,9 +41,25 @@ final class CinemaViewController: BaseViewController {
 
 private extension CinemaViewController {
     
+    func setDelegate() {
+        cinemaView.recentSearchCollectionView.delegate = self
+        cinemaView.recentSearchCollectionView.dataSource = self
+        
+        cinemaView.todayMovieCollectionView.delegate = self
+        cinemaView.todayMovieCollectionView.dataSource = self
+    }
+    
     func setAddTarget() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileBoxTapped))
         cinemaView.profileBox.addGestureRecognizer(tapGesture)
+    }
+    
+    func returnCinemaCollectionType(collectionView: UICollectionView) -> CinemaCollectionViewType {
+        if collectionView == cinemaView.recentSearchCollectionView {
+            return .recentSearch
+        } else {
+            return .todayMovie
+        }
     }
     
     @objc
@@ -47,6 +70,38 @@ private extension CinemaViewController {
             self?.cinemaView.profileBox.changeProfileBoxData()
         }
         viewTransition(viewController: vc, transitionStyle: .presentWithNav)
+    }
+    
+}
+
+extension CinemaViewController: UICollectionViewDelegate {
+    
+}
+
+extension CinemaViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch returnCinemaCollectionType(collectionView: collectionView) {
+        case .recentSearch:
+            return dummyArr.count
+        case .todayMovie:
+            return dummyArr.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch returnCinemaCollectionType(collectionView: collectionView) {
+        case .recentSearch:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchCollectionViewCell.cellIdentifier, for: indexPath) as! RecentSearchCollectionViewCell
+            cell.setCellUI(titleText: dummyArr[indexPath.item])
+            
+            return cell
+        case .todayMovie:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchCollectionViewCell.cellIdentifier, for: indexPath) as! RecentSearchCollectionViewCell
+            cell.setCellUI(titleText: dummyArr[indexPath.item])
+            
+            return cell
+        }
     }
     
 }
