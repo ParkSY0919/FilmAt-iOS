@@ -94,6 +94,7 @@ class BaseViewController: UIViewController {
             return self.present(viewController, animated: true)
         case .presentWithNav:
             let nav = UINavigationController(rootViewController: viewController)
+            nav.sheetPresentationController?.prefersGrabberVisible = true
             return self.present(nav, animated: true)
         case .presentFullScreenWithNav:
             let nav = UINavigationController(rootViewController: viewController)
