@@ -42,7 +42,9 @@ final class UserDefaultsManager {
             return image
         }
         set {
-            return UserDefaults.standard.set(returnImageData(UIImage: newValue), forKey: "profileImage")
+            if let pngData = newValue.pngData() {
+                UserDefaults.standard.set(pngData, forKey: "profileImage")
+            }
         }
     }
     

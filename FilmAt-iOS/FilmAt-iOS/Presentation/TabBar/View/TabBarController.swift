@@ -17,17 +17,17 @@ class TabBarController: UITabBarController {
     }
     
     private func setTabBarControllerStyle() {
-        let cinemaVC = UINavigationController(rootViewController: CinemaViewController())
+        let cinemaVC = UINavigationController(rootViewController: CinemaViewController(viewModel: CinemaViewModel()))
         cinemaVC.tabBarItem = UITabBarItem(title: "CINEMA",
                                           image: UIImage(systemName: "popcorn"),
                                           selectedImage: UIImage(systemName: "popcorn"))
         
-        let upcomingVC = UINavigationController(rootViewController: CinemaViewController())
+        let upcomingVC = UINavigationController(rootViewController: BaseViewController())
         upcomingVC.tabBarItem = UITabBarItem(title: "UPCOMING",
                                            image: UIImage(systemName: "film.stack"),
                                            selectedImage: UIImage(systemName: "film.stack"))
         
-        let profileVC = UINavigationController(rootViewController: CinemaViewController())
+        let profileVC = UINavigationController(rootViewController: BaseViewController())
         profileVC.tabBarItem = UITabBarItem(title: "PROFILE",
                                             image: UIImage(systemName: "person.crop.circle"),
                                             selectedImage: UIImage(systemName: "person.crop.circle"))

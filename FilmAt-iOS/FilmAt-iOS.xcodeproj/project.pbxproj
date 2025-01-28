@@ -60,6 +60,11 @@
 		9EC78D662D47963E00248B19 /* CinemaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D652D47963E00248B19 /* CinemaViewController.swift */; };
 		9EC78D682D479A8300248B19 /* ProfileBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D672D479A8300248B19 /* ProfileBox.swift */; };
 		9EC78D6A2D479E6F00248B19 /* CinemaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D692D479E6F00248B19 /* CinemaView.swift */; };
+		9EC78D6D2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D6C2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift */; };
+		9EC78D6F2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */; };
+		9EC78D722D47D94200248B19 /* CinemaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D712D47D94200248B19 /* CinemaViewModel.swift */; };
+		9EC78D742D48A82D00248B19 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D732D48A82D00248B19 /* LikeButton.swift */; };
+		9EC78D762D48D53500248B19 /* CinemaCollectionViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +119,11 @@
 		9EC78D652D47963E00248B19 /* CinemaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaViewController.swift; sourceTree = "<group>"; };
 		9EC78D672D479A8300248B19 /* ProfileBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBox.swift; sourceTree = "<group>"; };
 		9EC78D692D479E6F00248B19 /* CinemaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaView.swift; sourceTree = "<group>"; };
+		9EC78D6C2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		9EC78D712D47D94200248B19 /* CinemaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaViewModel.swift; sourceTree = "<group>"; };
+		9EC78D732D48A82D00248B19 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
+		9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaCollectionViewType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +231,7 @@
 			children = (
 				9EC78D3F2D466CF400248B19 /* DoneButton.swift */,
 				9EC78D672D479A8300248B19 /* ProfileBox.swift */,
+				9EC78D732D48A82D00248B19 /* LikeButton.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -245,6 +256,7 @@
 				9EC78D412D471A0800248B19 /* DoneButtonState.swift */,
 				9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */,
 				9EC78D552D47468500248B19 /* StateLabelType.swift */,
+				9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -454,6 +466,8 @@
 		9EC78D632D47960100248B19 /* Cinema */ = {
 			isa = PBXGroup;
 			children = (
+				9EC78D702D47D93300248B19 /* ViewModel */,
+				9EC78D6B2D47B9C300248B19 /* Cell */,
 				9EC78D642D47962700248B19 /* View */,
 			);
 			path = Cinema;
@@ -466,6 +480,23 @@
 				9EC78D652D47963E00248B19 /* CinemaViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9EC78D6B2D47B9C300248B19 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D6C2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift */,
+				9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		9EC78D702D47D93300248B19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D712D47D94200248B19 /* CinemaViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -552,6 +583,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EC78D762D48D53500248B19 /* CinemaCollectionViewType.swift in Sources */,
 				9EC78D362D4553FE00248B19 /* ImageResponseModel.swift in Sources */,
 				9EC78D612D47676900248B19 /* ProfileImageViewModel.swift in Sources */,
 				9E61BB052D451AC1007B6910 /* TabBarController.swift in Sources */,
@@ -590,14 +622,18 @@
 				9E61BB2F2D451C79007B6910 /* UIButton+.swift in Sources */,
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
+				9EC78D742D48A82D00248B19 /* LikeButton.swift in Sources */,
 				9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */,
 				9EC78D4A2D47240500248B19 /* ProfileNicknameView.swift in Sources */,
 				9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */,
+				9EC78D6F2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift in Sources */,
 				9EC78D5B2D4750F900248B19 /* ProfileImageView.swift in Sources */,
+				9EC78D722D47D94200248B19 /* CinemaViewModel.swift in Sources */,
 				9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */,
 				9E61BB0F2D451C1F007B6910 /* UIAlertManager.swift in Sources */,
 				9E61BB092D451B9A007B6910 /* Config.swift in Sources */,
 				9EC78D2C2D454F5E00248B19 /* TrendingResponseModel.swift in Sources */,
+				9EC78D6D2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
