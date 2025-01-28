@@ -13,9 +13,10 @@ import Then
 final class SearchView: BaseView {
     
     let searchTextField = UITextField()
+    let searchTableView = UITableView()
     
     override func setHierarchy() {
-        self.addSubviews(searchTextField)
+        self.addSubviews(searchTextField, searchTableView)
     }
     
     override func setLayout() {
@@ -24,10 +25,15 @@ final class SearchView: BaseView {
             $0.horizontalEdges.equalToSuperview().inset(10)
             $0.height.equalTo(40)
         }
+        
+        searchTableView.snp.makeConstraints {
+            $0.top.equalTo(searchTextField.snp.bottom).offset(20)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide)
+        }
     }
     
     override func setStyle() {
-        
         searchTextField.do {
             $0.backgroundColor = .searchBarBackground
             $0.font = .filmAtFont(.body_regular_16)
@@ -39,6 +45,12 @@ final class SearchView: BaseView {
                               image: UIImage(systemName: "magnifyingglass"),
                               inset: 8)
             $0.layer.cornerRadius = 10
+        }
+        
+        searchTableView.do {
+            $0.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.cellIdentifier)
+            $0.rowHeight = 120
+            $0.separatorInset = .init(top: 0, left: 10, bottom: 0, right: 10)
         }
     }
     
