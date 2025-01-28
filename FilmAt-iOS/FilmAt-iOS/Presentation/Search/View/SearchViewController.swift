@@ -65,6 +65,7 @@ private extension SearchViewController {
             
             if flag {
                 DispatchQueue.main.async {
+                    self?.searchView.searchTextField.text = self?.viewModel.currentSearchText
                     self?.searchView.setHiddenUI(isEmpty: isEmpty)
                     self?.searchView.searchTableView.reloadData()
                 }

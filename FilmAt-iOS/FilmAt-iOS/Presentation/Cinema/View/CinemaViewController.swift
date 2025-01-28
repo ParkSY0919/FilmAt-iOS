@@ -138,11 +138,18 @@ extension CinemaViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch returnCinemaCollectionType(collectionView: collectionView) {
         case .recentSearch:
-            let recentSeachList = viewModel.recentSearchList.value ?? []
-            print(recentSeachList[indexPath.item])
+            let recentSeachText = (viewModel.recentSearchList.value ?? [])[indexPath.item]
             
-            //추후 search화면으로 변경
-//            viewTransition(viewController: OnBoardingViewController(), transitionStyle: .push)
+            let searchViewModel = SearchViewModel()
+            viewModel.getSearchData(recentSearchText: recentSeachText) { result in
+                searchViewModel.searchResultList = result
+                searchViewModel.currentSearchText = recentSeachText
+            }
+            searchViewModel.searchAPIResult.value = true
+            
+            let vc = SearchViewController(viewModel: searchViewModel)
+        
+            viewTransition(viewController: vc, transitionStyle: .push)
         case .todayMovie:
             let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
             
