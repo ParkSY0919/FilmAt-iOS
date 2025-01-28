@@ -84,5 +84,11 @@ final class SearchView: BaseView {
         }
     }
     
+    func setHiddenUI(isEmpty: Bool) {
+        emptyContainer.isHidden = !isEmpty
+        emptyLabel.isHidden = !isEmpty
+        searchTableView.isHidden = isEmpty
+    }
+    
 }
 

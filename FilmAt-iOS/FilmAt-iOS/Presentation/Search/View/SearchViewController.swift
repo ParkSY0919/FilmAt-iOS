@@ -9,7 +9,6 @@ import UIKit
 
 final class SearchViewController: BaseViewController {
     
-    let dummy = ["미스터리", "다큐멘터리", "모험"]
     private let viewModel: SearchViewModel
     
     private let searchView = SearchView()
@@ -29,6 +28,7 @@ final class SearchViewController: BaseViewController {
 
         setDelegate()
         setAddTarget()
+        bindViewModel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,6 +55,23 @@ private extension SearchViewController {
         searchView.searchTextField.addTarget(self,
                                              action: #selector(textFieldDidChange),
                                              for: .editingChanged)
+    }
+    
+    func bindViewModel() {
+        viewModel.searchAPIResult.bind { [weak self] flag in
+            guard let flag,
+                  let isEmpty = self?.viewModel.searchResultList.isEmpty
+            else {return}
+            
+            if flag {
+                DispatchQueue.main.async {
+                    self?.searchView.setHiddenUI(isEmpty: isEmpty)
+                    self?.searchView.searchTableView.reloadData()
+                }
+            } else {
+                print("searchAPIResult.value = false")
+            }
+        }
     }
     
     @objc
@@ -100,17 +117,24 @@ extension SearchViewController: UITableViewDelegate {
 }
 
 extension SearchViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel.searchResultList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.cellIdentifier, for: indexPath) as! SearchTableViewCell
-        
         cell.likeBtnComponent.likeButton.addTarget(self, action: #selector(likeBtnComponentTapped), for: .touchUpInside)
         
-        cell.setGenreUI(genreArr: dummy)
+        let item = viewModel.searchResultList[indexPath.item]
+        
+        let posterUrlPath = item.posterPath ?? ""
+        let title = item.title
+        let releaseDate = DateFormatterManager.shard.setDateString(strDate: item.releaseDate, format: "yy.MM.dd")
+        cell.setCellUI(posterUrlPth: posterUrlPath, title: title, releaseDate: releaseDate)
+        cell.setGenreUI(genreArr: item.genreIDS)
         
         return cell
     }
+    
 }

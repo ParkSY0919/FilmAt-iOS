@@ -20,7 +20,21 @@ final class SearchTableViewCell: BaseTableViewCell {
     private let genreContainerView = UIView()
     private let firstGenreView = UIView()
     private let secondGenreView = UIView()
+    private let firstGenreLabel = UILabel()
+    private let secondGenreLabel = UILabel()
+    
     let likeBtnComponent = LikeButton()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        posterImageView.image = nil
+        movieTitleLabel.text = nil
+        releaseDateLabel.text = nil
+        firstGenreLabel.text = nil
+        secondGenreLabel.text = nil
+        likeBtnComponent.likeButton.setImage(nil, for: .normal)
+    }
 
     override func setHierarchy() {
         contentView.addSubview(containerView)
@@ -91,21 +105,26 @@ final class SearchTableViewCell: BaseTableViewCell {
         
     }
     
-    func setGenreUI(genreArr: [String]) {
+    func setGenreUI(genreArr: [Int]) {
         let genreViewARR = [firstGenreView, secondGenreView]
+        let genreLabelArr = [firstGenreLabel, secondGenreLabel]
         
-        for i in 0..<genreViewARR.count {
-            let label = UILabel()
-            label.setLabelUI(genreArr[i], font: .filmAtFont(.body_bold_12), textColor: .gray2)
-            label.numberOfLines = 1
+        for i in 0..<genreArr.count {
+            if i == 2 { break }
+            let genreText = GenreType(rawValue: genreArr[i])?.name ?? "실패"
+            
+            genreLabelArr[i].setLabelUI(genreText,
+                                        font: .filmAtFont(.body_bold_12),
+                                        textColor: .gray2,
+                                        numberOfLines: 1)
 
             genreViewARR[i].do {
                 $0.backgroundColor = .gray1
                 $0.layer.cornerRadius = 4
-                $0.addSubview(label)
+                $0.addSubview(genreLabelArr[i])
             }
             
-            label.snp.makeConstraints {
+            genreLabelArr[i].snp.makeConstraints {
                 $0.edges.equalToSuperview().inset(4)
             }
         }
@@ -117,6 +136,12 @@ final class SearchTableViewCell: BaseTableViewCell {
             $0.leading.equalTo(firstGenreView.snp.trailing).offset(4)
             $0.bottom.equalToSuperview()
         }
+    }
+    
+    func setCellUI(posterUrlPth: String, title: String, releaseDate: String) {
+        posterImageView.setImageKfDownSampling(with: posterUrlPth, cornerRadius: 8)
+        movieTitleLabel.text = title
+        releaseDateLabel.text = releaseDate
     }
     
 }
