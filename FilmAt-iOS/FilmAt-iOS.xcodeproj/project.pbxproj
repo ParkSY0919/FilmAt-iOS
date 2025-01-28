@@ -70,6 +70,7 @@
 		9EC78D7F2D48E3F800248B19 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D7E2D48E3F800248B19 /* SearchTableViewCell.swift */; };
 		9EC78D812D48E45A00248B19 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D802D48E45A00248B19 /* BaseTableViewCell.swift */; };
 		9EC78D842D48FDF700248B19 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D832D48FDF700248B19 /* SearchViewModel.swift */; };
+		9EC78D862D49067200248B19 /* GenreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D852D49067200248B19 /* GenreType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,6 +135,7 @@
 		9EC78D7E2D48E3F800248B19 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		9EC78D802D48E45A00248B19 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		9EC78D832D48FDF700248B19 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		9EC78D852D49067200248B19 /* GenreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +269,7 @@
 				9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */,
 				9EC78D552D47468500248B19 /* StateLabelType.swift */,
 				9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */,
+				9EC78D852D49067200248B19 /* GenreType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 				9E61BB2F2D451C79007B6910 /* UIButton+.swift in Sources */,
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
+				9EC78D862D49067200248B19 /* GenreType.swift in Sources */,
 				9EC78D742D48A82D00248B19 /* LikeButton.swift in Sources */,
 				9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */,
 				9EC78D4A2D47240500248B19 /* ProfileNicknameView.swift in Sources */,
