@@ -113,12 +113,13 @@ private extension CinemaViewController {
     }
     
     @objc
-    func xMarkBtnTapped() {
-        print(#function)
+    func xMarkBtnTapped(_ sender: UIButton) {
+        print(#function, "sender.tag : \(sender.tag)")
+        viewModel.recentSearchList.value?.remove(at: sender.tag)
     }
     
     @objc
-    func likeBtnComponentTapped(sender: UIButton) {
+    func likeBtnComponentTapped(_ sender: UIButton) {
         print(#function)
         switch sender.isSelected {
         case true:
@@ -167,11 +168,10 @@ extension CinemaViewController: UICollectionViewDataSource {
         case .recentSearch:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchCollectionViewCell.cellIdentifier, for: indexPath) as! RecentSearchCollectionViewCell
             
-            let xMarkTapGesture = UITapGestureRecognizer(target: self, action: #selector(xMarkBtnTapped))
-            cell.xImageView.addGestureRecognizer(xMarkTapGesture)
-            cell.xImageView.tag = indexPath.item
+            cell.xMarkbutton.addTarget(self, action: #selector(xMarkBtnTapped), for: .touchUpInside)
+            cell.xMarkbutton.tag = indexPath.item
             
-            let recentSeachList = viewModel.recentSearchList.value?.reversed() ?? []
+            let recentSeachList = viewModel.recentSearchList.value ?? []
             
             cell.setCellUI(titleText: recentSeachList[indexPath.item])
             

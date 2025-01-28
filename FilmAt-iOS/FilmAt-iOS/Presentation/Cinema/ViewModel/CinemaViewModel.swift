@@ -9,7 +9,9 @@ import UIKit
 
 final class CinemaViewModel {
     
-    var recentSearchList: ObservablePattern<[String]> = ObservablePattern(["스파이더만", "현빈", "록시땅", "액션가면", "케케몬"])
+    //reversed된 형태로 저장하자.
+    //추후 append 필요할 시, reversed로 바꾸고, append하고 다시 reversed 적용하면됨.
+    var recentSearchList: ObservablePattern<[String]> = ObservablePattern([])
     
     var todayMovieList: [TrendingResult] = []
     var todayMovieAPIResult: ObservablePattern<Bool> = ObservablePattern(nil)

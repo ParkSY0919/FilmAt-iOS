@@ -13,10 +13,10 @@ import Then
 final class RecentSearchCollectionViewCell: BaseCollectionViewCell {
     
     private let searchLabel = UILabel()
-    let xImageView = UIImageView()
+    let xMarkbutton = UIButton()
     
     override func setHierarchy() {
-        contentView.addSubviews(searchLabel, xImageView)
+        contentView.addSubviews(searchLabel, xMarkbutton)
     }
     
     override func setLayout() {
@@ -27,10 +27,10 @@ final class RecentSearchCollectionViewCell: BaseCollectionViewCell {
         searchLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(15)
-            $0.trailing.equalTo(xImageView.snp.leading).offset(-10)
+            $0.trailing.equalTo(xMarkbutton.snp.leading).offset(-10)
         }
         
-        xImageView.snp.makeConstraints {
+        xMarkbutton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(15)
             $0.width.equalTo(15)
@@ -48,10 +48,9 @@ final class RecentSearchCollectionViewCell: BaseCollectionViewCell {
                                font: .filmAtFont(.body_medium_14),
                                textColor: .black)
         
-        xImageView.do {
-            $0.image = UIImage(systemName: "xmark")
+        xMarkbutton.do {
+            $0.setImage(UIImage(systemName: "xmark"), for: .normal)
             $0.tintColor = .black
-            $0.isUserInteractionEnabled = true
         }
     }
     
