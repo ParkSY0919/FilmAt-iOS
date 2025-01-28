@@ -13,10 +13,15 @@ import Then
 final class SearchView: BaseView {
     
     let searchTextField = UITextField()
+    
+    let emptyContainer = UIView()
+    let emptyLabel = UILabel()
     let searchTableView = UITableView()
     
     override func setHierarchy() {
-        self.addSubviews(searchTextField, searchTableView)
+        self.addSubviews(searchTextField, emptyContainer, searchTableView)
+        
+        emptyContainer.addSubview(emptyLabel)
     }
     
     override func setLayout() {
@@ -26,10 +31,21 @@ final class SearchView: BaseView {
             $0.height.equalTo(40)
         }
         
+        emptyContainer.snp.makeConstraints {
+            $0.top.equalTo(searchTextField.snp.bottom).offset(20)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        
         searchTableView.snp.makeConstraints {
             $0.top.equalTo(searchTextField.snp.bottom).offset(20)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        
+        emptyLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(200)
+            $0.centerX.equalToSuperview()
         }
     }
     
@@ -47,7 +63,18 @@ final class SearchView: BaseView {
             $0.layer.cornerRadius = 10
         }
         
+        emptyContainer.do {
+            $0.isHidden = true
+            $0.backgroundColor = UIColor(resource: .background)
+        }
+        
+        emptyLabel.setLabelUI("원하는 검색결과를 찾지 못했습니다.",
+                              font: .filmAtFont(.body_medium_14),
+                              textColor: UIColor(resource: .gray1))
+        
         searchTableView.do {
+            $0.isHidden = true
+            $0.backgroundColor = UIColor(resource: .background)
             $0.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.cellIdentifier)
             $0.rowHeight = 120
             $0.separatorInset = .init(top: 0, left: 10, bottom: 0, right: 10)
