@@ -131,8 +131,19 @@ private extension CinemaViewController {
 extension CinemaViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let recentSeachList = viewModel.recentSearchList.value?.reversed() ?? []
-        print(recentSeachList[indexPath.item])
+        switch returnCinemaCollectionType(collectionView: collectionView) {
+        case .recentSearch:
+            let recentSeachList = viewModel.recentSearchList.value?.reversed() ?? []
+            print(recentSeachList[indexPath.item])
+            
+            //추후 search화면으로 변경
+            viewTransition(viewController: OnBoardingViewController(), transitionStyle: .push)
+        case .todayMovie:
+            let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
+            
+            //추후 detail화면으로 변경
+            viewTransition(viewController: OnBoardingViewController(), transitionStyle: .push)
+        }
     }
     
 }
