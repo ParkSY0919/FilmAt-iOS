@@ -36,8 +36,15 @@ final class CinemaViewController: BaseViewController {
     override func searchBtnTapped() {
         print(#function)
         
-        //추후 search화면으로 변경(검색어 포함 X)
-        viewTransition(viewController: SearchViewController(), transitionStyle: .push)
+        let searchViewModel = SearchViewModel()
+        let vc = SearchViewController(viewModel: searchViewModel)
+        
+        searchViewModel.onChange = { [weak self] searchText in
+            var list = self?.viewModel.recentSearchList.value?.reversed() ?? []
+            list.append(searchText)
+            self?.viewModel.recentSearchList.value = list.reversed()
+        }
+        viewTransition(viewController: vc, transitionStyle: .push)
     }
 
 }
@@ -131,11 +138,18 @@ extension CinemaViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch returnCinemaCollectionType(collectionView: collectionView) {
         case .recentSearch:
-            let recentSeachList = viewModel.recentSearchList.value?.reversed() ?? []
-            print(recentSeachList[indexPath.item])
+            let recentSeachText = (viewModel.recentSearchList.value ?? [])[indexPath.item]
             
-            //추후 search화면으로 변경
-            viewTransition(viewController: OnBoardingViewController(), transitionStyle: .push)
+            let searchViewModel = SearchViewModel()
+            viewModel.getSearchData(recentSearchText: recentSeachText) { result in
+                searchViewModel.searchResultList = result
+                searchViewModel.currentSearchText = recentSeachText
+            }
+            searchViewModel.searchAPIResult.value = true
+            
+            let vc = SearchViewController(viewModel: searchViewModel)
+        
+            viewTransition(viewController: vc, transitionStyle: .push)
         case .todayMovie:
             let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
             

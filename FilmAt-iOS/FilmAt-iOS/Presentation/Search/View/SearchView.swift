@@ -68,9 +68,12 @@ final class SearchView: BaseView {
             $0.backgroundColor = UIColor(resource: .background)
         }
         
-        emptyLabel.setLabelUI("원하는 검색결과를 찾지 못했습니다.",
-                              font: .filmAtFont(.body_medium_14),
-                              textColor: UIColor(resource: .gray1))
+        emptyLabel.do {
+            $0.isHidden = true
+            $0.setLabelUI("원하는 검색결과를 찾지 못했습니다.",
+                          font: .filmAtFont(.body_medium_14),
+                          textColor: UIColor(resource: .gray1))
+        }
         
         searchTableView.do {
             $0.isHidden = true
@@ -79,6 +82,12 @@ final class SearchView: BaseView {
             $0.rowHeight = 120
             $0.separatorInset = .init(top: 0, left: 10, bottom: 0, right: 10)
         }
+    }
+    
+    func setHiddenUI(isEmpty: Bool) {
+        emptyContainer.isHidden = !isEmpty
+        emptyLabel.isHidden = !isEmpty
+        searchTableView.isHidden = isEmpty
     }
     
 }

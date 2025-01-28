@@ -9,6 +9,7 @@ import UIKit
 
 extension UITextField {
     
+    //검색 결과 있을 시 돋보기 tint color 변경 기능 추후 구현
     func setLeftPadding(amount: CGFloat, image: UIImage? = nil, inset: CGFloat = 0) {
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: amount + inset, height: self.frame.size.height))
         

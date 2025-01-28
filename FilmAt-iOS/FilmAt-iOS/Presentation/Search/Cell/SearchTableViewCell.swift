@@ -20,7 +20,23 @@ final class SearchTableViewCell: BaseTableViewCell {
     private let genreContainerView = UIView()
     private let firstGenreView = UIView()
     private let secondGenreView = UIView()
+    private let firstGenreLabel = UILabel()
+    private let secondGenreLabel = UILabel()
+    
     let likeBtnComponent = LikeButton()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        posterImageView.image = nil
+        movieTitleLabel.text = nil
+        releaseDateLabel.text = nil
+        firstGenreView.backgroundColor = nil
+        secondGenreView.backgroundColor = nil
+        firstGenreLabel.text = nil
+        secondGenreLabel.text = nil
+        likeBtnComponent.likeButton.setImage(nil, for: .normal)
+    }
 
     override func setHierarchy() {
         contentView.addSubview(containerView)
@@ -68,6 +84,8 @@ final class SearchTableViewCell: BaseTableViewCell {
     }
     
     override func setStyle() {
+        self.selectionStyle = .none
+        
         self.backgroundColor = UIColor(resource: .background)
         
         posterImageView.setImageView(image: UIImage(resource: .profile0), cornerRadius: 10)
@@ -80,43 +98,54 @@ final class SearchTableViewCell: BaseTableViewCell {
         releaseDateLabel.setLabelUI("releaseDateLabel",
                                     font: .filmAtFont(.body_medium_12),
                                     textColor: UIColor(resource: .gray1))
-        
-//        genreStackView.do {
-//            $0.axis = .horizontal
-//            $0.spacing = 6
-//            $0.alignment = .leading
-//            $0.distribution = .fillProportionally
-//        }
-        
-        
     }
     
-    func setGenreUI(genreArr: [String]) {
+    func setGenreUI(genreArr: [Int]) {
         let genreViewARR = [firstGenreView, secondGenreView]
+        let genreLabelArr = [firstGenreLabel, secondGenreLabel]
         
-        for i in 0..<genreViewARR.count {
-            let label = UILabel()
-            label.setLabelUI(genreArr[i], font: .filmAtFont(.body_bold_12), textColor: .gray2)
-            label.numberOfLines = 1
+        for i in 0..<genreArr.count {
+            if i == 2 { break }
+            let genreText = GenreType(rawValue: genreArr[i])?.name ?? "실패"
+            
+            genreLabelArr[i].setLabelUI(genreText,
+                                        font: .filmAtFont(.body_bold_12),
+                                        textColor: .gray2,
+                                        numberOfLines: 1)
 
             genreViewARR[i].do {
                 $0.backgroundColor = .gray1
                 $0.layer.cornerRadius = 4
-                $0.addSubview(label)
+                $0.addSubview(genreLabelArr[i])
             }
             
-            label.snp.makeConstraints {
+            genreLabelArr[i].snp.makeConstraints {
                 $0.edges.equalToSuperview().inset(4)
             }
         }
         
-        firstGenreView.snp.makeConstraints {
-            $0.leading.bottom.equalToSuperview()
+        switch genreArr.count < 2 {
+        case true:
+            firstGenreView.snp.makeConstraints {
+                $0.leading.bottom.equalToSuperview()
+            }
+        case false:
+            firstGenreView.snp.makeConstraints {
+                $0.leading.bottom.equalToSuperview()
+            }
+            secondGenreView.snp.makeConstraints {
+                $0.leading.equalTo(firstGenreView.snp.trailing).offset(4)
+                $0.bottom.equalToSuperview()
+            }
         }
-        secondGenreView.snp.makeConstraints {
-            $0.leading.equalTo(firstGenreView.snp.trailing).offset(4)
-            $0.bottom.equalToSuperview()
-        }
+        
+        
+    }
+    
+    func setCellUI(posterUrlPth: String, title: String, releaseDate: String) {
+        posterImageView.setImageKfDownSampling(with: posterUrlPth, cornerRadius: 8)
+        movieTitleLabel.text = title
+        releaseDateLabel.text = releaseDate
     }
     
 }
