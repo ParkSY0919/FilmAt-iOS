@@ -40,7 +40,9 @@ final class CinemaViewController: BaseViewController {
 
     override func searchBtnTapped() {
         print(#function)
-        viewModel.recentSearchList.value?.append("#####")
+        
+        //추후 search화면으로 변경(검색어 포함 X)
+        viewTransition(viewController: OnBoardingViewController(), transitionStyle: .push)
     }
 
 }
