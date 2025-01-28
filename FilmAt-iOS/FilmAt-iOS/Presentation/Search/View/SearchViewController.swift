@@ -46,6 +46,17 @@ private extension SearchViewController {
         searchView.searchTableView.dataSource = self
     }
     
+    @objc
+    func likeBtnComponentTapped(_ sender: UIButton) {
+        print(#function)
+        switch sender.isSelected {
+        case true:
+            sender.isSelected = false
+        case false:
+            sender.isSelected = true
+        }
+    }
+    
 }
 
 extension SearchViewController: UITextFieldDelegate {
@@ -67,6 +78,8 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.cellIdentifier, for: indexPath) as! SearchTableViewCell
+        
+        cell.likeBtnComponent.likeButton.addTarget(self, action: #selector(likeBtnComponentTapped), for: .touchUpInside)
         
         cell.setGenreUI(genreArr: dummy)
         
