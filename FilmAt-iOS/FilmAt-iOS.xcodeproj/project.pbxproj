@@ -64,6 +64,7 @@
 		9EC78D6F2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */; };
 		9EC78D722D47D94200248B19 /* CinemaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D712D47D94200248B19 /* CinemaViewModel.swift */; };
 		9EC78D742D48A82D00248B19 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D732D48A82D00248B19 /* LikeButton.swift */; };
+		9EC78D762D48D53500248B19 /* CinemaCollectionViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +123,7 @@
 		9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC78D712D47D94200248B19 /* CinemaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaViewModel.swift; sourceTree = "<group>"; };
 		9EC78D732D48A82D00248B19 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
+		9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaCollectionViewType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +256,7 @@
 				9EC78D412D471A0800248B19 /* DoneButtonState.swift */,
 				9EC78D472D471F6F00248B19 /* NavigationButtonType.swift */,
 				9EC78D552D47468500248B19 /* StateLabelType.swift */,
+				9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EC78D762D48D53500248B19 /* CinemaCollectionViewType.swift in Sources */,
 				9EC78D362D4553FE00248B19 /* ImageResponseModel.swift in Sources */,
 				9EC78D612D47676900248B19 /* ProfileImageViewModel.swift in Sources */,
 				9E61BB052D451AC1007B6910 /* TabBarController.swift in Sources */,

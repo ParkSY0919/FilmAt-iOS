@@ -7,11 +7,6 @@
 
 import UIKit
 
-enum CinemaCollectionViewType {
-    case recentSearch
-    case todayMovie
-}
-
 final class CinemaViewController: BaseViewController {
     
     private let dummyArr = ["스파이더만", "현빈", "록시땅", "액션가면", "케케몬"]
