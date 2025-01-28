@@ -65,6 +65,8 @@
 		9EC78D722D47D94200248B19 /* CinemaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D712D47D94200248B19 /* CinemaViewModel.swift */; };
 		9EC78D742D48A82D00248B19 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D732D48A82D00248B19 /* LikeButton.swift */; };
 		9EC78D762D48D53500248B19 /* CinemaCollectionViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */; };
+		9EC78D7A2D48D78200248B19 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D792D48D78200248B19 /* SearchViewController.swift */; };
+		9EC78D7C2D48D7A100248B19 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D7B2D48D7A100248B19 /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +126,8 @@
 		9EC78D712D47D94200248B19 /* CinemaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaViewModel.swift; sourceTree = "<group>"; };
 		9EC78D732D48A82D00248B19 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaCollectionViewType.swift; sourceTree = "<group>"; };
+		9EC78D792D48D78200248B19 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		9EC78D7B2D48D7A100248B19 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +295,7 @@
 				9E61BB002D451A71007B6910 /* TabBar */,
 				9EC78D432D471A5B00248B19 /* Profile */,
 				9EC78D632D47960100248B19 /* Cinema */,
+				9EC78D772D48D75300248B19 /* Search */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -499,6 +504,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		9EC78D772D48D75300248B19 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D782D48D76F00248B19 /* View */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		9EC78D782D48D76F00248B19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D792D48D78200248B19 /* SearchViewController.swift */,
+				9EC78D7B2D48D7A100248B19 /* SearchView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -600,6 +622,7 @@
 				9EC78D522D4737E800248B19 /* ProfileNicknameViewModel.swift in Sources */,
 				9E61BB3E2D451F97007B6910 /* TargetType.swift in Sources */,
 				9EC78D592D4750B500248B19 /* ProfileImageViewController.swift in Sources */,
+				9EC78D7C2D48D7A100248B19 /* SearchView.swift in Sources */,
 				9E61BB152D451C48007B6910 /* BaseView.swift in Sources */,
 				9EC78D6A2D479E6F00248B19 /* CinemaView.swift in Sources */,
 				9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */,
@@ -617,6 +640,7 @@
 				9E61BB492D45274E007B6910 /* TMDBTargetType.swift in Sources */,
 				9E61BB382D451DD9007B6910 /* DateFormatterManager.swift in Sources */,
 				9E61BB2E2D451C79007B6910 /* UILabel+.swift in Sources */,
+				9EC78D7A2D48D78200248B19 /* SearchViewController.swift in Sources */,
 				9E61BB3C2D451F11007B6910 /* ObservablePattern.swift in Sources */,
 				9EC78D422D471A0800248B19 /* DoneButtonState.swift in Sources */,
 				9E61BB2F2D451C79007B6910 /* UIButton+.swift in Sources */,
