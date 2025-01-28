@@ -107,6 +107,7 @@ private extension CinemaViewController {
     @objc
     func recentSearchResetBtnTapped() {
         print(#function)
+        viewModel.recentSearchList.value?.removeAll()
     }
     
 }
