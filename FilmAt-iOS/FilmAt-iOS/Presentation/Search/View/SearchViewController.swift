@@ -11,6 +11,10 @@ final class SearchViewController: BaseViewController {
     
     private let searchView = SearchView()
     
+    init() {
+        super.init(navTitle: "영화 검색", navLeftBtnType: .pop)
+    }
+    
     override func loadView() {
         view = searchView
     }
