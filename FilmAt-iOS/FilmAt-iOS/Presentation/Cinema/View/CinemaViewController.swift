@@ -37,7 +37,7 @@ final class CinemaViewController: BaseViewController {
         print(#function)
         
         //추후 search화면으로 변경(검색어 포함 X)
-        viewTransition(viewController: SearchViewController(), transitionStyle: .push)
+        viewTransition(viewController: SearchViewController(viewModel: SearchViewModel()), transitionStyle: .push)
     }
 
 }

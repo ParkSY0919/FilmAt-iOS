@@ -33,6 +33,7 @@ extension SearchViewModel {
             switch networkResultType {
             case .success:
                 self.searchResultList = result.results
+                self.beforeSearchText = searchText
                 self.searchAPIResult.value = true
             case .badRequest:
                 print("badRequest")

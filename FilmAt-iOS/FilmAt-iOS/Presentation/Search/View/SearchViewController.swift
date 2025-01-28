@@ -97,14 +97,14 @@ private extension SearchViewController {
 extension SearchViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         switch viewModel.checkDuplicateSearchText() {
         case true:
             print("이전 검색어와 현재 검색어가 일치합니다.")
         case false:
             viewModel.getSearchData(searchText: viewModel.currentSearchText)
         }
-        searchView.searchTextField.resignFirstResponder()
+        self.searchView.searchTextField.resignFirstResponder()
+        
         return true
     }
     
