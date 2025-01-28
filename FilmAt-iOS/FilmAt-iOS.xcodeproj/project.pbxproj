@@ -63,6 +63,7 @@
 		9EC78D6D2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D6C2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift */; };
 		9EC78D6F2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */; };
 		9EC78D722D47D94200248B19 /* CinemaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D712D47D94200248B19 /* CinemaViewModel.swift */; };
+		9EC78D742D48A82D00248B19 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D732D48A82D00248B19 /* LikeButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 		9EC78D6C2D47B9E000248B19 /* RecentSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC78D6E2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC78D712D47D94200248B19 /* CinemaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaViewModel.swift; sourceTree = "<group>"; };
+		9EC78D732D48A82D00248B19 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 			children = (
 				9EC78D3F2D466CF400248B19 /* DoneButton.swift */,
 				9EC78D672D479A8300248B19 /* ProfileBox.swift */,
+				9EC78D732D48A82D00248B19 /* LikeButton.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				9E61BB2F2D451C79007B6910 /* UIButton+.swift in Sources */,
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
+				9EC78D742D48A82D00248B19 /* LikeButton.swift in Sources */,
 				9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */,
 				9EC78D4A2D47240500248B19 /* ProfileNicknameView.swift in Sources */,
 				9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */,
