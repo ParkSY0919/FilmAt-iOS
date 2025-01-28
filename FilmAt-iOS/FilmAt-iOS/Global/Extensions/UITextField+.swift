@@ -9,11 +9,15 @@ import UIKit
 
 extension UITextField {
     
-    func setPlaceholder(color: UIColor) {
-        guard let string = self.placeholder else {
-            return
-        }
-        attributedPlaceholder = NSAttributedString(string: string, attributes: [.foregroundColor: color])
+    func setLeftPadding(amount: CGFloat) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: amount, height: self.frame.size.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
+    }
+    
+    //TextField placeholder 커스텀
+    func setPlaceholder(placeholder: String, fontColor: UIColor?, font: UIFont) {
+        self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [.foregroundColor: fontColor!, .font: font])
     }
     
 }
