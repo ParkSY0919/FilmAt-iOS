@@ -31,6 +31,8 @@ final class SearchTableViewCell: BaseTableViewCell {
         posterImageView.image = nil
         movieTitleLabel.text = nil
         releaseDateLabel.text = nil
+        firstGenreView.backgroundColor = nil
+        secondGenreView.backgroundColor = nil
         firstGenreLabel.text = nil
         secondGenreLabel.text = nil
         likeBtnComponent.likeButton.setImage(nil, for: .normal)
@@ -94,15 +96,6 @@ final class SearchTableViewCell: BaseTableViewCell {
         releaseDateLabel.setLabelUI("releaseDateLabel",
                                     font: .filmAtFont(.body_medium_12),
                                     textColor: UIColor(resource: .gray1))
-        
-//        genreStackView.do {
-//            $0.axis = .horizontal
-//            $0.spacing = 6
-//            $0.alignment = .leading
-//            $0.distribution = .fillProportionally
-//        }
-        
-        
     }
     
     func setGenreUI(genreArr: [Int]) {
@@ -129,13 +122,22 @@ final class SearchTableViewCell: BaseTableViewCell {
             }
         }
         
-        firstGenreView.snp.makeConstraints {
-            $0.leading.bottom.equalToSuperview()
+        switch genreArr.count < 2 {
+        case true:
+            firstGenreView.snp.makeConstraints {
+                $0.leading.bottom.equalToSuperview()
+            }
+        case false:
+            firstGenreView.snp.makeConstraints {
+                $0.leading.bottom.equalToSuperview()
+            }
+            secondGenreView.snp.makeConstraints {
+                $0.leading.equalTo(firstGenreView.snp.trailing).offset(4)
+                $0.bottom.equalToSuperview()
+            }
         }
-        secondGenreView.snp.makeConstraints {
-            $0.leading.equalTo(firstGenreView.snp.trailing).offset(4)
-            $0.bottom.equalToSuperview()
-        }
+        
+        
     }
     
     func setCellUI(posterUrlPth: String, title: String, releaseDate: String) {
