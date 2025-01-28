@@ -112,7 +112,18 @@ private extension CinemaViewController {
     
     @objc
     func xMarkBtnTapped() {
-        
+        print(#function)
+    }
+    
+    @objc
+    func likeBtnComponentTapped(sender: UIButton) {
+        print(#function)
+        switch sender.isSelected {
+        case true:
+            sender.isSelected = false
+        case false:
+            sender.isSelected = true
+        }
     }
     
 }
@@ -154,6 +165,9 @@ extension CinemaViewController: UICollectionViewDataSource {
             return cell
         case .todayMovie:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.cellIdentifier, for: indexPath) as! TodayMovieCollectionViewCell
+            
+            cell.likeBtnComponent.likeButton.addTarget(self, action: #selector(likeBtnComponentTapped), for: .touchUpInside)
+            
             let item = viewModel.todayMovieList[indexPath.item]
             
             let imageURL = item.posterPath

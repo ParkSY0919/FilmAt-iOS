@@ -14,8 +14,9 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
     
     private let posterImage = UIImageView()
     private let movieTitleLabel = UILabel()
-    private let likeButton = UIButton()
+    let likeBtnComponent = LikeButton()
     private let subtitleLabel = UILabel()
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -24,13 +25,13 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         movieTitleLabel.text = nil
         subtitleLabel.text = nil
         subtitleLabel.textColor = nil
-        likeButton.setImage(nil, for: .normal)
+        likeBtnComponent.likeButton.configuration?.image = nil
     }
     
     override func setHierarchy() {
         contentView.addSubviews(posterImage,
                                 movieTitleLabel,
-                                likeButton,
+                                likeBtnComponent,
                                 subtitleLabel)
     }
     
@@ -45,11 +46,13 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
             $0.leading.equalToSuperview()
         }
         
-        likeButton.snp.makeConstraints {
+        likeBtnComponent.snp.makeConstraints {
+//            $0.size.equalTo(10)
             $0.bottom.equalTo(movieTitleLabel.snp.bottom)
             $0.trailing.equalToSuperview()
             $0.height.equalTo(movieTitleLabel.snp.height)
-            $0.width.equalTo(likeButton.snp.width)
+            $0.width.equalTo(likeBtnComponent.snp.width)
+            
         }
         
         posterImage.snp.makeConstraints {
@@ -75,14 +78,14 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
                                    font: .filmAtFont(.title_heavy_16),
                                    textColor: .title)
         
-        likeButton.do {
+        likeBtnComponent.likeButton.do {
             $0.setImage(UIImage(systemName: "heart"), for: .normal)
             $0.tintColor = UIColor(resource: .point)
         }
     }
     
     func setTodayMovieCellUI(imageURL: String, title: String, subtitle: String) {
-        likeButton.do {
+        likeBtnComponent.likeButton.do {
             $0.setImage(UIImage(systemName: "heart"), for: .normal)
             $0.tintColor = UIColor(resource: .point)
         }
