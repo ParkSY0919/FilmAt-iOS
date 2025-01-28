@@ -36,8 +36,10 @@ final class CinemaViewController: BaseViewController {
     override func searchBtnTapped() {
         print(#function)
         
-        let vc = SearchViewController(viewModel: SearchViewModel())
-        vc.onChange = { [weak self] searchText in
+        let searchViewModel = SearchViewModel()
+        let vc = SearchViewController(viewModel: searchViewModel)
+        
+        searchViewModel.onChange = { [weak self] searchText in
             var list = self?.viewModel.recentSearchList.value?.reversed() ?? []
             list.append(searchText)
             self?.viewModel.recentSearchList.value = list.reversed()

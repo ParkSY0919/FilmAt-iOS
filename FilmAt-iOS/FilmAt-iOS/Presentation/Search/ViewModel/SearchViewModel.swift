@@ -9,6 +9,7 @@ import Foundation
 
 final class SearchViewModel {
     
+    var onChange: ((String) -> Void)?
     var beforeSearchText = ""
     var currentSearchText = ""
     
