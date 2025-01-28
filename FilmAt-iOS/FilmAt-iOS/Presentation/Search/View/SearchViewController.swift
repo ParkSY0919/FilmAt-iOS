@@ -26,7 +26,14 @@ final class SearchViewController: BaseViewController {
         setDelegate()
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        guard let text = searchView.searchTextField.text else {return}
+        if text.isEmpty {
+            searchView.searchTextField.becomeFirstResponder()
+        }
+    }
 
 }
 
