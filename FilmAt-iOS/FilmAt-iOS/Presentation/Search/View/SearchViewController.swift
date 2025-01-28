@@ -9,6 +9,7 @@ import UIKit
 
 final class SearchViewController: BaseViewController {
     
+    var onChange: ((String) -> Void)?
     private let viewModel: SearchViewModel
     
     private let searchView = SearchView()
@@ -101,6 +102,7 @@ extension SearchViewController: UITextFieldDelegate {
         case true:
             print("이전 검색어와 현재 검색어가 일치합니다.")
         case false:
+            onChange?(viewModel.currentSearchText)
             viewModel.getSearchData(searchText: viewModel.currentSearchText)
         }
         self.searchView.searchTextField.resignFirstResponder()

@@ -36,8 +36,13 @@ final class CinemaViewController: BaseViewController {
     override func searchBtnTapped() {
         print(#function)
         
-        //추후 search화면으로 변경(검색어 포함 X)
-        viewTransition(viewController: SearchViewController(viewModel: SearchViewModel()), transitionStyle: .push)
+        let vc = SearchViewController(viewModel: SearchViewModel())
+        vc.onChange = { [weak self] searchText in
+            var list = self?.viewModel.recentSearchList.value?.reversed() ?? []
+            list.append(searchText)
+            self?.viewModel.recentSearchList.value = list.reversed()
+        }
+        viewTransition(viewController: vc, transitionStyle: .push)
     }
 
 }
@@ -131,11 +136,11 @@ extension CinemaViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch returnCinemaCollectionType(collectionView: collectionView) {
         case .recentSearch:
-            let recentSeachList = viewModel.recentSearchList.value?.reversed() ?? []
+            let recentSeachList = viewModel.recentSearchList.value ?? []
             print(recentSeachList[indexPath.item])
             
             //추후 search화면으로 변경
-            viewTransition(viewController: OnBoardingViewController(), transitionStyle: .push)
+//            viewTransition(viewController: OnBoardingViewController(), transitionStyle: .push)
         case .todayMovie:
             let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
             
