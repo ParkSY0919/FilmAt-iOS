@@ -9,7 +9,7 @@ import UIKit
 
 final class CinemaViewModel {
     
-    var recentSearchList: ObservablePattern<[String]> = ObservablePattern([])
+    var recentSearchList: ObservablePattern<[String]> = ObservablePattern(["스파이더만", "현빈", "록시땅", "액션가면", "케케몬"])
     
     var todayMovieList: [TrendingResult] = []
     var todayMovieAPIResult: ObservablePattern<Bool> = ObservablePattern(nil)

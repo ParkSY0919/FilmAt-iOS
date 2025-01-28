@@ -13,7 +13,7 @@ import Then
 final class RecentSearchCollectionViewCell: BaseCollectionViewCell {
     
     private let searchLabel = UILabel()
-    private let xImageView = UIImageView()
+    let xImageView = UIImageView()
     
     override func setHierarchy() {
         contentView.addSubviews(searchLabel, xImageView)
@@ -48,8 +48,11 @@ final class RecentSearchCollectionViewCell: BaseCollectionViewCell {
                                font: .filmAtFont(.body_medium_14),
                                textColor: .black)
         
-        xImageView.image = UIImage(systemName: "xmark")
-        xImageView.tintColor = .black
+        xImageView.do {
+            $0.image = UIImage(systemName: "xmark")
+            $0.tintColor = .black
+            $0.isUserInteractionEnabled = true
+        }
     }
     
     func setCellUI(titleText: String) {

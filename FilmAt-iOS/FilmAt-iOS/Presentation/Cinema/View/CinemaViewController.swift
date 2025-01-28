@@ -110,9 +110,19 @@ private extension CinemaViewController {
         viewModel.recentSearchList.value?.removeAll()
     }
     
+    @objc
+    func xMarkBtnTapped() {
+        
+    }
+    
 }
 
 extension CinemaViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let recentSeachList = viewModel.recentSearchList.value?.reversed() ?? []
+        print(recentSeachList[indexPath.item])
+    }
     
 }
 
@@ -132,7 +142,12 @@ extension CinemaViewController: UICollectionViewDataSource {
         switch returnCinemaCollectionType(collectionView: collectionView) {
         case .recentSearch:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentSearchCollectionViewCell.cellIdentifier, for: indexPath) as! RecentSearchCollectionViewCell
-            let recentSeachList = viewModel.recentSearchList.value ?? []
+            
+            let xMarkTapGesture = UITapGestureRecognizer(target: self, action: #selector(xMarkBtnTapped))
+            cell.xImageView.addGestureRecognizer(xMarkTapGesture)
+            cell.xImageView.tag = indexPath.item
+            
+            let recentSeachList = viewModel.recentSearchList.value?.reversed() ?? []
             
             cell.setCellUI(titleText: recentSeachList[indexPath.item])
             
