@@ -69,6 +69,7 @@
 		9EC78D7C2D48D7A100248B19 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D7B2D48D7A100248B19 /* SearchView.swift */; };
 		9EC78D7F2D48E3F800248B19 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D7E2D48E3F800248B19 /* SearchTableViewCell.swift */; };
 		9EC78D812D48E45A00248B19 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D802D48E45A00248B19 /* BaseTableViewCell.swift */; };
+		9EC78D842D48FDF700248B19 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D832D48FDF700248B19 /* SearchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,7 @@
 		9EC78D7B2D48D7A100248B19 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		9EC78D7E2D48E3F800248B19 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		9EC78D802D48E45A00248B19 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		9EC78D832D48FDF700248B19 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -512,6 +514,7 @@
 		9EC78D772D48D75300248B19 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				9EC78D822D48FDE900248B19 /* ViewModel */,
 				9EC78D7D2D48E3E500248B19 /* Cell */,
 				9EC78D782D48D76F00248B19 /* View */,
 			);
@@ -533,6 +536,14 @@
 				9EC78D7E2D48E3F800248B19 /* SearchTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		9EC78D822D48FDE900248B19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EC78D832D48FDF700248B19 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -669,6 +680,7 @@
 				9EC78D6F2D47CC4000248B19 /* TodayMovieCollectionViewCell.swift in Sources */,
 				9EC78D5B2D4750F900248B19 /* ProfileImageView.swift in Sources */,
 				9EC78D722D47D94200248B19 /* CinemaViewModel.swift in Sources */,
+				9EC78D842D48FDF700248B19 /* SearchViewModel.swift in Sources */,
 				9E61BB472D4526B7007B6910 /* NetworkResultType.swift in Sources */,
 				9E61BB0F2D451C1F007B6910 /* UIAlertManager.swift in Sources */,
 				9E61BB092D451B9A007B6910 /* Config.swift in Sources */,

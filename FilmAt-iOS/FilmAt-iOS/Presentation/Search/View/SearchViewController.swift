@@ -10,9 +10,13 @@ import UIKit
 final class SearchViewController: BaseViewController {
     
     let dummy = ["미스터리", "다큐멘터리", "모험"]
+    private let viewModel: SearchViewModel
+    
     private let searchView = SearchView()
     
-    init() {
+    init(viewModel: SearchViewModel) {
+        self.viewModel = viewModel
+        
         super.init(navTitle: "영화 검색", navLeftBtnType: .pop)
     }
     
@@ -24,6 +28,7 @@ final class SearchViewController: BaseViewController {
         super.viewDidLoad()
 
         setDelegate()
+        setAddTarget()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -46,6 +51,19 @@ private extension SearchViewController {
         searchView.searchTableView.dataSource = self
     }
     
+    func setAddTarget() {
+        searchView.searchTextField.addTarget(self,
+                                             action: #selector(textFieldDidChange),
+                                             for: .editingChanged)
+    }
+    
+    @objc
+    func textFieldDidChange(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        print(#function, text)
+        viewModel.currentSearchText = text
+    }
+    
     @objc
     func likeBtnComponentTapped(_ sender: UIButton) {
         print(#function)
@@ -61,7 +79,17 @@ private extension SearchViewController {
 
 extension SearchViewController: UITextFieldDelegate {
     
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        switch viewModel.checkDuplicateSearchText() {
+        case true:
+            print("이전 검색어와 현재 검색어가 일치합니다.")
+        case false:
+            viewModel.getSearchData(searchText: viewModel.currentSearchText)
+        }
+        searchView.searchTextField.resignFirstResponder()
+        return true
+    }
     
 }
 
