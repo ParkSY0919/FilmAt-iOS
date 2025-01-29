@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             case true:
                 self.window?.rootViewController = TabBarController()
             case false:
-                self.window?.rootViewController = UINavigationController(rootViewController: OnBoardingViewController())
+                self.window?.rootViewController = UINavigationController(rootViewController: OnBoardingViewController()) 
             }
         }
     }

@@ -7,34 +7,44 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
+    
+    private let cinemaVC = UINavigationController(rootViewController: CinemaViewController(viewModel: CinemaViewModel()))
+    private let upcomingVC = UINavigationController(rootViewController: BaseViewController())
+    private let settingVC = UINavigationController(rootViewController: SettingViewController(viewModel: SettingViewModel()))
     
     override func viewDidLoad() {
         super.viewDidLoad ()
         
-        setTabBarControllerStyle()
-        setTabBarAppearence ()
+        setDelegate()
+        setStyle()
+        setTabBarAppearence()
     }
     
-    private func setTabBarControllerStyle() {
-        let cinemaVC = UINavigationController(rootViewController: CinemaViewController(viewModel: CinemaViewModel()))
-        cinemaVC.tabBarItem = UITabBarItem(title: "CINEMA",
-                                          image: UIImage(systemName: "popcorn"),
-                                          selectedImage: UIImage(systemName: "popcorn"))
+    private func setDelegate() {
+        self.delegate = self
+    }
+    
+    private func setStyle() {
+        cinemaVC.do {
+            $0.tabBarItem = UITabBarItem(title: "CINEMA",
+                                         image: UIImage(systemName: "popcorn"),
+                                         selectedImage: UIImage(systemName: "popcorn"))
+        }
         
-        let upcomingVC = UINavigationController(rootViewController: BaseViewController())
-        upcomingVC.tabBarItem = UITabBarItem(title: "UPCOMING",
-                                           image: UIImage(systemName: "film.stack"),
-                                           selectedImage: UIImage(systemName: "film.stack"))
+        upcomingVC.do {
+            $0.tabBarItem = UITabBarItem(title: "UPCOMING",
+                                         image: UIImage(systemName: "film.stack"),
+                                         selectedImage: UIImage(systemName: "film.stack"))
+        }
         
-        let profileVC = UINavigationController(rootViewController: BaseViewController())
-        profileVC.tabBarItem = UITabBarItem(title: "PROFILE",
-                                            image: UIImage(systemName: "person.crop.circle"),
-                                            selectedImage: UIImage(systemName: "person.crop.circle"))
+        settingVC.do {
+            $0.tabBarItem = UITabBarItem(title: "PROFILE",
+                                         image: UIImage(systemName: "person.crop.circle"),
+                                         selectedImage: UIImage(systemName: "person.crop.circle"))
+        }
         
-        
-        
-        setViewControllers([cinemaVC, upcomingVC, profileVC], animated: true)
+        setViewControllers([cinemaVC, upcomingVC, settingVC], animated: true)
         
         self.selectedIndex = 0
     }
@@ -49,3 +59,16 @@ class TabBarController: UITabBarController {
     }
     
 }
+
+extension TabBarController: UITabBarControllerDelegate {
+    
+    //탭바 아이템 선택으로인한 화면전환 시 깜빡임 방지
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let fromView = selectedViewController?.view, let toView = viewController.view, fromView != toView {
+            UIView.transition(from: fromView, to: toView, duration: 0.0, options: [], completion: nil)
+        }
+        return true
+    }
+    
+}
+

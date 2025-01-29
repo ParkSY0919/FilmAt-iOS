@@ -158,7 +158,7 @@ private extension ProfileNicknameViewController {
         print(#function, "메인화면으로 고우!")
         saveUserDefaults(isPushType: true)
         
-        viewTransition(viewController: TabBarController(), transitionStyle: .pushWithRootVC)
+        viewTransition(viewController: TabBarController(), transitionStyle: .resetRootVCwithoutNav)
     }
     
 }

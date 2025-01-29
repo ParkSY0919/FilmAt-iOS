@@ -80,7 +80,9 @@ final class ProfileBox: BaseView {
         nicknameLabel.setLabelUI(nickname, font: .filmAtFont(.title_bold_16), textColor: .title)
         
         let joinDate = UserDefaultsManager.shared.joinDate
-        joinDateLabel.setLabelUI("\(joinDate) 가입", font: .filmAtFont(.body_medium_12), textColor: .gray2)
+        joinDateLabel.setLabelUI("\(joinDate) 가입",
+                                 font: .filmAtFont(.body_medium_12),
+                                 textColor: .gray1)
         
         chevronImageView.do {
             $0.setImageView(image: UIImage(systemName: "chevron.right") ?? UIImage(), cornerRadius: 0)
