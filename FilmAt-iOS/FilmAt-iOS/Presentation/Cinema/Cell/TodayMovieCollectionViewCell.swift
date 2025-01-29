@@ -90,7 +90,10 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
             $0.tintColor = UIColor(resource: .point)
         }
         
-        posterImage.setImageKfDownSampling(with: imageURL, cornerRadius: 10)
+        posterImage.do {
+            $0.setImageKfDownSampling(with: imageURL, cornerRadius: 10)
+            $0.contentMode = .scaleAspectFill
+        }
         movieTitleLabel.text = title
         switch subtitle.isEmpty {
         case true:
