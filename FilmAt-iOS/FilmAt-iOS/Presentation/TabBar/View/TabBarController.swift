@@ -7,34 +7,39 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
+    
+    private let cinemaVC = UINavigationController(rootViewController: CinemaViewController(viewModel: CinemaViewModel()))
+    private let upcomingVC = UINavigationController(rootViewController: BaseViewController())
+    private let settingVC = UINavigationController(rootViewController: SettingViewController(viewModel: SettingViewModel()))
     
     override func viewDidLoad() {
         super.viewDidLoad ()
         
-        setTabBarControllerStyle()
-        setTabBarAppearence ()
+        setStyle()
+        setTabBarAppearence()
     }
     
-    private func setTabBarControllerStyle() {
-        let cinemaVC = UINavigationController(rootViewController: CinemaViewController(viewModel: CinemaViewModel()))
-        cinemaVC.tabBarItem = UITabBarItem(title: "CINEMA",
-                                          image: UIImage(systemName: "popcorn"),
-                                          selectedImage: UIImage(systemName: "popcorn"))
+    private func setStyle() {
+        cinemaVC.do {
+            $0.tabBarItem = UITabBarItem(title: "CINEMA",
+                                         image: UIImage(systemName: "popcorn"),
+                                         selectedImage: UIImage(systemName: "popcorn"))
+        }
         
-        let upcomingVC = UINavigationController(rootViewController: BaseViewController())
-        upcomingVC.tabBarItem = UITabBarItem(title: "UPCOMING",
-                                           image: UIImage(systemName: "film.stack"),
-                                           selectedImage: UIImage(systemName: "film.stack"))
+        upcomingVC.do {
+            $0.tabBarItem = UITabBarItem(title: "UPCOMING",
+                                         image: UIImage(systemName: "film.stack"),
+                                         selectedImage: UIImage(systemName: "film.stack"))
+        }
         
-        let settingVC = UINavigationController(rootViewController: SettingViewController(viewModel: SettingViewModel()))
-        settingVC.tabBarItem = UITabBarItem(title: "PROFILE",
-                                            image: UIImage(systemName: "person.crop.circle"),
-                                            selectedImage: UIImage(systemName: "person.crop.circle"))
+        settingVC.do {
+            $0.tabBarItem = UITabBarItem(title: "PROFILE",
+                                         image: UIImage(systemName: "person.crop.circle"),
+                                         selectedImage: UIImage(systemName: "person.crop.circle"))
+        }
         
-        
-        
-        setViewControllers([cinemaVC, upcomingVC, settingVC], animated: true)
+        setViewControllers([cinemaVC, upcomingVC, settingVC], animated: false)
         
         self.selectedIndex = 0
     }
@@ -49,3 +54,4 @@ class TabBarController: UITabBarController {
     }
     
 }
+

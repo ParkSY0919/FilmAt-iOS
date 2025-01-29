@@ -65,7 +65,7 @@ extension SettingViewController: UITableViewDelegate {
                 print("탈퇴 누름!")
                 //유저디폴츠 값 초기화
                 UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-                self.viewTransition(viewController: OnBoardingViewController(), transitionStyle: .pushWithRootVC)
+                self.viewTransition(viewController: OnBoardingViewController(), transitionStyle: .resetRootVCwithNav)
             }
             let alert = UIAlertManager.showAlertWithAction(title: "탈퇴하기",
                                                            message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?",
