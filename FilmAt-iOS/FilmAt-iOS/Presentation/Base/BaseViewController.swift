@@ -84,11 +84,16 @@ class BaseViewController: UIViewController {
         case .push:
             self.navigationController?.pushViewController(viewController, animated: true)
         case .pushWithRootVC:
-            guard let windowScene =  UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                  let window = windowScene.windows.first
-            else { return }
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = windowScene.windows.first else { return }
 
-            window.rootViewController = UINavigationController(rootViewController: viewController)
+            let newRootVC = UINavigationController(rootViewController: viewController)
+
+            UIView.transition(with: window,
+                              duration: 0.5,
+                              options: .transitionCrossDissolve,
+                              animations: { window.rootViewController = newRootVC },
+                              completion: nil)
             window.makeKeyAndVisible()
         case .present:
             return self.present(viewController, animated: true)
