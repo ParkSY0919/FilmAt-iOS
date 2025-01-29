@@ -27,14 +27,14 @@ class TabBarController: UITabBarController {
                                            image: UIImage(systemName: "film.stack"),
                                            selectedImage: UIImage(systemName: "film.stack"))
         
-        let profileVC = UINavigationController(rootViewController: BaseViewController())
-        profileVC.tabBarItem = UITabBarItem(title: "PROFILE",
+        let settingVC = UINavigationController(rootViewController: SettingViewController())
+        settingVC.tabBarItem = UITabBarItem(title: "PROFILE",
                                             image: UIImage(systemName: "person.crop.circle"),
                                             selectedImage: UIImage(systemName: "person.crop.circle"))
         
         
         
-        setViewControllers([cinemaVC, upcomingVC, profileVC], animated: true)
+        setViewControllers([cinemaVC, upcomingVC, settingVC], animated: true)
         
         self.selectedIndex = 0
     }
