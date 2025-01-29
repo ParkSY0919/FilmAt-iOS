@@ -27,7 +27,7 @@ class TabBarController: UITabBarController {
                                            image: UIImage(systemName: "film.stack"),
                                            selectedImage: UIImage(systemName: "film.stack"))
         
-        let settingVC = UINavigationController(rootViewController: SettingViewController())
+        let settingVC = UINavigationController(rootViewController: SettingViewController(viewModel: SettingViewModel()))
         settingVC.tabBarItem = UITabBarItem(title: "PROFILE",
                                             image: UIImage(systemName: "person.crop.circle"),
                                             selectedImage: UIImage(systemName: "person.crop.circle"))

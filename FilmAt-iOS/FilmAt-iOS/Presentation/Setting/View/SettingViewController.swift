@@ -9,9 +9,13 @@ import UIKit
 
 final class SettingViewController: BaseViewController {
     
+    private var viewModel: SettingViewModel
+    
     let settingView = SettingView()
     
-    init() {
+    init(viewModel: SettingViewModel) {
+        self.viewModel = viewModel
+        
         super.init(navTitle: "설정")
     }
     
@@ -22,6 +26,7 @@ final class SettingViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setDelegate()
         setAddTarget()
     }
 
@@ -29,10 +34,14 @@ final class SettingViewController: BaseViewController {
 
 private extension SettingViewController {
     
+    func setDelegate() {
+        settingView.settingTableView.delegate = self
+        settingView.settingTableView.dataSource = self
+    }
+    
     func setAddTarget() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileBoxTapped))
         settingView.profileBox.addGestureRecognizer(tapGesture)
-        
     }
     
     @objc
@@ -43,6 +52,29 @@ private extension SettingViewController {
             self?.settingView.profileBox.changeProfileBoxData()
         }
         viewTransition(viewController: vc, transitionStyle: .presentWithNav)
+    }
+    
+}
+
+extension SettingViewController: UITableViewDelegate {
+    
+}
+
+extension SettingViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.titleTextArr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.cellIdentifier) as! SettingTableViewCell
+        
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        let rowTitle = viewModel.titleTextArr[indexPath.row]
+        cell.configureCellUI(rowTitle: rowTitle)
+        
+        return cell
     }
     
 }
