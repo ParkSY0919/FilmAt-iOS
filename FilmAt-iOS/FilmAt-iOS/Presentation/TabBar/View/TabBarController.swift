@@ -16,8 +16,13 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad ()
         
+        setDelegate()
         setStyle()
         setTabBarAppearence()
+    }
+    
+    private func setDelegate() {
+        self.delegate = self
     }
     
     private func setStyle() {
@@ -39,7 +44,7 @@ final class TabBarController: UITabBarController {
                                          selectedImage: UIImage(systemName: "person.crop.circle"))
         }
         
-        setViewControllers([cinemaVC, upcomingVC, settingVC], animated: false)
+        setViewControllers([cinemaVC, upcomingVC, settingVC], animated: true)
         
         self.selectedIndex = 0
     }
@@ -51,6 +56,18 @@ final class TabBarController: UITabBarController {
         tabBar.standardAppearance = appearence
         tabBar.scrollEdgeAppearance = appearence
         tabBar.tintColor = UIColor(resource: .point)
+    }
+    
+}
+
+extension TabBarController: UITabBarControllerDelegate {
+    
+    //탭바 아이템 선택으로인한 화면전환 시 깜빡임 방지
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let fromView = selectedViewController?.view, let toView = viewController.view, fromView != toView {
+            UIView.transition(from: fromView, to: toView, duration: 0.0, options: [], completion: nil)
+        }
+        return true
     }
     
 }
