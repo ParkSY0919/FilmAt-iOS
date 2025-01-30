@@ -23,7 +23,7 @@ final class ProfileNicknameViewController: BaseViewController {
         if isPushType {
             super.init(navTitle: "프로필 설정", navLeftBtnType: .pop, navRightBtnType: .none)
         } else {
-            super.init(navTitle: "프로필 설정", navLeftBtnType: .dismiss, navRightBtnType: .save)
+            super.init(navTitle: "프로필 편집", navLeftBtnType: .dismiss, navRightBtnType: .save)
         }
     }
     
