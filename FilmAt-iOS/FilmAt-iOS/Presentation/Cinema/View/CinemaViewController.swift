@@ -154,10 +154,15 @@ extension CinemaViewController: UICollectionViewDelegate {
         case .todayMovie:
             let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
             
-            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title)
-            let vc = DetailViewController(viewModel: detailViewModel)
-            self.viewTransition(viewController: vc, transitionStyle: .push)
+            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title, sectionCount: DetailViewSectionType.allCases.count)
+            detailViewModel.getImageData(movieID: selectedTodayMovie.id)
             
+            detailViewModel.endDataLoading = {
+                DispatchQueue.main.async {
+                    let vc = DetailViewController(viewModel: detailViewModel)
+                    self.viewTransition(viewController: vc, transitionStyle: .push)
+                }
+            }
         }
     }
     

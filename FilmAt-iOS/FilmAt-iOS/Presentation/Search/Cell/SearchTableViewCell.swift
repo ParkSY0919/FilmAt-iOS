@@ -143,7 +143,7 @@ final class SearchTableViewCell: BaseTableViewCell {
     }
     
     func setCellUI(posterUrlPth: String, title: String, releaseDate: String) {
-        posterImageView.setImageKfDownSampling(with: posterUrlPth, cornerRadius: 8)
+        posterImageView.setImageKfDownSampling(with: posterUrlPth, loadImageType: .thumb, cornerRadius: 8)
         movieTitleLabel.text = title
         releaseDateLabel.text = releaseDate
     }

@@ -117,7 +117,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = viewModel.searchResultList[indexPath.row]
         
-        let detailViewModel = DetailViewModel(moviewTitle: row.title)
+        let detailViewModel = DetailViewModel(moviewTitle: row.title, sectionCount: DetailViewSectionType.allCases.count)
         let vc = DetailViewController(viewModel: detailViewModel)
         viewTransition(viewController: vc, transitionStyle: .push)
     }
