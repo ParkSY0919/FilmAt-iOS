@@ -78,6 +78,7 @@
 		9EC78D9A2D4B782A00248B19 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D992D4B782A00248B19 /* DetailViewController.swift */; };
 		9EC78D9C2D4B789300248B19 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D9B2D4B789300248B19 /* DetailViewModel.swift */; };
 		9EC78D9E2D4B7D2A00248B19 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D9D2D4B7D2A00248B19 /* DetailView.swift */; };
+		9EC78DA02D4B84A900248B19 /* DetailViewSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78D9F2D4B84A900248B19 /* DetailViewSectionType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -150,6 +151,7 @@
 		9EC78D992D4B782A00248B19 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		9EC78D9B2D4B789300248B19 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		9EC78D9D2D4B7D2A00248B19 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		9EC78D9F2D4B84A900248B19 /* DetailViewSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewSectionType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +286,7 @@
 				9EC78D552D47468500248B19 /* StateLabelType.swift */,
 				9EC78D752D48D53500248B19 /* CinemaCollectionViewType.swift */,
 				9EC78D852D49067200248B19 /* GenreType.swift */,
+				9EC78D9F2D4B84A900248B19 /* DetailViewSectionType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -764,6 +767,7 @@
 				9EC78D812D48E45A00248B19 /* BaseTableViewCell.swift in Sources */,
 				9EC78D422D471A0800248B19 /* DoneButtonState.swift in Sources */,
 				9E61BB2F2D451C79007B6910 /* UIButton+.swift in Sources */,
+				9EC78DA02D4B84A900248B19 /* DetailViewSectionType.swift in Sources */,
 				9E61BB162D451C48007B6910 /* BaseCollectionViewCell.swift in Sources */,
 				9E61BB172D451C48007B6910 /* BaseViewController.swift in Sources */,
 				9EC78D862D49067200248B19 /* GenreType.swift in Sources */,
