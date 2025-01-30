@@ -115,7 +115,11 @@ extension SearchViewController: UITextFieldDelegate {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(#function)
+        let row = viewModel.searchResultList[indexPath.row]
+        
+        let detailViewModel = DetailViewModel(moviewTitle: row.title)
+        let vc = DetailViewController(viewModel: detailViewModel)
+        viewTransition(viewController: vc, transitionStyle: .push)
     }
     
 }

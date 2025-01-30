@@ -144,8 +144,8 @@ extension CinemaViewController: UICollectionViewDelegate {
             viewModel.getSearchData(recentSearchText: recentSeachText) { result in
                 searchViewModel.searchResultList = result
                 searchViewModel.currentSearchText = recentSeachText
-                searchViewModel.searchAPIResult.value = true 
-
+                searchViewModel.searchAPIResult.value = true
+                
                 DispatchQueue.main.async {
                     let vc = SearchViewController(viewModel: searchViewModel)
                     self.viewTransition(viewController: vc, transitionStyle: .push)
@@ -154,8 +154,10 @@ extension CinemaViewController: UICollectionViewDelegate {
         case .todayMovie:
             let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
             
-            //추후 detail화면으로 변경
-            viewTransition(viewController: OnBoardingViewController(), transitionStyle: .push)
+            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title)
+            let vc = DetailViewController(viewModel: detailViewModel)
+            self.viewTransition(viewController: vc, transitionStyle: .push)
+            
         }
     }
     
