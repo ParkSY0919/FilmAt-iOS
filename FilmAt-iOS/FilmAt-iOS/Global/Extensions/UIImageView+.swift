@@ -21,8 +21,14 @@ extension UIImageView {
     }
     
     //Downsampling 기능 활용하여 메모리 누수 방지
-    func setImageKfDownSampling(with urlString: String, cornerRadius: Int) {
-        let url = "https://image.tmdb.org/t/p/w300" + urlString
+    func setImageKfDownSampling(with urlString: String, loadImageType: LoadImageType, cornerRadius: Int) {
+        var url = ""
+        switch loadImageType {
+        case .thumb:
+            url = "https://image.tmdb.org/t/p/w300" + urlString
+        case .original:
+            url = "https://image.tmdb.org/t/p/original" + urlString
+        }
         let processor = DownsamplingImageProcessor(size: self.bounds.size)
         self.kf.indicatorType = .activity
         self.kf.setImage(
