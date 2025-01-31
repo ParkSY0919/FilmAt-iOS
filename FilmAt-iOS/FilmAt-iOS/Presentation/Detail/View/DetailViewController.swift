@@ -62,6 +62,7 @@ private extension DetailViewController {
     
 }
 
+//추후 삭제
 extension DetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -158,17 +159,16 @@ extension DetailViewController: UICollectionViewDataSource {
         case .cast:
             return 2
         case .poster:
-            return 2
+            guard let posterCnt = viewModel.imageResponseData?.posters.count else {return 0}
+            return posterCnt
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = viewModel.imageResponseData?.backdrops[indexPath.item]
-        
         switch viewModel.sectionTypes[indexPath.section] {
         case .backDrop:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
-            
+            let item = viewModel.imageResponseData?.backdrops[indexPath.item]
             guard let backDropCnt = viewModel.imageResponseData?.backdrops.count else {return UICollectionViewCell()}
             
             switch backDropCnt == 0 {
@@ -191,7 +191,10 @@ extension DetailViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
             return cell
         case .poster:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.cellIdentifier, for: indexPath) as! PosterCollectionViewCell
+            let item = viewModel.imageResponseData?.posters[indexPath.item]
+            
+            cell.configurePosterCell(imageUrlPath: item?.filePath)
             return cell
         }
     }

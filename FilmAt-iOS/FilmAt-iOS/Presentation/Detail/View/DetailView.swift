@@ -21,7 +21,8 @@ final class DetailView: BaseView {
     
     override func setLayout() {
         collectionView.snp.makeConstraints {
-            $0.edges.equalTo(safeAreaLayoutGuide)
+            $0.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview().inset(5)
         }
     }
     
@@ -29,12 +30,15 @@ final class DetailView: BaseView {
         collectionView.do {
             $0.register(BackDropCollectionViewCell.self, forCellWithReuseIdentifier: BackDropCollectionViewCell.cellIdentifier)
             $0.register(SynopsisCollectionViewCell.self, forCellWithReuseIdentifier: SynopsisCollectionViewCell.cellIdentifier)
+            $0.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.cellIdentifier)
             
             $0.register(DetailCollectionHeaderView.self, forSupplementaryViewOfKind: DetailCollectionHeaderView.elementKinds, withReuseIdentifier: DetailCollectionHeaderView.identifier)
-            
             $0.register(DetailCollectionFooterView.self, forSupplementaryViewOfKind: DetailCollectionFooterView.elementKinds, withReuseIdentifier: DetailCollectionFooterView.identifier)
+            
+            $0.backgroundColor = UIColor(resource: .background)
             $0.showsHorizontalScrollIndicator = false
             $0.showsVerticalScrollIndicator = false
+            $0.bounces = false
         }
     }
     
@@ -79,7 +83,7 @@ final class DetailView: BaseView {
             
             return section
             
-        default:
+        case .synopsis:
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
@@ -89,7 +93,7 @@ final class DetailView: BaseView {
             
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .none
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(35))
             
@@ -101,6 +105,27 @@ final class DetailView: BaseView {
             
             return section
             
+        case .cast, .poster:
+            let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .absolute(180))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 6)
+            
+            let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(1.0), heightDimension: .estimated(1.0))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 4)
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(35))
+            
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                     elementKind: DetailCollectionHeaderView.elementKinds,
+                                                                     alignment: .top)
+            
+            section.boundarySupplementaryItems = [header]
+            
+            return section
         }
     }
     

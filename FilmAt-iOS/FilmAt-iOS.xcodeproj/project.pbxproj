@@ -86,6 +86,7 @@
 		9EC78DAC2D4BA7EB00248B19 /* DetailCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78DAB2D4BA7EB00248B19 /* DetailCollectionHeaderView.swift */; };
 		9EC78DAE2D4BE14A00248B19 /* LoadImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC78DAD2D4BE14A00248B19 /* LoadImageType.swift */; };
 		9EC790E12D4D325300248B19 /* DetailMovieInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC790E02D4D322600248B19 /* DetailMovieInfoModel.swift */; };
+		9EC790E32D4D429800248B19 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC790E22D4D429800248B19 /* PosterCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,6 +167,7 @@
 		9EC78DAB2D4BA7EB00248B19 /* DetailCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionHeaderView.swift; sourceTree = "<group>"; };
 		9EC78DAD2D4BE14A00248B19 /* LoadImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageType.swift; sourceTree = "<group>"; };
 		9EC790E02D4D322600248B19 /* DetailMovieInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMovieInfoModel.swift; sourceTree = "<group>"; };
+		9EC790E22D4D429800248B19 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -643,6 +645,7 @@
 			children = (
 				9EC78DA72D4BA5BA00248B19 /* BackDropCollectionViewCell.swift */,
 				9EC78DA92D4BA7A600248B19 /* SynopsisCollectionViewCell.swift */,
+				9EC790E22D4D429800248B19 /* PosterCollectionViewCell.swift */,
 				9EC78DA32D4B928A00248B19 /* HeaderView */,
 				9EC78DA42D4B929400248B19 /* FooterView */,
 			);
@@ -794,6 +797,7 @@
 				9EC78DAE2D4BE14A00248B19 /* LoadImageType.swift in Sources */,
 				9EC78D6A2D479E6F00248B19 /* CinemaView.swift in Sources */,
 				9EC78D462D471A9100248B19 /* ProfileNicknameViewController.swift in Sources */,
+				9EC790E32D4D429800248B19 /* PosterCollectionViewCell.swift in Sources */,
 				9EC78D9E2D4B7D2A00248B19 /* DetailView.swift in Sources */,
 				9E61BB362D451D72007B6910 /* UIImageView+.swift in Sources */,
 				9EC78D392D45551A00248B19 /* CreditResponseModel.swift in Sources */,

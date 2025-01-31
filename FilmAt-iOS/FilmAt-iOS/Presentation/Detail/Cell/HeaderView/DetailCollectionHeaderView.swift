@@ -36,12 +36,12 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
     
     private func setLayout() {
         headerTitleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(10)
+            $0.leading.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-4)
         }
         
         moreButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(10)
+            $0.trailing.equalToSuperview()
             $0.bottom.equalTo(headerTitleLabel.snp.bottom).offset(6)
         }
     }
