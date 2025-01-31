@@ -17,6 +17,7 @@ final class DetailViewModel {
     let sectionHeaderTitles = ["", "Synopsis", "Cast", "Poster"]
     var synopsisNumberOfLines = 3
     var endDataLoading: (() -> Void)?
+    var imageResponseData: ImageResponseModel?
     
     init(moviewTitle: String, sectionCount: Int, detailMovieInfoModel: DetailMovieInfoModel) {
         self.moviewTitle = moviewTitle
@@ -25,7 +26,8 @@ final class DetailViewModel {
     }
     
     var isMoreState: ObservablePattern<Bool> = ObservablePattern(true)
-    var imageResponseData: ImageResponseModel?
+    var isTextTruncated: ObservablePattern<Bool> = ObservablePattern(nil)
+    
 }
 
 extension DetailViewModel {

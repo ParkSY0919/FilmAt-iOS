@@ -12,7 +12,7 @@ import Then
 
 final class SynopsisCollectionViewCell: BaseCollectionViewCell {
     
-    private let contentLabel = UILabel()
+    let contentLabel = UILabel()
     
     override func setHierarchy() {
         contentView.addSubview(contentLabel)
@@ -31,7 +31,8 @@ final class SynopsisCollectionViewCell: BaseCollectionViewCell {
         contentLabel.setLabelUI("contentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabel", font: .filmAtFont(.body_medium_12), textColor: .title, numberOfLines: 3)
     }
     
-    func configureCell(numberOfLines: Int) {
+    func configureCell(contentText: String, numberOfLines: Int) {
+        contentLabel.text = contentText
         contentLabel.numberOfLines = numberOfLines
     }
     

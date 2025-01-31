@@ -50,6 +50,14 @@ private extension DetailViewController {
                 }
             }
         }
+        
+        viewModel.isTextTruncated.bind { [weak self] flag in
+            DispatchQueue.main.async {
+                UIView.performWithoutAnimation {
+                    self?.detailView.collectionView.reloadSections(IndexSet(integer: 0))
+                }
+            }
+        }
     }
     
 }
@@ -125,8 +133,12 @@ extension DetailViewController: UICollectionViewDelegate {
             
             header.viewModel = self.viewModel
             
-            let isMoreHidden: Bool = (indexPath.section != 1)
+            var isMoreHidden: Bool = (indexPath.section != 1)
+            if indexPath.section == 1 {
+                isMoreHidden = !(viewModel.isTextTruncated.value ?? false)
+            }
             header.configureHeaderView(headerTitle: viewModel.sectionHeaderTitles[indexPath.section], isMoreHidden: isMoreHidden)
+            
             
             return header
         }
@@ -170,6 +182,10 @@ extension DetailViewController: UICollectionViewDataSource {
         case .synopsis:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SynopsisCollectionViewCell.cellIdentifier, for: indexPath) as! SynopsisCollectionViewCell
             cell.configureCell(contentText: viewModel.detailMovieInfoModel.overview, numberOfLines: viewModel.synopsisNumberOfLines)
+            DispatchQueue.main.async {
+                print("텍스트 잘림 여부:", cell.contentLabel.isTruncated)
+                self.viewModel.isTextTruncated.value = cell.contentLabel.isTruncated
+            }
             return cell
         case .cast:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
