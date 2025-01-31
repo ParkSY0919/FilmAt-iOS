@@ -13,15 +13,27 @@ import Then
 final class BackDropCollectionViewCell: BaseCollectionViewCell {
     
     private let imageView = UIImageView()
+    let pageControl = UIPageControl()
+    
+    override func prepareForReuse() {
+        imageView.image = nil
+    }
     
     override func setHierarchy() {
         contentView.addSubview(imageView)
+        
+        imageView.addSubview(pageControl)
     }
     
     override func setLayout() {
         imageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
             $0.height.equalTo(0).priority(.low)
+        }
+        
+        pageControl.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-8)
+            $0.centerX.equalToSuperview()
         }
     }
     
@@ -31,15 +43,26 @@ final class BackDropCollectionViewCell: BaseCollectionViewCell {
             $0.layer.borderWidth = 0
             $0.contentMode = .scaleAspectFill
         }
+        
+        pageControl.do {
+            $0.currentPageIndicatorTintColor = UIColor(resource: .title)
+            $0.pageIndicatorTintColor = UIColor(resource: .gray1)
+            $0.currentPage = 0
+            //page개수 1개일 때 숨기기
+            $0.hidesForSinglePage = true
+        }
     }
     
-    func configureBackDropCell(imageUrlPath: String) {
-        imageView.setImageKfDownSampling(with: imageUrlPath, loadImageType: .original, cornerRadius: 0)
-        imageView.do {
-            $0.layer.borderWidth = 0
-            $0.contentMode = .scaleAspectFill
-        }
-        
+    func configureBackDropCell(imageUrlPath: String, backDropImageCnt: Int) {
+        print(#function, "imageUrlPath : \(imageUrlPath)")
+        imageView.setImageKfDownSampling(with: imageUrlPath,
+                                            loadImageType: .original,
+                                            cornerRadius: 0)
+        pageControl.numberOfPages = backDropImageCnt
+    }
+    
+    func updatePageControl(currentPage: Int) {
+        pageControl.currentPage = currentPage
     }
     
 }

@@ -33,6 +33,8 @@ final class DetailView: BaseView {
             $0.register(DetailCollectionHeaderView.self, forSupplementaryViewOfKind: DetailCollectionHeaderView.elementKinds, withReuseIdentifier: DetailCollectionHeaderView.identifier)
             
             $0.register(DetailCollectionFooterView.self, forSupplementaryViewOfKind: DetailCollectionFooterView.elementKinds, withReuseIdentifier: DetailCollectionFooterView.identifier)
+            $0.showsHorizontalScrollIndicator = false
+            $0.showsVerticalScrollIndicator = false
         }
     }
     
@@ -64,7 +66,7 @@ final class DetailView: BaseView {
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .continuous
+            section.orthogonalScrollingBehavior = .paging
             section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             
             let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40))

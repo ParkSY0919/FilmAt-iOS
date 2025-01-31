@@ -329,13 +329,13 @@
 		9E61BAFD2D451988007B6910 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				9EC78D952D4B780600248B19 /* Detail */,
 				9E61BB142D451C48007B6910 /* Base */,
 				9E61BB012D451A79007B6910 /* OnBoarding */,
 				9E61BB002D451A71007B6910 /* TabBar */,
 				9EC78D432D471A5B00248B19 /* Profile */,
 				9EC78D632D47960100248B19 /* Cinema */,
 				9EC78D772D48D75300248B19 /* Search */,
+				9EC78D952D4B780600248B19 /* Detail */,
 				9EC78D872D49D44100248B19 /* Setting */,
 			);
 			path = Presentation;

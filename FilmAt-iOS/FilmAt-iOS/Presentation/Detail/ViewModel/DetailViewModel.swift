@@ -32,7 +32,6 @@ extension DetailViewModel {
         NetworkManager.shared.getTMDBAPI(apiHandler: .getImageAPI(movieID: movieID), responseModel: ImageResponseModel.self) { result, resultType in
             switch resultType {
             case .success:
-                print("result!!!: \(result)")
                 self.imageResponseData = result
                 self.endDataLoading?()
             case .badRequest:
