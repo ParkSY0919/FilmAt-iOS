@@ -15,6 +15,7 @@ final class SearchViewModel {
     var currentSearchText = ""
     var page = 1
     var isEnd = false
+    var likeMovieListDic = [String: Bool]()
     
     var searchResultList: [SearchResult] = []
     var searchAPIResult: ObservablePattern<Bool> = ObservablePattern(nil)

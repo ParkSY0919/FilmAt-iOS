@@ -96,10 +96,15 @@ private extension SearchViewController {
     @objc
     func likeBtnComponentTapped(_ sender: UIButton) {
         print(#function)
+        let movieID = String(sender.tag)
         switch sender.isSelected {
         case true:
+            viewModel.likeMovieListDic[movieID] = nil
+            UserDefaultsManager.shared.likeMovieListDic = viewModel.likeMovieListDic
             sender.isSelected = false
         case false:
+            viewModel.likeMovieListDic[movieID] = true
+            UserDefaultsManager.shared.likeMovieListDic = viewModel.likeMovieListDic
             sender.isSelected = true
         }
     }
@@ -179,7 +184,6 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.cellIdentifier, for: indexPath) as! SearchTableViewCell
-        cell.likeBtnComponent.likeButton.addTarget(self, action: #selector(likeBtnComponentTapped), for: .touchUpInside)
         
         let item = viewModel.searchResultList[indexPath.item]
         
@@ -187,10 +191,20 @@ extension SearchViewController: UITableViewDataSource {
         let title = item.title
         guard let date = item.releaseDate,
               let genreIDs = item.genreIDS else {return UITableViewCell()}
-        
         let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
+        
         cell.setCellUI(posterUrlPth: posterUrlPath, title: title, releaseDate: releaseDate)
         cell.setGenreUI(genreArr: genreIDs)
+        
+        let likeMovieList = viewModel.likeMovieListDic
+        print("likeMovieList : \(likeMovieList)")
+        for i in likeMovieList {
+            if i.key == String(item.id) && i.value {
+                cell.likeBtnComponent.likeButton.isSelected = true
+            }
+        }
+        cell.likeBtnComponent.likeButton.tag = item.id
+        cell.likeBtnComponent.likeButton.addTarget(self, action: #selector(likeBtnComponentTapped), for: .touchUpInside)
         
         return cell
     }
