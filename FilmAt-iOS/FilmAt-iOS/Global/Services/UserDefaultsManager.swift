@@ -85,6 +85,7 @@ final class UserDefaultsManager {
         }
     }
     
+    //요런걸 써도 곧바로 저장되지는 않는상황
     private func saveChanges() {
         UserDefaults.standard.setPersistentDomain(UserDefaults.standard.persistentDomain(forName: Bundle.main.bundleIdentifier!) ?? [:], forName: Bundle.main.bundleIdentifier!)
     }
