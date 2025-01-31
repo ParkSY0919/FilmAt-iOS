@@ -153,8 +153,14 @@ extension CinemaViewController: UICollectionViewDelegate {
             }
         case .todayMovie:
             let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
+            guard let date = selectedTodayMovie.releaseDate,
+                  let genreIDs = selectedTodayMovie.genreIDS else { return }
             
-            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title, sectionCount: DetailViewSectionType.allCases.count)
+            let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
+            let genreIDsStrArr = GenreType.returnGenreName(from: genreIDs) ?? ["실패"]
+            let voteAverage = selectedTodayMovie.voteAverage ?? Double(0.0)
+            
+            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr))
             detailViewModel.getImageData(movieID: selectedTodayMovie.id)
             
             detailViewModel.endDataLoading = {

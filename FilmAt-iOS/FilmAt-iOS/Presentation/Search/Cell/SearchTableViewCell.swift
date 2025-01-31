@@ -102,10 +102,11 @@ final class SearchTableViewCell: BaseTableViewCell {
     func setGenreUI(genreArr: [Int]) {
         let genreViewARR = [firstGenreView, secondGenreView]
         let genreLabelArr = [firstGenreLabel, secondGenreLabel]
+        let genreIDsStrArr = GenreType.returnGenreName(from: genreArr) ?? ["실패"]
         
         for i in 0..<genreArr.count {
             if i == 2 { break }
-            let genreText = GenreType(rawValue: genreArr[i])?.name ?? "실패"
+            let genreText = genreIDsStrArr[i]
             
             genreLabelArr[i].setLabelUI(genreText,
                                         font: .filmAtFont(.body_bold_12),

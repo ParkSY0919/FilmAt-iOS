@@ -107,7 +107,11 @@ extension DetailViewController: UICollectionViewDelegate {
                                                                                withReuseIdentifier: DetailCollectionFooterView.identifier,
                                                                                for: indexPath) as? DetailCollectionFooterView
             else { return UICollectionReusableView() }
+            
+            
+//            let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
             footer.configureFooterView(date: "2888.88.88", rating: "8.0", genres: "액선, 스릴러")
+            
             
             return footer
         default:

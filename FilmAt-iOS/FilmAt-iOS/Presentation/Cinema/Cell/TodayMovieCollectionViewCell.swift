@@ -84,7 +84,7 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func setTodayMovieCellUI(imageURL: String, title: String, subtitle: String) {
+    func setTodayMovieCellUI(imageURL: String?, title: String, subtitle: String) {
         likeBtnComponent.likeButton.do {
             $0.setImage(UIImage(systemName: "heart"), for: .normal)
             $0.tintColor = UIColor(resource: .point)

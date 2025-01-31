@@ -11,15 +11,17 @@ final class DetailViewModel {
     
     let moviewTitle: String
     let sectionCount: Int
+    let detailMovieInfoModel: DetailMovieInfoModel
+    
     let sectionTypes = DetailViewSectionType.allCases
     let sectionHeaderTitles = ["", "Synopsis", "Cast", "Poster"]
     var synopsisNumberOfLines = 3
     var endDataLoading: (() -> Void)?
     
-    init(moviewTitle: String, sectionCount: Int) {
+    init(moviewTitle: String, sectionCount: Int, detailMovieInfoModel: DetailMovieInfoModel) {
         self.moviewTitle = moviewTitle
         self.sectionCount = sectionCount
-        print(moviewTitle, sectionCount)
+        self.detailMovieInfoModel = detailMovieInfoModel
     }
     
     var isMoreState: ObservablePattern<Bool> = ObservablePattern(true)

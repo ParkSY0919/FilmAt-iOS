@@ -116,8 +116,15 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = viewModel.searchResultList[indexPath.row]
+        guard let date = row.releaseDate,
+              let genreIDs = row.genreIDS else { return }
         
-        let detailViewModel = DetailViewModel(moviewTitle: row.title, sectionCount: DetailViewSectionType.allCases.count)
+        let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
+        let genreIDsStrArr = GenreType.returnGenreName(from: genreIDs) ?? ["실패"]
+        let voteAverage = row.voteAverage ?? Double(0.0)
+        
+        let detailViewModel = DetailViewModel(moviewTitle: row.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr))
+        
         detailViewModel.getImageData(movieID: row.id)
         
         detailViewModel.endDataLoading = {
@@ -145,8 +152,8 @@ extension SearchViewController: UITableViewDataSource {
         let posterUrlPath = item.posterPath ?? ""
         let title = item.title
         guard let date = item.releaseDate,
-              let genreIDs = item.genreIDS
-        else {return UITableViewCell()}
+              let genreIDs = item.genreIDS else {return UITableViewCell()}
+        
         let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
         cell.setCellUI(posterUrlPth: posterUrlPath, title: title, releaseDate: releaseDate)
         cell.setGenreUI(genreArr: genreIDs)
