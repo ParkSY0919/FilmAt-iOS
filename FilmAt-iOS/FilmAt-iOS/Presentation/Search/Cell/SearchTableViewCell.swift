@@ -78,7 +78,8 @@ final class SearchTableViewCell: BaseTableViewCell {
         }
         
         likeBtnComponent.snp.makeConstraints {
-            $0.trailing.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(6)
             $0.size.equalTo(30)
         }
     }
