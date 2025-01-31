@@ -19,6 +19,11 @@ class BaseCollectionViewCell: UICollectionViewCell {
         setHierarchy()
         setLayout()
         setStyle()
+        baseSetup()
+    }
+    
+    private func baseSetup() {
+        self.backgroundColor = UIColor(resource: .background)
     }
     
     func setHierarchy() {}
