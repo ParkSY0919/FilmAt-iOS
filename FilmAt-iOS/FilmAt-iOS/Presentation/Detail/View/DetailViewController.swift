@@ -108,9 +108,13 @@ extension DetailViewController: UICollectionViewDelegate {
                                                                                for: indexPath) as? DetailCollectionFooterView
             else { return UICollectionReusableView() }
             
+            let date = viewModel.detailMovieInfoModel.releaseDate
+            let rating = String(viewModel.detailMovieInfoModel.voteAverage)
+            var genres = viewModel.detailMovieInfoModel.genreIDs
+            genres = genres.filter { $0 == genres[0] || $0 == genres[1] }
+            let genresStr = genres.joined(separator: ", ")    
             
-//            let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
-            footer.configureFooterView(date: "2888.88.88", rating: "8.0", genres: "액선, 스릴러")
+            footer.configureFooterView(date: date, rating: rating, genres: genresStr)
             
             
             return footer
