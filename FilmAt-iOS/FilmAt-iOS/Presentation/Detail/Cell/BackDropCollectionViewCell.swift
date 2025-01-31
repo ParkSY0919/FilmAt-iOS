@@ -16,6 +16,8 @@ final class BackDropCollectionViewCell: BaseCollectionViewCell {
     let pageControl = UIPageControl()
     
     override func prepareForReuse() {
+        super.prepareForReuse()
+        
         imageView.image = nil
     }
     

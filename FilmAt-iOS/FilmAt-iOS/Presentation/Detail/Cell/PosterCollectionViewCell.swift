@@ -15,6 +15,8 @@ final class PosterCollectionViewCell: BaseCollectionViewCell {
     let imageView = UIImageView()
     
     override func prepareForReuse() {
+        super.prepareForReuse()
+        
         imageView.image = nil
     }
     
