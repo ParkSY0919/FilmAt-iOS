@@ -113,10 +113,7 @@ private extension CinemaViewController {
     func recentSearchResetBtnTapped() {
         print(#function)
         viewModel.recentSearchList.value?.removeAll()
-        //다른건 다 바꾸고 곧바로 재시작해도 반영되는데 이 친구만 조금 텀을 둬야하는 이유가 뭘까
-        DispatchQueue.global().async {
-            UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
-        }
+        UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
         //UserDefaults.standard.synchronize() //역시 이건 효과 없군.
         print("UserDefaultsManager.shared.recentSearchList : \(UserDefaultsManager.shared.recentSearchList)")
     }
@@ -125,9 +122,7 @@ private extension CinemaViewController {
     func xMarkBtnTapped(_ sender: UIButton) {
         print(#function, "sender.tag : \(sender.tag)")
         viewModel.recentSearchList.value?.remove(at: sender.tag)
-        DispatchQueue.global().async {
-            UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
-        }
+        UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
         print("UserDefaultsManager.shared.recentSearchList : \(UserDefaultsManager.shared.recentSearchList)")
     }
     

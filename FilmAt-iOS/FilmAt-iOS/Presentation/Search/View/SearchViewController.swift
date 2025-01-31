@@ -113,12 +113,11 @@ extension SearchViewController: UITextFieldDelegate {
         case true:
             print("이전 검색어와 현재 검색어가 일치합니다.")
         case false:
-            DispatchQueue.global().async {
-                var list = self.viewModel.cinemaRecentSearchList?.reversed() ?? []
-                list.append(self.viewModel.currentSearchText)
-                UserDefaultsManager.shared.recentSearchList = list.reversed()
-                self.viewModel.cinemaRecentSearchList = list.reversed()
-            }
+            var list = self.viewModel.cinemaRecentSearchList?.reversed() ?? []
+            list.append(self.viewModel.currentSearchText)
+            UserDefaultsManager.shared.recentSearchList = list.reversed()
+            self.viewModel.cinemaRecentSearchList = list.reversed()
+            
             viewModel.resetSearchListWithPage()
             
             viewModel.getSearchData(searchText: viewModel.currentSearchText, page: viewModel.page)

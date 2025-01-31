@@ -114,20 +114,15 @@ private extension ProfileNicknameViewController {
             let image = profileNicknameView.profileImageView.image
             let joinDate = DateFormatterManager.shard.setDateStringFromDate(date: Date(), format: "yy.MM.dd")
             
-            DispatchQueue.global().async {
                 UserDefaultsManager.shared.nickname = text
                 UserDefaultsManager.shared.profileImage = image ?? UIImage()
                 UserDefaultsManager.shared.isNotFirstLoading = true
                 UserDefaultsManager.shared.joinDate = joinDate
-            }
         case false:
             guard let text = profileNicknameView.nicknameTextField.text else { return }
             let image = profileNicknameView.profileImageView.image
-            DispatchQueue.global().async {
                 UserDefaultsManager.shared.nickname = text
                 UserDefaultsManager.shared.profileImage = image ?? UIImage()
-            }
-            
         }
     }
     
