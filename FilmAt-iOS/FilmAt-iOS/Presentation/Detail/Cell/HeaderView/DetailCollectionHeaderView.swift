@@ -47,8 +47,6 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
     }
     
     private func setStyle() {
-        self.backgroundColor = UIColor.brown
-        
         headerTitleLabel.setLabelUI("headerTitleLabel", font: .filmAtFont(.title_heavy_16), textColor: .title)
         
         moreButton.do {
