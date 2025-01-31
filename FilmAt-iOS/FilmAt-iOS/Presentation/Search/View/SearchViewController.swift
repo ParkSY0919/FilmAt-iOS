@@ -118,8 +118,14 @@ extension SearchViewController: UITableViewDelegate {
         let row = viewModel.searchResultList[indexPath.row]
         
         let detailViewModel = DetailViewModel(moviewTitle: row.title, sectionCount: DetailViewSectionType.allCases.count)
-        let vc = DetailViewController(viewModel: detailViewModel)
-        viewTransition(viewController: vc, transitionStyle: .push)
+        detailViewModel.getImageData(movieID: row.id)
+        
+        detailViewModel.endDataLoading = {
+            DispatchQueue.main.async {
+                let vc = DetailViewController(viewModel: detailViewModel)
+                self.viewTransition(viewController: vc, transitionStyle: .push)
+            }
+        }
     }
     
 }
