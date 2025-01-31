@@ -854,6 +854,7 @@
 				DEVELOPMENT_TEAM = A95XXD5WT7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FilmAt-iOS/Global/Settings/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "FilmAt 박신영";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -887,6 +888,7 @@
 				DEVELOPMENT_TEAM = A95XXD5WT7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FilmAt-iOS/Global/Settings/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "FilmAt 박신영";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
