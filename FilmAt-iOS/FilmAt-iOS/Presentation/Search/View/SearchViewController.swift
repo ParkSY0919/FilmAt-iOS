@@ -22,10 +22,10 @@ final class SearchViewController: BaseViewController {
     override func loadView() {
         view = searchView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setDelegate()
         setAddTarget()
         bindViewModel()
@@ -39,7 +39,7 @@ final class SearchViewController: BaseViewController {
             searchView.searchTextField.becomeFirstResponder()
         }
     }
-
+    
 }
 
 private extension SearchViewController {
@@ -49,6 +49,7 @@ private extension SearchViewController {
         
         searchView.searchTableView.delegate = self
         searchView.searchTableView.dataSource = self
+        searchView.searchTableView.prefetchDataSource = self
     }
     
     func setAddTarget() {
@@ -59,6 +60,7 @@ private extension SearchViewController {
     
     func bindViewModel() {
         viewModel.searchAPIResult.bind { [weak self] flag in
+            print("viewModel.searchAPIResult.bind 호출 중")
             guard let flag,
                   let isEmpty = self?.viewModel.searchResultList.isEmpty
             else {return}
@@ -68,11 +70,20 @@ private extension SearchViewController {
                     self?.searchView.searchTextField.text = self?.viewModel.currentSearchText
                     self?.searchView.setHiddenUI(isEmpty: isEmpty)
                     self?.searchView.searchTableView.reloadData()
+                    if self?.viewModel.page == 1 {
+                        self?.setScrollToTop()
+                    }
                 }
             } else {
                 print("searchAPIResult.value = false")
             }
         }
+    }
+    
+    func setScrollToTop() {
+        print(#function)
+        let indexPath = NSIndexPath(row: NSNotFound, section: 0)
+        searchView.searchTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: false)
     }
     
     @objc
@@ -102,12 +113,31 @@ extension SearchViewController: UITextFieldDelegate {
         case true:
             print("이전 검색어와 현재 검색어가 일치합니다.")
         case false:
+            //CinemaView에 최근 검색어 넘겨줌
             viewModel.onChange?(viewModel.currentSearchText)
-            viewModel.getSearchData(searchText: viewModel.currentSearchText)
+            viewModel.resetSearchListWithPage()
+            
+            viewModel.getSearchData(searchText: viewModel.currentSearchText, page: viewModel.page)
         }
         self.searchView.searchTextField.resignFirstResponder()
         
         return true
+    }
+    
+}
+
+extension SearchViewController: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for i in indexPaths {
+            if (viewModel.searchResultList.count - 4) == i.item && viewModel.isEnd == false  {
+                viewModel.page += 1
+                print("추가호출")
+                viewModel.getSearchData(searchText: viewModel.currentSearchText, page: viewModel.page)
+            } else {
+                print("현재 isEnd: \(viewModel.isEnd)")
+            }
+        }
     }
     
 }

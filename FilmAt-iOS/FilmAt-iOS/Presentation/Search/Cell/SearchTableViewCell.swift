@@ -68,7 +68,7 @@ final class SearchTableViewCell: BaseTableViewCell {
         releaseDateLabel.snp.makeConstraints {
             $0.top.equalTo(movieTitleLabel.snp.bottom).offset(4)
             $0.leading.equalTo(movieTitleLabel.snp.leading)
-            $0.width.equalTo(100)
+            $0.width.equalTo(140)
         }
         
         genreContainerView.snp.makeConstraints {
@@ -147,7 +147,7 @@ final class SearchTableViewCell: BaseTableViewCell {
                                                loadImageType: .thumb,
                                                cornerRadius: 8)
         movieTitleLabel.text = title
-        releaseDateLabel.text = releaseDate
+        releaseDateLabel.text = releaseDate == "" ? "제공된 날짜가 없습니다." : releaseDate
     }
     
 }

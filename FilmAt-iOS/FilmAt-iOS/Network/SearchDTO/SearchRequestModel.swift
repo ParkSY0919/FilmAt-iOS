@@ -11,4 +11,5 @@ import Foundation
 struct SearchRequestModel: Encodable {
     let query: String
     let language: String = "ko-KR"
+    let page: Int
 }
