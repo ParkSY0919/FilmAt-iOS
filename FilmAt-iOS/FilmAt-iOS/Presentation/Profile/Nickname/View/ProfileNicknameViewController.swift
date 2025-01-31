@@ -111,21 +111,23 @@ private extension ProfileNicknameViewController {
         switch isPushType {
         case true:
             guard let text = profileNicknameView.nicknameTextField.text else { return }
-            UserDefaultsManager.shared.nickname = text
-            
             let image = profileNicknameView.profileImageView.image
-            UserDefaultsManager.shared.profileImage = image ?? UIImage()
-            
-            UserDefaultsManager.shared.isNotFirstLoading = true
-            
             let joinDate = DateFormatterManager.shard.setDateStringFromDate(date: Date(), format: "yy.MM.dd")
-            UserDefaultsManager.shared.joinDate = joinDate
+            
+            DispatchQueue.global().async {
+                UserDefaultsManager.shared.nickname = text
+                UserDefaultsManager.shared.profileImage = image ?? UIImage()
+                UserDefaultsManager.shared.isNotFirstLoading = true
+                UserDefaultsManager.shared.joinDate = joinDate
+            }
         case false:
             guard let text = profileNicknameView.nicknameTextField.text else { return }
-            UserDefaultsManager.shared.nickname = text
-            
             let image = profileNicknameView.profileImageView.image
-            UserDefaultsManager.shared.profileImage = image ?? UIImage()
+            DispatchQueue.global().async {
+                UserDefaultsManager.shared.nickname = text
+                UserDefaultsManager.shared.profileImage = image ?? UIImage()
+            }
+            
         }
     }
     

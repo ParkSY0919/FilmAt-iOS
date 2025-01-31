@@ -18,7 +18,8 @@ final class UserDefaultsManager {
             return UserDefaults.standard.bool(forKey: "isNotFirstLoading")
         }
         set {
-            return UserDefaults.standard.set(newValue, forKey: "isNotFirstLoading")
+            UserDefaults.standard.set(newValue, forKey: "isNotFirstLoading")
+            saveChanges()
         }
     }
     
@@ -27,7 +28,8 @@ final class UserDefaultsManager {
             return UserDefaults.standard.string(forKey: "nickname") ?? "no data"
         }
         set {
-            return UserDefaults.standard.set(newValue, forKey: "nickname")
+            UserDefaults.standard.set(newValue, forKey: "nickname")
+            saveChanges()
         }
     }
     
@@ -44,6 +46,7 @@ final class UserDefaultsManager {
         set {
             if let pngData = newValue.pngData() {
                 UserDefaults.standard.set(pngData, forKey: "profileImage")
+                saveChanges()
             }
         }
     }
@@ -53,7 +56,8 @@ final class UserDefaultsManager {
             return UserDefaults.standard.string(forKey: "joinDate") ?? "no data"
         }
         set {
-            return UserDefaults.standard.set(newValue, forKey: "joinDate")
+            UserDefaults.standard.set(newValue, forKey: "joinDate")
+            saveChanges()
         }
     }
     
@@ -62,8 +66,27 @@ final class UserDefaultsManager {
             return UserDefaults.standard.integer(forKey: "saveMovieCount")
         }
         set {
-            return UserDefaults.standard.set(newValue, forKey: "saveMovieCount")
+            UserDefaults.standard.set(newValue, forKey: "saveMovieCount")
+            saveChanges()
         }
+    }
+    
+    var recentSearchList: [String] {
+        get {
+            var list = [String]()
+            if let recentSearchList = UserDefaults.standard.array(forKey: "recentSearchList") as? [String] {
+                list = recentSearchList
+            }
+            return list
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "recentSearchList")
+            saveChanges()
+        }
+    }
+    
+    private func saveChanges() {
+        UserDefaults.standard.setPersistentDomain(UserDefaults.standard.persistentDomain(forName: Bundle.main.bundleIdentifier!) ?? [:], forName: Bundle.main.bundleIdentifier!)
     }
     
     private func returnImageData(UIImage value: UIImage) -> Data {

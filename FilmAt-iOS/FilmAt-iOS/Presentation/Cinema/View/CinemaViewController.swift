@@ -24,6 +24,12 @@ final class CinemaViewController: BaseViewController {
         view = cinemaView
         viewModel.getTodayMovieData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.recentSearchList.value = UserDefaultsManager.shared.recentSearchList
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +43,8 @@ final class CinemaViewController: BaseViewController {
         print(#function)
         
         let searchViewModel = SearchViewModel()
+        searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
         let vc = SearchViewController(viewModel: searchViewModel)
-        
-        searchViewModel.onChange = { [weak self] searchText in
-            var list = self?.viewModel.recentSearchList.value?.reversed() ?? []
-            list.append(searchText)
-            self?.viewModel.recentSearchList.value = list.reversed()
-        }
         viewTransition(viewController: vc, transitionStyle: .push)
     }
 
@@ -112,12 +113,22 @@ private extension CinemaViewController {
     func recentSearchResetBtnTapped() {
         print(#function)
         viewModel.recentSearchList.value?.removeAll()
+        //다른건 다 바꾸고 곧바로 재시작해도 반영되는데 이 친구만 조금 텀을 둬야하는 이유가 뭘까
+        DispatchQueue.global().async {
+            UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
+        }
+        //UserDefaults.standard.synchronize() //역시 이건 효과 없군.
+        print("UserDefaultsManager.shared.recentSearchList : \(UserDefaultsManager.shared.recentSearchList)")
     }
     
     @objc
     func xMarkBtnTapped(_ sender: UIButton) {
         print(#function, "sender.tag : \(sender.tag)")
         viewModel.recentSearchList.value?.remove(at: sender.tag)
+        DispatchQueue.global().async {
+            UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
+        }
+        print("UserDefaultsManager.shared.recentSearchList : \(UserDefaultsManager.shared.recentSearchList)")
     }
     
     @objc
@@ -194,7 +205,6 @@ extension CinemaViewController: UICollectionViewDataSource {
             
             cell.xMarkbutton.addTarget(self, action: #selector(xMarkBtnTapped), for: .touchUpInside)
             cell.xMarkbutton.tag = indexPath.item
-            
             let recentSeachList = viewModel.recentSearchList.value ?? []
             
             cell.setCellUI(titleText: recentSeachList[indexPath.item])
