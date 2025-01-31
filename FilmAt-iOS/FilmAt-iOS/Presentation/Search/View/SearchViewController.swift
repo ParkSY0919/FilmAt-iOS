@@ -93,22 +93,6 @@ private extension SearchViewController {
         viewModel.currentSearchText = text
     }
     
-    @objc
-    func likeBtnComponentTapped(_ sender: UIButton) {
-        print(#function)
-        let movieID = String(sender.tag)
-        switch sender.isSelected {
-        case true:
-            viewModel.likeMovieListDic[movieID] = nil
-            UserDefaultsManager.shared.likeMovieListDic = viewModel.likeMovieListDic
-            sender.isSelected = false
-        case false:
-            viewModel.likeMovieListDic[movieID] = true
-            UserDefaultsManager.shared.likeMovieListDic = viewModel.likeMovieListDic
-            sender.isSelected = true
-        }
-    }
-    
 }
 
 extension SearchViewController: UITextFieldDelegate {
@@ -196,15 +180,17 @@ extension SearchViewController: UITableViewDataSource {
         cell.setCellUI(posterUrlPth: posterUrlPath, title: title, releaseDate: releaseDate)
         cell.setGenreUI(genreArr: genreIDs)
         
-        let likeMovieList = viewModel.likeMovieListDic
-        print("likeMovieList : \(likeMovieList)")
-        for i in likeMovieList {
-            if i.key == String(item.id) && i.value {
-                cell.likeBtnComponent.likeButton.isSelected = true
+        cell.likeBtnComponent.configureLikeBtn(isLiked: viewModel.likeMovieListDic[String(item.id)] ?? false)
+        
+        cell.likeBtnComponent.onTapLikeButton = { [weak self] isSelected in
+            guard let self = self else { return }
+            if isSelected {
+                self.viewModel.likeMovieListDic[String(item.id)] = true
+            } else {
+                self.viewModel.likeMovieListDic[String(item.id)] = nil
             }
+            UserDefaultsManager.shared.likeMovieListDic = self.viewModel.likeMovieListDic
         }
-        cell.likeBtnComponent.likeButton.tag = item.id
-        cell.likeBtnComponent.likeButton.addTarget(self, action: #selector(likeBtnComponentTapped), for: .touchUpInside)
         
         return cell
     }
