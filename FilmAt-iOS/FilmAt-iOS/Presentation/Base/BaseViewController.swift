@@ -63,7 +63,12 @@ class BaseViewController: UIViewController {
             let navRightItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: self, action: #selector(searchBtnTapped))
             navigationItem.rightBarButtonItem = navRightItem
         case .like:
-            let navRightItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .done, target: self, action: #selector(likeBtnTapped))
+            let likeBtn = LikeButton()
+            let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 10))
+            likeBtn.frame = containerView.bounds
+            containerView.addSubview(likeBtn)
+            
+            let navRightItem = UIBarButtonItem(customView: containerView)
             navigationItem.rightBarButtonItem = navRightItem
         case .save:
             let navRightItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(saveBtnTapped))
