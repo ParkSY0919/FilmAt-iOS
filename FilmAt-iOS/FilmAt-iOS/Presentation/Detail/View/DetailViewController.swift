@@ -127,8 +127,8 @@ extension DetailViewController: UICollectionViewDataSource {
         
         switch viewModel.sectionTypes[section] {
         case .backDrop:
-            guard let backDropCnt = viewModel.imageResponseData?.backdrops.count else {return 0}
-            return backDropCnt == 0 ? 1 : backDropCnt
+            guard let backDropCnt = viewModel.imageResponseData?.backdrops.count else { return 0 }
+            return min(max(backDropCnt, 1), 5)
         case .synopsis:
             return 1
         case .cast:
@@ -136,7 +136,7 @@ extension DetailViewController: UICollectionViewDataSource {
             return castCnt
         case .poster:
             guard let posterCnt = viewModel.imageResponseData?.posters.count else {return 0}
-            return posterCnt == 0 ? 1 : posterCnt
+            return max(1, posterCnt)
         }
     }
     
@@ -145,13 +145,14 @@ extension DetailViewController: UICollectionViewDataSource {
         case .backDrop:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
             guard let backDropCnt = viewModel.imageResponseData?.backdrops.count else {return UICollectionViewCell()}
+            
             switch backDropCnt == 0 {
             case true:
                 cell.configureBackDropCell(imageUrlPath: "", backDropImageCnt: backDropCnt)
                 return cell
             case false:
                 let item = viewModel.imageResponseData?.backdrops[indexPath.item]
-                cell.configureBackDropCell(imageUrlPath: item?.filePath ?? "", backDropImageCnt: backDropCnt)
+                cell.configureBackDropCell(imageUrlPath: item?.filePath ?? "", backDropImageCnt: min(max(backDropCnt, 1), 5))
                 return cell
             }
         case .synopsis:
