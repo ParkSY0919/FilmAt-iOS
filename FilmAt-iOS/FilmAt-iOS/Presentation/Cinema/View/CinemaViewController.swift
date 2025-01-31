@@ -29,6 +29,7 @@ final class CinemaViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         viewModel.recentSearchList.value = UserDefaultsManager.shared.recentSearchList
+        viewModel.likeMovieListDic = UserDefaultsManager.shared.likeMovieListDic
     }
 
     override func viewDidLoad() {
@@ -129,10 +130,15 @@ private extension CinemaViewController {
     @objc
     func likeBtnComponentTapped(_ sender: UIButton) {
         print(#function)
+        let movieID = String(sender.tag)
         switch sender.isSelected {
         case true:
+            viewModel.likeMovieListDic[movieID] = nil
+            UserDefaultsManager.shared.likeMovieListDic = viewModel.likeMovieListDic
             sender.isSelected = false
         case false:
+            viewModel.likeMovieListDic[movieID] = true
+            UserDefaultsManager.shared.likeMovieListDic = viewModel.likeMovieListDic
             sender.isSelected = true
         }
     }
@@ -207,10 +213,19 @@ extension CinemaViewController: UICollectionViewDataSource {
             return cell
         case .todayMovie:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.cellIdentifier, for: indexPath) as! TodayMovieCollectionViewCell
+            let item = viewModel.todayMovieList[indexPath.item]
             
+            let likeMovieList = viewModel.likeMovieListDic 
+            print("likeMovieList : \(likeMovieList)")
+            for i in likeMovieList {
+                if i.key == String(item.id) && i.value {
+                    cell.likeBtnComponent.likeButton.isSelected = true
+                }
+            }
+            cell.likeBtnComponent.likeButton.tag = item.id
             cell.likeBtnComponent.likeButton.addTarget(self, action: #selector(likeBtnComponentTapped), for: .touchUpInside)
             
-            let item = viewModel.todayMovieList[indexPath.item]
+            
             
             let imageURL = item.posterPath
             let title = item.title

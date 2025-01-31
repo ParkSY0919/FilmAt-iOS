@@ -35,7 +35,7 @@ final class SearchTableViewCell: BaseTableViewCell {
         secondGenreView.backgroundColor = nil
         firstGenreLabel.text = nil
         secondGenreLabel.text = nil
-        likeBtnComponent.likeButton.setImage(nil, for: .normal)
+        likeBtnComponent.likeButton.isSelected = false
     }
 
     override func setHierarchy() {

@@ -85,6 +85,20 @@ final class UserDefaultsManager {
         }
     }
     
+    var likeMovieListDic: [String: Bool] {
+        get {
+            var list = [String: Bool]()
+            if let savedDict = UserDefaults.standard.dictionary(forKey: "likeMovieListDic") as? [String: Bool] {
+                list = savedDict
+            }
+            return list
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "likeMovieListDic")
+            saveChanges()
+        }
+    }
+    
     //요런걸 써도 곧바로 저장되지는 않는상황
     private func saveChanges() {
         UserDefaults.standard.setPersistentDomain(UserDefaults.standard.persistentDomain(forName: Bundle.main.bundleIdentifier!) ?? [:], forName: Bundle.main.bundleIdentifier!)

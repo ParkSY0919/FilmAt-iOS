@@ -12,6 +12,7 @@ final class CinemaViewModel {
     //reversed된 형태로 저장하자.
     //추후 append 필요할 시, reversed로 바꾸고, append하고 다시 reversed 적용하면됨.
     var recentSearchList: ObservablePattern<[String]> = ObservablePattern([])
+    var likeMovieListDic = [String: Bool]()
     var page = 1
     
     var todayMovieList: [TrendingResult] = []

@@ -25,7 +25,7 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         movieTitleLabel.text = nil
         subtitleLabel.text = nil
         subtitleLabel.textColor = nil
-        likeBtnComponent.likeButton.configuration?.image = nil
+        likeBtnComponent.likeButton.isSelected = false
     }
     
     override func setHierarchy() {
