@@ -62,30 +62,6 @@ private extension DetailViewController {
     
 }
 
-//추후 삭제
-extension DetailViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-            guard scrollView == detailView.collectionView else { return }
-            
-            let pageWidth = scrollView.bounds.width
-            let currentPage = Int(scrollView.contentOffset.x / pageWidth)
-            
-            // 첫 번째 섹션이 백드롭인지 확인
-            guard viewModel.sectionTypes.first == .backDrop else { return }
-            
-            // 현재 페이지의 셀 찾기
-            guard let cell = detailView.collectionView.cellForItem(at: IndexPath(item: currentPage, section: 0)) as? BackDropCollectionViewCell else { return }
-            
-            // 페이지 컨트롤 업데이트
-            cell.pageControl.currentPage = currentPage
-            
-            print("현재 페이지: \(currentPage)")
-        }
-    
-}
-
-
 extension DetailViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
