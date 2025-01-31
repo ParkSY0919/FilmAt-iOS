@@ -59,7 +59,11 @@ final class CastCollectionViewCell: BaseCollectionViewCell {
     }
     
     func configureCaseCell(imageUrlPath: String?, name: String, engName: String) {
-        imageView.setImageKfDownSampling(with: imageUrlPath, loadImageType: .thumb, cornerRadius: 25)
+        if imageUrlPath == nil {
+            imageView.setEmptyImageView(imageStr: "person.circle")
+        } else {
+            imageView.setImageKfDownSampling(with: imageUrlPath, loadImageType: .thumb, cornerRadius: 25)
+        }
         nameLabel.text = name
         engNameLabel.text = engName
     }

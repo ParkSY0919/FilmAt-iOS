@@ -160,7 +160,7 @@ extension DetailViewController: UICollectionViewDataSource {
             return castCnt
         case .poster:
             guard let posterCnt = viewModel.imageResponseData?.posters.count else {return 0}
-            return posterCnt
+            return posterCnt == 0 ? 1 : posterCnt
         }
     }
     
@@ -168,14 +168,13 @@ extension DetailViewController: UICollectionViewDataSource {
         switch viewModel.sectionTypes[indexPath.section] {
         case .backDrop:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
-            let item = viewModel.imageResponseData?.backdrops[indexPath.item]
             guard let backDropCnt = viewModel.imageResponseData?.backdrops.count else {return UICollectionViewCell()}
-            
             switch backDropCnt == 0 {
             case true:
                 cell.configureBackDropCell(imageUrlPath: "", backDropImageCnt: backDropCnt)
                 return cell
             case false:
+                let item = viewModel.imageResponseData?.backdrops[indexPath.item]
                 cell.configureBackDropCell(imageUrlPath: item?.filePath ?? "", backDropImageCnt: backDropCnt)
                 return cell
             }
@@ -196,10 +195,17 @@ extension DetailViewController: UICollectionViewDataSource {
             return cell
         case .poster:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.cellIdentifier, for: indexPath) as! PosterCollectionViewCell
-            let item = viewModel.imageResponseData?.posters[indexPath.item]
+            guard let posterCnt = viewModel.imageResponseData?.posters.count else {return UICollectionViewCell()}
+            switch posterCnt == 0 {
+            case true:
+                cell.imageView.setEmptyImageView()
+                return cell
+            case false:
+                let item = viewModel.imageResponseData?.posters[indexPath.item]
+                cell.configurePosterCell(imageUrlPath: item?.filePath)
+                return cell
+            }
             
-            cell.configurePosterCell(imageUrlPath: item?.filePath)
-            return cell
         }
     }
     

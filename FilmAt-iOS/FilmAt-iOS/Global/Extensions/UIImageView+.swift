@@ -24,7 +24,7 @@ extension UIImageView {
     //Downsampling 기능 활용하여 메모리 누수 방지
     func setImageKfDownSampling(with urlString: String?, loadImageType: LoadImageType, cornerRadius: Int) {
         var url = ""
-        switch urlString == "" {
+        switch urlString == "" || urlString == nil {
         case true:
             self.setEmptyImageView()
         case false:
@@ -53,8 +53,8 @@ extension UIImageView {
         }
     }
     
-    func setEmptyImageView() {
-        self.image = UIImage(systemName: "xmark.bin")
+    func setEmptyImageView(imageStr: String? = "xmark.bin") {
+        self.image = UIImage(systemName: imageStr ?? "xmark.bin")
         self.clipsToBounds = true
         self.contentMode = .scaleAspectFit
         self.tintColor = UIColor(resource: .gray1)
