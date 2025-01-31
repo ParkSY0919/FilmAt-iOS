@@ -144,9 +144,12 @@ extension SearchViewController: UITableViewDataSource {
         
         let posterUrlPath = item.posterPath ?? ""
         let title = item.title
-        let releaseDate = DateFormatterManager.shard.setDateString(strDate: item.releaseDate, format: "yy.MM.dd")
+        guard let date = item.releaseDate,
+              let genreIDs = item.genreIDS
+        else {return UITableViewCell()}
+        let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
         cell.setCellUI(posterUrlPth: posterUrlPath, title: title, releaseDate: releaseDate)
-        cell.setGenreUI(genreArr: item.genreIDS)
+        cell.setGenreUI(genreArr: genreIDs)
         
         return cell
     }

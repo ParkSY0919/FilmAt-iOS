@@ -20,7 +20,7 @@ final class SynopsisCollectionViewCell: BaseCollectionViewCell {
     
     override func setLayout() {
         contentLabel.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(10)
             $0.verticalEdges.equalToSuperview()
         }
     }

@@ -87,8 +87,6 @@ final class SearchTableViewCell: BaseTableViewCell {
     override func setStyle() {
         self.selectionStyle = .none
         
-        self.backgroundColor = UIColor(resource: .background)
-        
         posterImageView.setImageView(image: UIImage(resource: .profile0), cornerRadius: 10)
         
         movieTitleLabel.setLabelUI("movieTitleLabel",
