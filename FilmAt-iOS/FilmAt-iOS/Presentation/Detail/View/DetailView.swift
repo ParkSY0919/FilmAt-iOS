@@ -94,7 +94,7 @@ final class DetailView: BaseView {
             
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .none
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 10, bottom: 0, trailing: 10)
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(35))
             
@@ -122,14 +122,12 @@ final class DetailView: BaseView {
             
             let section = NSCollectionLayoutSection(group: horizontalGroup)
             section.orthogonalScrollingBehavior = .continuous
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 4)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 10, bottom: 0, trailing: 4)
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(35))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerSize,
-                elementKind: DetailCollectionHeaderView.elementKinds,
-                alignment: .top
-            )
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                     elementKind: DetailCollectionHeaderView.elementKinds,
+                                                                     alignment: .top)
             
             section.boundarySupplementaryItems = [header]
             
@@ -144,7 +142,7 @@ final class DetailView: BaseView {
             
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 4)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 10, bottom: 10, trailing: 4)
             
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(35))
             

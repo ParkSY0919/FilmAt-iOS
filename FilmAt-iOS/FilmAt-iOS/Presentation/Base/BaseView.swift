@@ -15,7 +15,7 @@ class BaseView: UIView {
         setHierarchy()
         setLayout()
         setStyle()
-        baseSetup()
+//        baseSetup()
         
     }
     
