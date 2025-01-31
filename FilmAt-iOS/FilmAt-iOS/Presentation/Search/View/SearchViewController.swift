@@ -122,8 +122,9 @@ extension SearchViewController: UITableViewDelegate {
         let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
         let genreIDsStrArr = GenreType.returnGenreName(from: genreIDs) ?? ["실패"]
         let voteAverage = row.voteAverage ?? Double(0.0)
+        let overView = row.overview
         
-        let detailViewModel = DetailViewModel(moviewTitle: row.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr))
+        let detailViewModel = DetailViewModel(moviewTitle: row.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr, overview: overView))
         
         detailViewModel.getImageData(movieID: row.id)
         

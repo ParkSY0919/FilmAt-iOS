@@ -112,10 +112,9 @@ extension DetailViewController: UICollectionViewDelegate {
             let rating = String(viewModel.detailMovieInfoModel.voteAverage)
             var genres = viewModel.detailMovieInfoModel.genreIDs
             genres = genres.filter { $0 == genres[0] || $0 == genres[1] }
-            let genresStr = genres.joined(separator: ", ")    
+            let genresStr = genres.joined(separator: ", ")
             
             footer.configureFooterView(date: date, rating: rating, genres: genresStr)
-            
             
             return footer
         default:
@@ -152,6 +151,8 @@ extension DetailViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let item = viewModel.imageResponseData?.backdrops[indexPath.item]
+        
         switch viewModel.sectionTypes[indexPath.section] {
         case .backDrop:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
@@ -163,13 +164,12 @@ extension DetailViewController: UICollectionViewDataSource {
                 cell.configureBackDropCell(imageUrlPath: "", backDropImageCnt: backDropCnt)
                 return cell
             case false:
-                let item = viewModel.imageResponseData?.backdrops[indexPath.item]
                 cell.configureBackDropCell(imageUrlPath: item?.filePath ?? "", backDropImageCnt: backDropCnt)
                 return cell
             }
         case .synopsis:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SynopsisCollectionViewCell.cellIdentifier, for: indexPath) as! SynopsisCollectionViewCell
-            cell.configureCell(numberOfLines: viewModel.synopsisNumberOfLines)
+            cell.configureCell(contentText: viewModel.detailMovieInfoModel.overview, numberOfLines: viewModel.synopsisNumberOfLines)
             return cell
         case .cast:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell

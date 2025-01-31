@@ -11,4 +11,5 @@ struct DetailMovieInfoModel {
     let releaseDate: String
     let voteAverage: Double
     let genreIDs: [String]
+    let overview: String
 }

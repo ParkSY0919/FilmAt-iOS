@@ -159,8 +159,9 @@ extension CinemaViewController: UICollectionViewDelegate {
             let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
             let genreIDsStrArr = GenreType.returnGenreName(from: genreIDs) ?? ["실패"]
             let voteAverage = selectedTodayMovie.voteAverage ?? Double(0.0)
+            let overView = selectedTodayMovie.overview
             
-            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr))
+            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr, overview: overView))
             detailViewModel.getImageData(movieID: selectedTodayMovie.id)
             
             detailViewModel.endDataLoading = {
