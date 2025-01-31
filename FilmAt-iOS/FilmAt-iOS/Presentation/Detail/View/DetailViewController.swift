@@ -90,15 +90,17 @@ extension DetailViewController: UICollectionViewDelegate {
 
 extension DetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         switch viewModel.sectionTypes[section] {
         case .backDrop:
-            viewModel.imageResponseData?.backdrops.count ?? 0
+            guard let backDropCnt = viewModel.imageResponseData?.backdrops.count else {return 0}
+            return backDropCnt == 0 ? 1 : backDropCnt
         case .synopsis:
-            1
+            return 1
         case .cast:
-            2
+            return 2
         case .poster:
-            2
+            return 2
         }
     }
     
@@ -108,9 +110,18 @@ extension DetailViewController: UICollectionViewDataSource {
         case .backDrop:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
             print("BackDropCollectionViewCell!")
-            let item = viewModel.imageResponseData?.backdrops[indexPath.item]
-            cell.configureBackDropCell(imageUrlPath: item?.filePath ?? "")
-            return cell
+            
+            guard let backDropCnt = viewModel.imageResponseData?.backdrops.count else {return UICollectionViewCell()}
+            
+            switch backDropCnt == 0 {
+            case true:
+                cell.configureBackDropCell(imageUrlPath: "")
+                return cell
+            case false:
+                let item = viewModel.imageResponseData?.backdrops[indexPath.item]
+                cell.configureBackDropCell(imageUrlPath: item?.filePath ?? "")
+                return cell
+            }
         case .synopsis:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SynopsisCollectionViewCell.cellIdentifier, for: indexPath) as! SynopsisCollectionViewCell
             cell.configureCell(numberOfLines: viewModel.synopsisNumberOfLines)

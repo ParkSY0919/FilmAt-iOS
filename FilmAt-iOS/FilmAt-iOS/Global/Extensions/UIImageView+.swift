@@ -8,6 +8,7 @@
 import UIKit
 
 import Kingfisher
+import SnapKit
 
 extension UIImageView {
     
@@ -21,29 +22,42 @@ extension UIImageView {
     }
     
     //Downsampling 기능 활용하여 메모리 누수 방지
-    func setImageKfDownSampling(with urlString: String, loadImageType: LoadImageType, cornerRadius: Int) {
+    func setImageKfDownSampling(with urlString: String?, loadImageType: LoadImageType, cornerRadius: Int) {
         var url = ""
-        switch loadImageType {
-        case .thumb:
-            url = "https://image.tmdb.org/t/p/w300" + urlString
-        case .original:
-            url = "https://image.tmdb.org/t/p/original" + urlString
+        switch urlString == "" {
+        case true:
+            self.setEmptyImageView()
+        case false:
+            guard let urlString else { return }
+            switch loadImageType {
+            case .thumb:
+                url = "https://image.tmdb.org/t/p/w300" + urlString
+            case .original:
+                url = "https://image.tmdb.org/t/p/original" + urlString
+            }
+            let processor = DownsamplingImageProcessor(size: self.bounds.size)
+            self.kf.indicatorType = .activity
+            self.kf.setImage(
+                with: URL(string: url),
+                placeholder: UIImage(named: "placeholderImage"),
+                options: [
+                    .processor(processor),
+                    .scaleFactor(UIScreen.main.scale),
+                    .transition(.fade(1)),
+                    .cacheOriginalImage
+                ]
+            )
+            self.clipsToBounds = true
+            self.contentMode = .scaleAspectFill
+            self.layer.cornerRadius = CGFloat(cornerRadius)
         }
-        let processor = DownsamplingImageProcessor(size: self.bounds.size)
-        self.kf.indicatorType = .activity
-        self.kf.setImage(
-            with: URL(string: url),
-            placeholder: UIImage(named: "placeholderImage"),
-            options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ]
-        )
+    }
+    
+    func setEmptyImageView() {
+        self.image = UIImage(systemName: "xmark.bin")
         self.clipsToBounds = true
-        self.contentMode = .scaleAspectFill
-        self.layer.cornerRadius = CGFloat(cornerRadius)
+        self.contentMode = .scaleAspectFit
+        self.tintColor = UIColor(resource: .gray1)
     }
     
 }
