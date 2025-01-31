@@ -77,6 +77,7 @@ final class SearchView: BaseView {
         
         searchTableView.do {
             $0.isHidden = true
+            $0.separatorColor = UIColor(resource: .gray1)
             $0.backgroundColor = UIColor(resource: .background)
             $0.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.cellIdentifier)
             $0.rowHeight = 120

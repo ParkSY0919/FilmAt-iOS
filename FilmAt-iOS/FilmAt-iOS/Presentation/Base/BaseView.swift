@@ -15,6 +15,12 @@ class BaseView: UIView {
         setHierarchy()
         setLayout()
         setStyle()
+//        baseSetup()
+        
+    }
+    
+    private func baseSetup() {
+        self.backgroundColor = UIColor(resource: .background)
     }
     
     func setHierarchy() {}
@@ -22,7 +28,7 @@ class BaseView: UIView {
     func setLayout() {}
     
     func setStyle() {
-        self.backgroundColor = UIColor(resource: .background)
+        
     }
     
     @available(*, unavailable)

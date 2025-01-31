@@ -84,14 +84,14 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func setTodayMovieCellUI(imageURL: String, title: String, subtitle: String) {
+    func setTodayMovieCellUI(imageURL: String?, title: String, subtitle: String) {
         likeBtnComponent.likeButton.do {
             $0.setImage(UIImage(systemName: "heart"), for: .normal)
             $0.tintColor = UIColor(resource: .point)
         }
         
         posterImage.do {
-            $0.setImageKfDownSampling(with: imageURL, cornerRadius: 10)
+            $0.setImageKfDownSampling(with: imageURL, loadImageType: .thumb, cornerRadius: 10)
             $0.contentMode = .scaleAspectFill
         }
         movieTitleLabel.text = title
@@ -106,6 +106,16 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
                 $0.text = subtitle
                 $0.textColor = UIColor(resource: .title)
             }
+        }
+    }
+    
+    func setTodayMovieCellUITest(imageURL: String, title: String, subtitle: String) {
+        
+        posterImage.setImageView(image: UIImage(systemName: imageURL) ?? UIImage(), cornerRadius: 6)
+        movieTitleLabel.text = title
+        subtitleLabel.do {
+            $0.text = subtitle
+            $0.textColor = UIColor(resource: .title)
         }
     }
     

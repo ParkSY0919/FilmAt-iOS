@@ -20,6 +20,7 @@ class BaseViewController: UIViewController {
         self.navTitle = navTitle
         self.navLeftBtnType = navLeftBtnType
         self.navRightBtnType = navRightBtnType
+        print("BaseViewController init 실행")
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -27,16 +28,13 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        baseVCNavSetting()
         setHierarchy()
         setLayout()
         setStyle()
     }
     
-    func setHierarchy() {}
-    
-    func setLayout() {}
-    
-    func setStyle() {
+    private func baseVCNavSetting() {
         navigationController?.navigationBar.tintColor = UIColor(resource: .point)
         view.backgroundColor = UIColor(resource: .background)
         
@@ -73,7 +71,14 @@ class BaseViewController: UIViewController {
         case .none:
             print("navRight Btn None")
         }
+        
     }
+    
+    func setHierarchy() {}
+    
+    func setLayout() {}
+    
+    func setStyle() {}
     
     func setChildrenViewLayout<T: BaseView>(view: T) {
         view.setLayout()
@@ -86,9 +91,9 @@ class BaseViewController: UIViewController {
         case .resetRootVCwithNav:
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                   let window = windowScene.windows.first else { return }
-
+            
             let newRootVC = UINavigationController(rootViewController: viewController)
-
+            
             UIView.transition(with: window,
                               duration: 0.5,
                               options: .transitionCrossDissolve,
@@ -98,9 +103,9 @@ class BaseViewController: UIViewController {
         case .resetRootVCwithoutNav:
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                   let window = windowScene.windows.first else { return }
-
+            
             let newRootVC = viewController
-
+            
             UIView.transition(with: window,
                               duration: 0.5,
                               options: .transitionCrossDissolve,

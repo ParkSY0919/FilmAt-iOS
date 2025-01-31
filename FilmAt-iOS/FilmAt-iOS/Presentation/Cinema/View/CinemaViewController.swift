@@ -144,8 +144,8 @@ extension CinemaViewController: UICollectionViewDelegate {
             viewModel.getSearchData(recentSearchText: recentSeachText) { result in
                 searchViewModel.searchResultList = result
                 searchViewModel.currentSearchText = recentSeachText
-                searchViewModel.searchAPIResult.value = true 
-
+                searchViewModel.searchAPIResult.value = true
+                
                 DispatchQueue.main.async {
                     let vc = SearchViewController(viewModel: searchViewModel)
                     self.viewTransition(viewController: vc, transitionStyle: .push)
@@ -153,9 +153,23 @@ extension CinemaViewController: UICollectionViewDelegate {
             }
         case .todayMovie:
             let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
+            guard let date = selectedTodayMovie.releaseDate,
+                  let genreIDs = selectedTodayMovie.genreIDS else { return }
             
-            //추후 detail화면으로 변경
-            viewTransition(viewController: OnBoardingViewController(), transitionStyle: .push)
+            let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
+            let genreIDsStrArr = GenreType.returnGenreName(from: genreIDs) ?? ["실패"]
+            let voteAverage = selectedTodayMovie.voteAverage ?? Double(0.0)
+            let overView = selectedTodayMovie.overview
+            
+            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr, overview: overView))
+            detailViewModel.getImageData(movieID: selectedTodayMovie.id)
+            
+            detailViewModel.endDataLoading = {
+                DispatchQueue.main.async {
+                    let vc = DetailViewController(viewModel: detailViewModel)
+                    self.viewTransition(viewController: vc, transitionStyle: .push)
+                }
+            }
         }
     }
     

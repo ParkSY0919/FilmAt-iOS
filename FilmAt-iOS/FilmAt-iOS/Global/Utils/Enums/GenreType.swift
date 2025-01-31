@@ -70,4 +70,13 @@ enum GenreType: Int {
             return "전쟁"
         }
     }
+    
+    static func returnGenreName(from IDs: [Int]) -> [String]? {
+        var strArr = [String]()
+        for i in IDs {
+            strArr.append(GenreType(rawValue: i)?.name ?? "실패")
+        }
+        return strArr
+    }
+    
 }

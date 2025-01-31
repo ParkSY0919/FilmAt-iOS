@@ -20,7 +20,7 @@ final class SettingTableViewCell: BaseTableViewCell {
     
     override func setLayout() {
         rowTitleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(10)
+            $0.leading.equalToSuperview().offset(12)
             $0.centerY.equalToSuperview()
         }
     }
@@ -30,7 +30,7 @@ final class SettingTableViewCell: BaseTableViewCell {
         self.backgroundColor = UIColor(resource: .background)
         
         rowTitleLabel.setLabelUI("rowTitleLabel",
-                                 font: .filmAtFont(.body_medium_14),
+                                 font: .filmAtFont(.body_regular_16),
                                  textColor: UIColor(resource: .gray2))
     }
     

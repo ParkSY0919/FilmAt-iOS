@@ -36,7 +36,7 @@ final class SettingView: BaseView {
     override func setStyle() {
         settingTableView.do {
             $0.backgroundColor = UIColor(resource: .background)
-            $0.separatorColor = .lightGray
+            $0.separatorColor = UIColor(resource: .gray1)
             $0.rowHeight = 50
             $0.separatorStyle = .singleLine
             $0.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.cellIdentifier)

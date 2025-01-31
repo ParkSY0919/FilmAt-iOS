@@ -78,15 +78,14 @@ final class SearchTableViewCell: BaseTableViewCell {
         }
         
         likeBtnComponent.snp.makeConstraints {
-            $0.trailing.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(6)
             $0.size.equalTo(30)
         }
     }
     
     override func setStyle() {
         self.selectionStyle = .none
-        
-        self.backgroundColor = UIColor(resource: .background)
         
         posterImageView.setImageView(image: UIImage(resource: .profile0), cornerRadius: 10)
         
@@ -103,10 +102,11 @@ final class SearchTableViewCell: BaseTableViewCell {
     func setGenreUI(genreArr: [Int]) {
         let genreViewARR = [firstGenreView, secondGenreView]
         let genreLabelArr = [firstGenreLabel, secondGenreLabel]
+        let genreIDsStrArr = GenreType.returnGenreName(from: genreArr) ?? ["실패"]
         
         for i in 0..<genreArr.count {
             if i == 2 { break }
-            let genreText = GenreType(rawValue: genreArr[i])?.name ?? "실패"
+            let genreText = genreIDsStrArr[i]
             
             genreLabelArr[i].setLabelUI(genreText,
                                         font: .filmAtFont(.body_bold_12),
@@ -143,7 +143,9 @@ final class SearchTableViewCell: BaseTableViewCell {
     }
     
     func setCellUI(posterUrlPth: String, title: String, releaseDate: String) {
-        posterImageView.setImageKfDownSampling(with: posterUrlPth, cornerRadius: 8)
+        posterImageView.setImageKfDownSampling(with: posterUrlPth,
+                                               loadImageType: .thumb,
+                                               cornerRadius: 8)
         movieTitleLabel.text = title
         releaseDateLabel.text = releaseDate
     }

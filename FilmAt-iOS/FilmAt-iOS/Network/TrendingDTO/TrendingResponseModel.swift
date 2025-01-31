@@ -22,18 +22,18 @@ struct TrendingResponseModel: Codable {
 
 // MARK: - TrendingResult
 struct TrendingResult: Codable {
-    let backdropPath: String
+    let backdropPath, posterPath: String?
     let id: Int
-    let title, originalTitle, overview, posterPath: String
+    let title, originalTitle, overview: String
     let mediaType: MediaType
     let adult: Bool
     let originalLanguage: String
-    let genreIDS: [Int]
-    let popularity: Double
-    let releaseDate: String
-    let video: Bool
-    let voteAverage: Double
-    let voteCount: Int
+    let genreIDS: [Int]?
+    let popularity: Double?
+    let releaseDate: String?
+    let video: Bool?
+    let voteAverage: Double?
+    let voteCount: Int?
 
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"

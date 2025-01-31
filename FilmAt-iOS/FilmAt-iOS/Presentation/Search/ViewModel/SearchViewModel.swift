@@ -33,7 +33,8 @@ extension SearchViewModel {
         NetworkManager.shared.getTMDBAPI(apiHandler: .getSearchAPI(request: request), responseModel: SearchResponseModel.self) { result, networkResultType in
             switch networkResultType {
             case .success:
-                self.searchResultList = result.results
+                //id: 1401402 예외처리
+                self.searchResultList = result.results.filter { $0.id != 1401402 }
                 self.beforeSearchText = searchText
                 self.searchAPIResult.value = true
             case .badRequest:

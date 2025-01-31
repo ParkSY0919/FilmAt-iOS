@@ -10,7 +10,7 @@ import UIKit
 enum FontName {
     case title_heavy_16
     case title_bold_16, body_bold_12
-    case body_medium_14
+    case body_medium_14, body_bold_14
     case body_medium_12
     case body_regular_16
      
@@ -18,7 +18,7 @@ enum FontName {
         switch self {
         case .title_heavy_16:
             return .heavy
-        case .body_bold_12, .title_bold_16:
+        case .body_bold_12, .body_bold_14, .title_bold_16:
             return .bold
         case .body_medium_12, .body_medium_14:
             return .medium
@@ -31,7 +31,7 @@ enum FontName {
         switch self {
         case .title_heavy_16, .title_bold_16, .body_regular_16:
             return 16
-        case .body_medium_14:
+        case .body_medium_14, .body_bold_14:
             return 14
         case .body_bold_12, .body_medium_12:
             return 12

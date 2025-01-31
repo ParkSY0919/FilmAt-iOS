@@ -8,6 +8,24 @@ import UIKit
 
 extension UILabel {
     
+    // 현재 라벨이 잘렸는지 여부
+    var isTruncated: Bool {
+        guard let text = self.text,
+              let font = self.font else { return false }
+        
+        let labelWidth = self.bounds.width
+        let labelHeight = self.bounds.height
+        
+        let textSize = (text as NSString).boundingRect(
+            with: CGSize(width: labelWidth, height: CGFloat.greatestFiniteMagnitude),
+            options: .usesLineFragmentOrigin,
+            attributes: [.font: font],
+            context: nil
+        )
+        
+        return textSize.height > labelHeight
+    }
+    
     // 모서리둥글게
     func roundedLabel(cornerRadius: CGFloat, maskedCorners: CACornerMask) {
         clipsToBounds = true
