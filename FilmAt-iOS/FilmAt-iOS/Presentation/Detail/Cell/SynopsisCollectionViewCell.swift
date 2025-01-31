@@ -28,11 +28,12 @@ final class SynopsisCollectionViewCell: BaseCollectionViewCell {
     override func setStyle() {
         self.backgroundColor = .background
         
-        contentLabel.setLabelUI("contentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabel", font: .filmAtFont(.body_medium_12), textColor: .title, numberOfLines: 3)
+        contentLabel.setLabelUI("contentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabelcontentLabel", font: .filmAtFont(.body_medium_14), textColor: .title, numberOfLines: 3)
+        contentLabel.lineBreakMode = .byCharWrapping
     }
     
-    func configureCell(contentText: String, numberOfLines: Int) {
-        contentLabel.text = contentText
+    func configureCell(contentText: String?, numberOfLines: Int) {
+        contentLabel.text = contentText == "" ? "제공되는 줄거리가 없습니다." : contentText
         contentLabel.numberOfLines = numberOfLines
     }
     
