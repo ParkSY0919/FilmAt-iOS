@@ -51,7 +51,7 @@ final class CastCollectionViewCell: BaseCollectionViewCell {
     
     override func setStyle() {
         nameLabel.setLabelUI("nameLabel",
-                             font: .filmAtFont(.title_bold_16),
+                             font: .filmAtFont(.body_bold_14),
                              textColor: UIColor(resource: .title))
         engNameLabel.setLabelUI("engNameLabel",
                                 font: .filmAtFont(.body_medium_12),
