@@ -55,8 +55,8 @@ final class FooterItemView: BaseView {
                          textColor: .gray1)
     }
     
-    func configure(text: String) {
-        label.text = text
+    func configureFooterItem(text: String) {
+        label.text = text == "" ? "없음" : text
     }
     
 }

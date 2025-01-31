@@ -68,9 +68,9 @@ final class DetailCollectionFooterView: UICollectionReusableView {
     }
     
     func configureFooterView(date: String, rating: String, genres: String) {
-        dateView.configure(text: date)
-        ratingView.configure(text: rating)
-        genreView.configure(text: genres)
+        dateView.configureFooterItem(text: date)
+        ratingView.configureFooterItem(text: rating)
+        genreView.configureFooterItem(text: genres)
     }
     
     required init?(coder: NSCoder) {
