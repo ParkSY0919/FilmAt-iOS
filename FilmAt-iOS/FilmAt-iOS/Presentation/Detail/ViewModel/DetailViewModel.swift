@@ -17,7 +17,10 @@ final class DetailViewModel {
     let sectionHeaderTitles = ["", "Synopsis", "Cast", "Poster"]
     var synopsisNumberOfLines = 3
     var endDataLoading: (() -> Void)?
+    var callEndDataLoading = 0
     var imageResponseData: ImageResponseModel?
+    var castData: [Cast]?
+    let dispatchGroup = DispatchGroup()
     
     init(moviewTitle: String, sectionCount: Int, detailMovieInfoModel: DetailMovieInfoModel) {
         self.moviewTitle = moviewTitle
@@ -37,6 +40,28 @@ extension DetailViewModel {
             switch resultType {
             case .success:
                 self.imageResponseData = result
+                self.getCreditData(movieID: movieID)
+            case .badRequest:
+                print("badRequest")
+            case .unauthorized:
+                print("unauthorized")
+            case .forbidden:
+                print("forbidden")
+            case .notFound:
+                print("notFound")
+            case .serverError:
+                print("serverError")
+            case .anotherError:
+                print("anotherError")
+            }
+        }
+    }
+    
+    func getCreditData(movieID: Int) {
+        NetworkManager.shared.getTMDBAPI(apiHandler: .getCreditAPI(movieID: movieID), responseModel: CreditResponseModel.self) { result, resultType in
+            switch resultType {
+            case .success:
+                self.castData = result.cast
                 self.endDataLoading?()
             case .badRequest:
                 print("badRequest")

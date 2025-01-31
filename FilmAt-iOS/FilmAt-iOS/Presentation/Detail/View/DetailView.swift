@@ -31,6 +31,7 @@ final class DetailView: BaseView {
             $0.register(BackDropCollectionViewCell.self, forCellWithReuseIdentifier: BackDropCollectionViewCell.cellIdentifier)
             $0.register(SynopsisCollectionViewCell.self, forCellWithReuseIdentifier: SynopsisCollectionViewCell.cellIdentifier)
             $0.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.cellIdentifier)
+            $0.register(CastCollectionViewCell.self, forCellWithReuseIdentifier: CastCollectionViewCell.cellIdentifier)
             
             $0.register(DetailCollectionHeaderView.self, forSupplementaryViewOfKind: DetailCollectionHeaderView.elementKinds, withReuseIdentifier: DetailCollectionHeaderView.identifier)
             $0.register(DetailCollectionFooterView.self, forSupplementaryViewOfKind: DetailCollectionFooterView.elementKinds, withReuseIdentifier: DetailCollectionFooterView.identifier)
@@ -104,8 +105,36 @@ final class DetailView: BaseView {
             section.boundarySupplementaryItems = [header]
             
             return section
+        case .cast:
+            let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(220), heightDimension: .absolute(50))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30)
             
-        case .cast, .poster:
+            //(subitem: item) 16이후 디플. 유의 repeatingSubitem 찾아보기
+            let verticalGroupSize = NSCollectionLayoutSize(widthDimension: .estimated(1.0), heightDimension: .absolute(120))
+            let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupSize,
+                                                                 repeatingSubitem: item,
+                                                                 count: 2)
+            verticalGroup.interItemSpacing = .fixed(10)
+            
+            let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .estimated(1.0), heightDimension: verticalGroupSize.heightDimension)
+            let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [verticalGroup])
+            
+            let section = NSCollectionLayoutSection(group: horizontalGroup)
+            section.orthogonalScrollingBehavior = .continuous
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 4)
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(35))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: DetailCollectionHeaderView.elementKinds,
+                alignment: .top
+            )
+            
+            section.boundarySupplementaryItems = [header]
+            
+            return section
+        case .poster:
             let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(140), heightDimension: .absolute(180))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 6)

@@ -140,7 +140,6 @@ extension DetailViewController: UICollectionViewDelegate {
             }
             header.configureHeaderView(headerTitle: viewModel.sectionHeaderTitles[indexPath.section], isMoreHidden: isMoreHidden)
             
-            
             return header
         }
         
@@ -157,7 +156,8 @@ extension DetailViewController: UICollectionViewDataSource {
         case .synopsis:
             return 1
         case .cast:
-            return 2
+            guard let castCnt = viewModel.castData?.count else {return 0}
+            return castCnt
         case .poster:
             guard let posterCnt = viewModel.imageResponseData?.posters.count else {return 0}
             return posterCnt
@@ -188,7 +188,11 @@ extension DetailViewController: UICollectionViewDataSource {
             }
             return cell
         case .cast:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CastCollectionViewCell.cellIdentifier, for: indexPath) as! CastCollectionViewCell
+            let item = viewModel.castData?[indexPath.item]
+            guard let name = item?.name,
+                  let character = item?.character else { return UICollectionViewCell() }
+            cell.configureCaseCell(imageUrlPath: item?.profilePath, name: name, engName: character)
             return cell
         case .poster:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.cellIdentifier, for: indexPath) as! PosterCollectionViewCell

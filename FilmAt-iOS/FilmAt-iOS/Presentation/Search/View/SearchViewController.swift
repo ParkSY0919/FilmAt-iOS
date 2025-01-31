@@ -127,6 +127,7 @@ extension SearchViewController: UITableViewDelegate {
         let detailViewModel = DetailViewModel(moviewTitle: row.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr, overview: overView))
         
         detailViewModel.getImageData(movieID: row.id)
+        detailViewModel.getCreditData(movieID: row.id)
         
         detailViewModel.endDataLoading = {
             DispatchQueue.main.async {
