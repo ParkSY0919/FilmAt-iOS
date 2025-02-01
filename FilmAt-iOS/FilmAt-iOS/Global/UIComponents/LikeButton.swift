@@ -10,13 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
-//enum LikeButtonType {
-//    case
-//}
-
 final class LikeButton: BaseView {
     
     let likeButton = UIButton()
+    
+    var onTapLikeButton: ((Bool) -> Void)?
     
     override func setHierarchy() {
         self.addSubview(likeButton)
@@ -46,6 +44,18 @@ final class LikeButton: BaseView {
             }
         }
         likeButton.configurationUpdateHandler = buttonStateHandler
+        
+        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+    }
+    
+    func configureLikeBtn(isLiked: Bool) {
+        likeButton.isSelected = isLiked
+    }
+    
+    @objc
+    private func likeButtonTapped() {
+        likeButton.isSelected.toggle()
+        onTapLikeButton?(likeButton.isSelected)
     }
     
 }

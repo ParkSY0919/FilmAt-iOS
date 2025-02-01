@@ -12,6 +12,8 @@ final class CinemaViewModel {
     //reversed된 형태로 저장하자.
     //추후 append 필요할 시, reversed로 바꾸고, append하고 다시 reversed 적용하면됨.
     var recentSearchList: ObservablePattern<[String]> = ObservablePattern([])
+    var likeMovieListDic = [String: Bool]()
+    var page = 1
     
     var todayMovieList: [TrendingResult] = []
     var todayMovieAPIResult: ObservablePattern<Bool> = ObservablePattern(nil)
@@ -21,6 +23,7 @@ final class CinemaViewModel {
 extension CinemaViewModel {
     
     func getTodayMovieData() {
+        LoadingIndicatorManager.showLoading()
         let request = TrendingRequestModel()
         NetworkManager.shared.getTMDBAPI(apiHandler: .getTrendingAPI(request: request), responseModel: TrendingResponseModel.self) { result, networkErrorType in
             print("result: \(request)")
@@ -29,6 +32,7 @@ extension CinemaViewModel {
             case .success:
                 self.todayMovieList = result.results
                 self.todayMovieAPIResult.value = true
+                LoadingIndicatorManager.hideLoading()
             case .badRequest:
                 print("badRequest")
             case .unauthorized:
@@ -46,11 +50,13 @@ extension CinemaViewModel {
     }
     
     func getSearchData(recentSearchText: String, complition: @escaping ([SearchResult]) -> Void) {
-        let request = SearchRequestModel(query: recentSearchText)
+        LoadingIndicatorManager.showLoading()
+        let request = SearchRequestModel(query: recentSearchText, page: self.page)
         NetworkManager.shared.getTMDBAPI(apiHandler: .getSearchAPI(request: request), responseModel: SearchResponseModel.self) { result, resultType in
             switch resultType {
             case .success:
                 complition(result.results)
+                LoadingIndicatorManager.hideLoading()
             case .badRequest:
                 print("badRequest")
             case .unauthorized:

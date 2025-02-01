@@ -25,7 +25,7 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         movieTitleLabel.text = nil
         subtitleLabel.text = nil
         subtitleLabel.textColor = nil
-        likeBtnComponent.likeButton.configuration?.image = nil
+        likeBtnComponent.likeButton.isSelected = false
     }
     
     override func setHierarchy() {
@@ -44,15 +44,16 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         movieTitleLabel.snp.makeConstraints {
             $0.bottom.equalTo(subtitleLabel.snp.top).offset(-4)
             $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-40)
+//            $0.trailing.equalTo(likeBtnComponent.snp.leading).offset(-10)
+            //위처럼 잡으니까 title이 짧아지면 같이 줄어듦.
         }
         
         likeBtnComponent.snp.makeConstraints {
-//            $0.size.equalTo(10)
             $0.bottom.equalTo(movieTitleLabel.snp.bottom)
-            $0.trailing.equalToSuperview()
+            $0.trailing.equalTo(posterImage.snp.trailing).offset(16)
             $0.height.equalTo(movieTitleLabel.snp.height)
             $0.width.equalTo(likeBtnComponent.snp.width)
-            
         }
         
         posterImage.snp.makeConstraints {
@@ -71,7 +72,7 @@ final class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         
         subtitleLabel.setLabelUI("subtitleLabelsubtitleLabelsubtitleLabelsubtitleLabelsubtitleLabel",
                                  font: .filmAtFont(.body_medium_12),
-                                 textColor: .title,
+                                 textColor: UIColor(resource: .gray2),
                                  numberOfLines: 2)
         
         movieTitleLabel.setLabelUI("movieTitleLabel",

@@ -9,11 +9,14 @@ import UIKit
 
 final class ProfileImageViewModel {
     
-    init(currentImage: UIImage) {
+    init(currentImage: UIImage, imageStr: String) {
         self.currentImage.value = currentImage
+        self.imageStr = imageStr
     }
     
+    var imageStr: String
     var currentImage: ObservablePattern<UIImage> = ObservablePattern(nil)
-    
+    var currentImageIndex: Int?
+    var isPush: Bool?
     
 }

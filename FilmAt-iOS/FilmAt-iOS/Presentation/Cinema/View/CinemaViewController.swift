@@ -9,7 +9,6 @@ import UIKit
 
 final class CinemaViewController: BaseViewController {
     
-    private let dummyArr = ["스파이더만", "현빈", "록시땅", "액션가면", "케케몬"]
     private let viewModel: CinemaViewModel
     
     private let cinemaView = CinemaView()
@@ -24,6 +23,12 @@ final class CinemaViewController: BaseViewController {
         view = cinemaView
         viewModel.getTodayMovieData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setUserDefaultsData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,19 +42,29 @@ final class CinemaViewController: BaseViewController {
         print(#function)
         
         let searchViewModel = SearchViewModel()
-        let vc = SearchViewController(viewModel: searchViewModel)
+        searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
+        searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
         
-        searchViewModel.onChange = { [weak self] searchText in
-            var list = self?.viewModel.recentSearchList.value?.reversed() ?? []
-            list.append(searchText)
-            self?.viewModel.recentSearchList.value = list.reversed()
-        }
+        let vc = SearchViewController(viewModel: searchViewModel)
         viewTransition(viewController: vc, transitionStyle: .push)
+        
+        searchViewModel.likedMovieListChange = { likeMovieListDic in
+            print("searchViewModel.likedMovieListChange = { likeMovieListDic in")
+            self.viewModel.likeMovieListDic = likeMovieListDic
+            self.viewModel.todayMovieAPIResult.value = true
+        }
     }
 
 }
 
 private extension CinemaViewController {
+    
+    func setUserDefaultsData() {
+        viewModel.recentSearchList.value = UserDefaultsManager.shared.recentSearchList
+        viewModel.likeMovieListDic = UserDefaultsManager.shared.likeMovieListDic
+        UserDefaultsManager.shared.saveMovieCount = viewModel.likeMovieListDic.count
+        cinemaView.profileBox.changeProfileBoxData()
+    }
     
     func setDelegate() {
         cinemaView.recentSearchCollectionView.delegate = self
@@ -101,7 +116,9 @@ private extension CinemaViewController {
     @objc
     func profileBoxTapped() {
         print(#function)
-        let vc = ProfileNicknameViewController(viewModel: ProfileNicknameViewModel(), isPushType: false)
+        let profileNicknameViewModel = ProfileNicknameViewModel()
+        profileNicknameViewModel.currentImageIndex = UserDefaultsManager.shared.currentImageIndex
+        let vc = ProfileNicknameViewController(viewModel: profileNicknameViewModel, isPushType: false)
         vc.onChange = { [weak self] in
             self?.cinemaView.profileBox.changeProfileBoxData()
         }
@@ -112,23 +129,17 @@ private extension CinemaViewController {
     func recentSearchResetBtnTapped() {
         print(#function)
         viewModel.recentSearchList.value?.removeAll()
+        UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
+        //UserDefaults.standard.synchronize() //역시 이건 효과 없군.
+        print("UserDefaultsManager.shared.recentSearchList : \(UserDefaultsManager.shared.recentSearchList)")
     }
     
     @objc
     func xMarkBtnTapped(_ sender: UIButton) {
         print(#function, "sender.tag : \(sender.tag)")
         viewModel.recentSearchList.value?.remove(at: sender.tag)
-    }
-    
-    @objc
-    func likeBtnComponentTapped(_ sender: UIButton) {
-        print(#function)
-        switch sender.isSelected {
-        case true:
-            sender.isSelected = false
-        case false:
-            sender.isSelected = true
-        }
+        UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
+        print("UserDefaultsManager.shared.recentSearchList : \(UserDefaultsManager.shared.recentSearchList)")
     }
     
 }
@@ -141,6 +152,7 @@ extension CinemaViewController: UICollectionViewDelegate {
             let recentSeachText = (viewModel.recentSearchList.value ?? [])[indexPath.item]
             
             let searchViewModel = SearchViewModel()
+            searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
             viewModel.getSearchData(recentSearchText: recentSeachText) { result in
                 searchViewModel.searchResultList = result
                 searchViewModel.currentSearchText = recentSeachText
@@ -161,7 +173,15 @@ extension CinemaViewController: UICollectionViewDelegate {
             let voteAverage = selectedTodayMovie.voteAverage ?? Double(0.0)
             let overView = selectedTodayMovie.overview
             
-            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr, overview: overView))
+            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title,
+                                                  sectionCount: DetailViewSectionType.allCases.count,
+                                                  detailMovieInfoModel: DetailMovieInfoModel(moviewId: selectedTodayMovie.id,
+                                                                                             releaseDate: releaseDate,
+                                                                                             voteAverage: voteAverage,
+                                                                                             genreIDs: genreIDsStrArr,
+                                                                                             overview: overView))
+            
+            detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
             detailViewModel.getImageData(movieID: selectedTodayMovie.id)
             
             detailViewModel.endDataLoading = {
@@ -169,6 +189,11 @@ extension CinemaViewController: UICollectionViewDelegate {
                     let vc = DetailViewController(viewModel: detailViewModel)
                     self.viewTransition(viewController: vc, transitionStyle: .push)
                 }
+            }
+            
+            detailViewModel.likedMovieListChange = { likeMovieListDic in
+                self.viewModel.likeMovieListDic = likeMovieListDic
+                self.viewModel.todayMovieAPIResult.value = true
             }
         }
     }
@@ -194,7 +219,6 @@ extension CinemaViewController: UICollectionViewDataSource {
             
             cell.xMarkbutton.addTarget(self, action: #selector(xMarkBtnTapped), for: .touchUpInside)
             cell.xMarkbutton.tag = indexPath.item
-            
             let recentSeachList = viewModel.recentSearchList.value ?? []
             
             cell.setCellUI(titleText: recentSeachList[indexPath.item])
@@ -203,9 +227,20 @@ extension CinemaViewController: UICollectionViewDataSource {
         case .todayMovie:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.cellIdentifier, for: indexPath) as! TodayMovieCollectionViewCell
             
-            cell.likeBtnComponent.likeButton.addTarget(self, action: #selector(likeBtnComponentTapped), for: .touchUpInside)
-            
             let item = viewModel.todayMovieList[indexPath.item]
+            cell.likeBtnComponent.configureLikeBtn(isLiked: viewModel.likeMovieListDic[String(item.id)] ?? false)
+            
+            cell.likeBtnComponent.onTapLikeButton = { [weak self] isSelected in
+                guard let self = self else { return }
+                if isSelected {
+                    self.viewModel.likeMovieListDic[String(item.id)] = true
+                } else {
+                    self.viewModel.likeMovieListDic[String(item.id)] = nil
+                }
+                UserDefaultsManager.shared.likeMovieListDic = self.viewModel.likeMovieListDic
+                UserDefaultsManager.shared.saveMovieCount = self.viewModel.likeMovieListDic.count
+                cinemaView.profileBox.changeProfileBoxData()
+            }
             
             let imageURL = item.posterPath
             let title = item.title

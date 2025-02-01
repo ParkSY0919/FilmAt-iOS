@@ -11,6 +11,7 @@ final class ProfileNicknameViewModel {
     
     var nicknameText: ObservablePattern<String> = ObservablePattern(nil)
     var isValidNickname: ObservablePattern<StateLabelType> = ObservablePattern(nil)
+    var currentImageIndex: Int?
     
     func validateNickname(_ nickname: String) {
         if nickname.count < 2 || nickname.count > 9 {

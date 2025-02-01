@@ -22,6 +22,12 @@ final class SettingViewController: BaseViewController {
     override func loadView() {
         view = settingView
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        settingView.profileBox.changeProfileBoxData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +53,9 @@ private extension SettingViewController {
     @objc
     func profileBoxTapped() {
         print(#function)
-        let vc = ProfileNicknameViewController(viewModel: ProfileNicknameViewModel(), isPushType: false)
+        let profileNicknameViewModel = ProfileNicknameViewModel()
+        profileNicknameViewModel.currentImageIndex = UserDefaultsManager.shared.currentImageIndex
+        let vc = ProfileNicknameViewController(viewModel: profileNicknameViewModel, isPushType: false)
         vc.onChange = { [weak self] in
             self?.settingView.profileBox.changeProfileBoxData()
         }

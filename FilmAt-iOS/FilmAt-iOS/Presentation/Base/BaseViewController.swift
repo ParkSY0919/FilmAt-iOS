@@ -15,6 +15,7 @@ class BaseViewController: UIViewController {
     var navTitle: String?
     var navLeftBtnType: NavigationLeftBtnType
     var navRightBtnType: NavigationRightBtnType
+    var likeBtnComponent: LikeButton?
     
     init(navTitle: String? = nil , navLeftBtnType: NavigationLeftBtnType = .none, navRightBtnType: NavigationRightBtnType = .none) {
         self.navTitle = navTitle
@@ -63,8 +64,19 @@ class BaseViewController: UIViewController {
             let navRightItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: self, action: #selector(searchBtnTapped))
             navigationItem.rightBarButtonItem = navRightItem
         case .like:
-            let navRightItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .done, target: self, action: #selector(likeBtnTapped))
+            let likeBtn = LikeButton()
+            self.likeBtnComponent = likeBtn
+            
+            // 🔹 크기를 버튼에 맞게 설정
+            let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 44))
+            likeBtn.frame = containerView.bounds
+            
+            containerView.addSubview(likeBtn)
+            containerView.isUserInteractionEnabled = true // 🔹 터치 활성화
+
+            let navRightItem = UIBarButtonItem(customView: containerView)
             navigationItem.rightBarButtonItem = navRightItem
+
         case .save:
             let navRightItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(saveBtnTapped))
             navigationItem.rightBarButtonItem = navRightItem

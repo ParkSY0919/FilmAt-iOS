@@ -22,7 +22,7 @@ final class SettingView: BaseView {
     override func setLayout() {
         profileBox.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).offset(15)
-            $0.horizontalEdges.equalToSuperview().inset(10)
+            $0.horizontalEdges.equalToSuperview().inset(5)
             $0.height.equalTo(135)
         }
         

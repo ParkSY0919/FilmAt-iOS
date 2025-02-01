@@ -44,12 +44,12 @@ final class CinemaView: BaseView {
         
         recentSearchLabel.snp.makeConstraints {
             $0.top.equalTo(profileBox.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().inset(15)
+            $0.leading.equalToSuperview().inset(5)
         }
         
         recentSearchResetButton.snp.makeConstraints {
-            $0.top.equalTo(recentSearchLabel.snp.top)
-            $0.trailing.equalToSuperview().inset(15)
+            $0.top.equalTo(recentSearchLabel.snp.top).offset(4)
+            $0.trailing.equalToSuperview().inset(5)
         }
         
         recentSearchCollectionView.snp.makeConstraints {

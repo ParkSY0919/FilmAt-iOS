@@ -15,12 +15,14 @@ final class DetailViewModel {
     
     let sectionTypes = DetailViewSectionType.allCases
     let sectionHeaderTitles = ["", "Synopsis", "Cast", "Poster"]
+    var likeMovieListDic = [String: Bool]()
+    
     var synopsisNumberOfLines = 3
     var endDataLoading: (() -> Void)?
-    var callEndDataLoading = 0
+    var likedMovieListChange: (([String: Bool]) -> Void)?
+    
     var imageResponseData: ImageResponseModel?
     var castData: [Cast]?
-    let dispatchGroup = DispatchGroup()
     
     init(moviewTitle: String, sectionCount: Int, detailMovieInfoModel: DetailMovieInfoModel) {
         self.moviewTitle = moviewTitle
@@ -29,18 +31,22 @@ final class DetailViewModel {
     }
     
     var isMoreState: ObservablePattern<Bool> = ObservablePattern(true)
-    var isTextTruncated: ObservablePattern<Bool> = ObservablePattern(nil)
+    
+    var isTextTruncated: Bool?
+    var isFirstLoad = true
     
 }
 
 extension DetailViewModel {
     
     func getImageData(movieID: Int) {
+        LoadingIndicatorManager.showLoading()
         NetworkManager.shared.getTMDBAPI(apiHandler: .getImageAPI(movieID: movieID), responseModel: ImageResponseModel.self) { result, resultType in
             switch resultType {
             case .success:
                 self.imageResponseData = result
                 self.getCreditData(movieID: movieID)
+                LoadingIndicatorManager.hideLoading()
             case .badRequest:
                 print("badRequest")
             case .unauthorized:
@@ -58,11 +64,13 @@ extension DetailViewModel {
     }
     
     func getCreditData(movieID: Int) {
+        LoadingIndicatorManager.showLoading()
         NetworkManager.shared.getTMDBAPI(apiHandler: .getCreditAPI(movieID: movieID), responseModel: CreditResponseModel.self) { result, resultType in
             switch resultType {
             case .success:
                 self.castData = result.cast
                 self.endDataLoading?()
+                LoadingIndicatorManager.hideLoading()
             case .badRequest:
                 print("badRequest")
             case .unauthorized:

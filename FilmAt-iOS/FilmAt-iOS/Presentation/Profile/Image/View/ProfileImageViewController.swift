@@ -9,7 +9,7 @@ import UIKit
 
 final class ProfileImageViewController: BaseViewController {
     
-    var onChange: ((UIImage)->Void)?
+    var onChange: ((UIImage, Int)->Void)?
     private let viewModel: ProfileImageViewModel
     
     private lazy var profileImageView = ProfileImageView(profileImage: viewModel.currentImage.value ?? UIImage())
@@ -46,7 +46,7 @@ final class ProfileImageViewController: BaseViewController {
     }
     
     override func popBtnTapped() {
-        onChange?(viewModel.currentImage.value ?? UIImage())
+        onChange?(viewModel.currentImage.value ?? UIImage(), viewModel.currentImageIndex ?? 0)
         
         super.popBtnTapped()
     }
@@ -76,6 +76,8 @@ extension ProfileImageViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.currentImage.value = profileImageArr[indexPath.item]
+        self.viewModel.currentImageIndex = indexPath.item
+        self.viewModel.imageStr = "profile_\(indexPath.item)"
     }
     
 }
@@ -88,8 +90,13 @@ extension ProfileImageViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileImageCollectionViewCell.cellIdentifier, for: indexPath) as! ProfileImageCollectionViewCell
-        
-        let isSame = viewModel.currentImage.value == profileImageArr[indexPath.item]
+        cell.profileImageView.tag = indexPath.item
+        var isSame: Bool = false
+        if viewModel.isPush ?? false {
+            isSame = (viewModel.currentImage.value == profileImageArr[indexPath.item])
+        } else {
+            isSame = UIImage(named: viewModel.imageStr) == profileImageArr[indexPath.item]
+        }
         
         DispatchQueue.main.async {
             cell.setProfileCellUI(image: self.profileImageArr[indexPath.item], isSame: isSame)
@@ -99,3 +106,7 @@ extension ProfileImageViewController: UICollectionViewDataSource {
     }
     
 }
+
+
+
+//image 자체를 userdefaults에 저장하니까 불러와도 다르다고 인식됨

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E328E2D2D4DADC6001282FD /* LoadingIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E328E2C2D4DADC6001282FD /* LoadingIndicatorManager.swift */; };
 		9E61BADD2D43DEF7007B6910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BAD32D43DEF7007B6910 /* AppDelegate.swift */; };
 		9E61BADE2D43DEF7007B6910 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BADA2D43DEF7007B6910 /* SceneDelegate.swift */; };
 		9E61BAE02D43DEF7007B6910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E61BAD42D43DEF7007B6910 /* Assets.xcassets */; };
@@ -91,6 +92,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E328E2C2D4DADC6001282FD /* LoadingIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorManager.swift; sourceTree = "<group>"; };
 		9E61BA9B2D43D46C007B6910 /* FilmAt-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FilmAt-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E61BAD32D43DEF7007B6910 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E61BAD42D43DEF7007B6910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				9E61BB3B2D451F11007B6910 /* ObservablePattern.swift */,
 				9E61BB392D451F08007B6910 /* ScreenUtils.swift */,
 				9E61BB0E2D451C1F007B6910 /* UIAlertManager.swift */,
+				9E328E2C2D4DADC6001282FD /* LoadingIndicatorManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 				9E61BB032D451AA3007B6910 /* OnBoardingViewController.swift in Sources */,
 				9E61BADD2D43DEF7007B6910 /* AppDelegate.swift in Sources */,
 				9EC78D7F2D48E3F800248B19 /* SearchTableViewCell.swift in Sources */,
+				9E328E2D2D4DADC6001282FD /* LoadingIndicatorManager.swift in Sources */,
 				9EC78D5E2D475E3200248B19 /* ProfileImageCollectionViewCell.swift in Sources */,
 				9EC78DA82D4BA5BA00248B19 /* BackDropCollectionViewCell.swift in Sources */,
 				9EC78D482D471F6F00248B19 /* NavigationButtonType.swift in Sources */,
@@ -878,7 +882,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -912,7 +916,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
