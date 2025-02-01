@@ -58,6 +58,7 @@ private extension CinemaViewController {
     func setUserDefaultsData() {
         viewModel.recentSearchList.value = UserDefaultsManager.shared.recentSearchList
         viewModel.likeMovieListDic = UserDefaultsManager.shared.likeMovieListDic
+        cinemaView.profileBox.changeProfileBoxData()
     }
     
     func setDelegate() {
@@ -110,7 +111,9 @@ private extension CinemaViewController {
     @objc
     func profileBoxTapped() {
         print(#function)
-        let vc = ProfileNicknameViewController(viewModel: ProfileNicknameViewModel(), isPushType: false)
+        let profileNicknameViewModel = ProfileNicknameViewModel()
+        profileNicknameViewModel.currentImageIndex = UserDefaultsManager.shared.currentImageIndex
+        let vc = ProfileNicknameViewController(viewModel: profileNicknameViewModel, isPushType: false)
         vc.onChange = { [weak self] in
             self?.cinemaView.profileBox.changeProfileBoxData()
         }

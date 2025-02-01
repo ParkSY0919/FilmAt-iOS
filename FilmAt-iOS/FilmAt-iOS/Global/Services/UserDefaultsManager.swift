@@ -61,6 +61,16 @@ final class UserDefaultsManager {
         }
     }
     
+    var currentImageIndex: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: "currentImageIndex")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "currentImageIndex")
+            saveChanges()
+        }
+    }
+    
     var saveMovieCount: Int {
         get {
             return UserDefaults.standard.integer(forKey: "saveMovieCount")
