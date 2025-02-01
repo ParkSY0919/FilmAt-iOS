@@ -29,7 +29,6 @@ final class UtilZoomViewController: BaseViewController {
     
     override func setHierarchy() {
         view.addSubviews(scrollView, closeButton)
-        
     }
     
     override func setLayout() {
@@ -55,7 +54,9 @@ final class UtilZoomViewController: BaseViewController {
         closeButton.do {
             $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
             $0.tintColor = UIColor(resource: .point)
-            $0.addTarget(self, action: #selector(closeBtnTapped), for: .touchUpInside)
+            $0.addTarget(self,
+                         action: #selector(closeBtnTapped),
+                         for: .touchUpInside)
             $0.imageView?.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }

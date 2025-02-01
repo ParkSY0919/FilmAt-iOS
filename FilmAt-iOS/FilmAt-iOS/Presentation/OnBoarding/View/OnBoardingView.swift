@@ -18,7 +18,6 @@ final class OnBoardingView: BaseView {
     
     let startButton = DoneButton(title: "시작하기", doneBtnState: .satisfied)
     
-    
     override func setHierarchy() {
         self.addSubviews(mainImageView, viewTitleLabel, subtitleLabel, startButton)
     }
@@ -56,7 +55,10 @@ final class OnBoardingView: BaseView {
         
         viewTitleLabel.setLabelUI("Onboarding", font: .italicSystemFont(ofSize: 35, weight: .semibold))
         
-        subtitleLabel.setLabelUI("당신만의 영화 세상,\nFilmAt을 시작해보세요.", font: .filmAtFont(.body_regular_16), alignment: .center, numberOfLines: 0)
+        subtitleLabel.setLabelUI("당신만의 영화 세상,\nFilmAt을 시작해보세요.",
+                                 font: .filmAtFont(.body_regular_16),
+                                 alignment: .center,
+                                 numberOfLines: 0)
     }
     
 }

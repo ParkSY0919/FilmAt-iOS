@@ -89,7 +89,6 @@ class BaseViewController: UIViewController {
         case .none:
             print("navRight Btn None")
         }
-        
     }
     
     func setHierarchy() {}

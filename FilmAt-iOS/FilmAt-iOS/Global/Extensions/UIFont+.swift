@@ -37,7 +37,6 @@ enum FontName {
             return 12
         }
     }
-    
 }
 
 extension UIFont {

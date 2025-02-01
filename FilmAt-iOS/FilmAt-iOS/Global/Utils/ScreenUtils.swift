@@ -15,7 +15,6 @@ struct ScreenUtils {
         return UIScreen.main.bounds.width
     }
     
-    
     // MARK: 디바이스 height
     
     static var height: CGFloat {

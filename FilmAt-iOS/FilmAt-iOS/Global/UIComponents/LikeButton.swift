@@ -45,7 +45,9 @@ final class LikeButton: BaseView {
         }
         likeButton.configurationUpdateHandler = buttonStateHandler
         
-        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        likeButton.addTarget(self,
+                             action: #selector(likeButtonTapped),
+                             for: .touchUpInside)
     }
     
     func configureLikeBtn(isLiked: Bool) {

@@ -40,5 +40,6 @@ final class NWPathMonitorManager {
         monitor.cancel()
         isMonitoring = false
     }
+    
 }
 
