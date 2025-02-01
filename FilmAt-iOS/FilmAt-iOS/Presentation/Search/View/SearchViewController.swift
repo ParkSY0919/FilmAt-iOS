@@ -170,10 +170,10 @@ extension SearchViewController: UITableViewDelegate {
         detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
         detailViewModel.getImageData(movieID: row.id)
         
-        detailViewModel.endDataLoading = {
+        detailViewModel.endDataLoading = { [weak self] in
             DispatchQueue.main.async {
                 let vc = DetailViewController(viewModel: detailViewModel)
-                self.viewTransition(viewController: vc, transitionStyle: .push)
+                self?.viewTransition(viewController: vc, transitionStyle: .push)
             }
         }
         
