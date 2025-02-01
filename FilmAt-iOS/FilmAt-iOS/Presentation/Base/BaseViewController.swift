@@ -26,6 +26,14 @@ class BaseViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !NWPathMonitorManager.shared.isMonitoring {
+            NWPathMonitorManager.shared.startNetworkTracking()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

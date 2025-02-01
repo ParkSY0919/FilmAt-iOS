@@ -13,11 +13,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        NWPathMonitorManager.shared.startNetworkTracking()
         return true
     }
-
-    // MARK: UISceneSession Lifecycle
+    
+    // 다 적용 안되네.. 울자.
+//    // Back그라운드 입장 시 중지
+//    func applicationDidEnterBackground(_ application: UIApplication) {
+//        NWPathMonitorManager.shared.stopMonitoring()
+//    }
+//    
+//    // Fore그라운드 입장 시 재시작
+//    func applicationWillEnterForeground(_ application: UIApplication) {
+//        NWPathMonitorManager.shared.startNetworkTracking()
+//    }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
