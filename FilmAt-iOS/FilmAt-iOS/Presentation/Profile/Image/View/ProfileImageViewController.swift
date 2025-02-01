@@ -106,3 +106,7 @@ extension ProfileImageViewController: UICollectionViewDataSource {
     }
     
 }
+
+
+
+//image 자체를 userdefaults에 저장하니까 불러와도 다르다고 인식됨
