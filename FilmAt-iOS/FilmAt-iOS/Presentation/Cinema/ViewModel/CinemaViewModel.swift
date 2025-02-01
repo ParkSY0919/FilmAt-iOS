@@ -46,24 +46,4 @@ extension CinemaViewModel {
         }
     }
     
-    func getSearchData(recentSearchText: String, complition: @escaping ([SearchResult]) -> Void) {
-        LoadingIndicatorManager.showLoading()
-        let request = SearchRequestModel(query: recentSearchText, page: self.page)
-        NetworkManager.shared.getTMDBAPI(apiHandler: .getSearchAPI(request: request), responseModel: SearchResponseModel.self) { result, resultType in
-            switch resultType {
-            case .success:
-                complition(result.results)
-            default :
-                let alert = UIAlertManager.showAlert(title: resultType.message, message: "확인 이후 다시 시도해주세요.")
-                self.onAlert?(alert)
-            }
-        } failHandler: { str in
-            let alert = UIAlertManager.showAlert(title: str, message: "확인 이후 다시 시도해주세요.")
-            self.onAlert?(alert)
-        }
-        DispatchQueue.main.async {
-            LoadingIndicatorManager.hideLoading()
-        }
-    }
-    
 }

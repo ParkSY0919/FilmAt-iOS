@@ -157,14 +157,12 @@ extension CinemaViewController: UICollectionViewDelegate {
             
             let searchViewModel = SearchViewModel()
             searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
-            viewModel.getSearchData(recentSearchText: recentSeachText) { result in
-                searchViewModel.searchResultList = result
-                searchViewModel.currentSearchText = recentSeachText
-                searchViewModel.searchAPIResult.value = true
-                
-                DispatchQueue.main.async {
+            
+            searchViewModel.getSearchData(searchText: recentSeachText, page: 1, isFromCinema: true)
+            searchViewModel.isSuccessResponse = {
+                DispatchQueue.main.async { [weak self] in
                     let vc = SearchViewController(viewModel: searchViewModel)
-                    self.viewTransition(viewController: vc, transitionStyle: .push)
+                    self?.viewTransition(viewController: vc, transitionStyle: .push)
                 }
             }
         case .todayMovie:
