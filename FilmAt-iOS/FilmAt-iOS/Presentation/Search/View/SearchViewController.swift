@@ -59,6 +59,10 @@ private extension SearchViewController {
     }
     
     func bindViewModel() {
+        viewModel.onAlert = { [weak self] alert in
+            self?.present(alert, animated: true)
+        }
+        
         viewModel.searchAPIResult.bind { [weak self] flag in
             print("viewModel.searchAPIResult.bind 호출 중")
             guard let flag,
@@ -171,6 +175,10 @@ extension SearchViewController: UITableViewDelegate {
                 let vc = DetailViewController(viewModel: detailViewModel)
                 self.viewTransition(viewController: vc, transitionStyle: .push)
             }
+        }
+        
+        detailViewModel.onAlert = { [weak self] alert in
+            self?.present(alert, animated: true)
         }
         
         detailViewModel.likedMovieListChange = { likeMovieListDic in

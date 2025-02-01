@@ -5,7 +5,7 @@
 //  Created by 박신영 on 1/28/25.
 //
 
-import Foundation
+import UIKit
 
 final class SearchViewModel {
     
@@ -20,7 +20,7 @@ final class SearchViewModel {
     
     var searchResultList: [SearchResult] = []
     var searchAPIResult: ObservablePattern<Bool> = ObservablePattern(nil)
-    
+    var onAlert: ((UIAlertController) -> Void)?
 }
 
 extension SearchViewModel {
@@ -53,20 +53,16 @@ extension SearchViewModel {
                 if result.totalResults - (self.page * 20) < 0 {
                     self.isEnd = true
                 }
-                LoadingIndicatorManager.hideLoading()
-            case .badRequest:
-                print("badRequest")
-            case .unauthorized:
-                print("unauthorized")
-            case .forbidden:
-                print("forbidden")
-            case .notFound:
-                print("notFound")
-            case .serverError:
-                print("serverError")
-            case .anotherError:
-                print("anotherError")
+            default :
+                let alert = UIAlertManager.showAlert(title: networkResultType.message, message: "확인 이후 다시 시도해주세요.")
+                self.onAlert?(alert)
             }
+        } failHandler: { str in
+            let alert = UIAlertManager.showAlert(title: str, message: "확인 이후 다시 시도해주세요.")
+            self.onAlert?(alert)
+        }
+        DispatchQueue.main.async {
+            LoadingIndicatorManager.hideLoading()
         }
     }
     

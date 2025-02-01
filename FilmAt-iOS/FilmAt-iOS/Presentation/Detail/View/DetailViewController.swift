@@ -77,7 +77,6 @@ extension DetailViewController: UICollectionViewDelegate {
               indexPath.section == 0,
               let backdropCell = cell as? BackDropCollectionViewCell else { return }
         
-        // 현재 페이지를 정확하게 계산
         let currentPage = indexPath.item
         
         // 페이지 컨트롤 업데이트

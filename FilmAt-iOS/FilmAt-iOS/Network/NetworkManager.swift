@@ -36,20 +36,26 @@ final class NetworkManager {
     
     func getTMDBAPI<T: Decodable>(apiHandler: TMDBTargetType,
                                   responseModel: T.Type,
-                                  complitionHandler: @escaping (T, NetworkResultType) -> (Void)) {
+                                  completionHandler: @escaping (T, NetworkResultType) -> Void,
+                                  failHandler: @escaping (String) -> Void) {
         AF.request(apiHandler)
             .responseDecodable(of: T.self) { response in
                 debugPrint(response)
                 switch response.result {
                 case .success(let result):
-                    print("success")
+                    print("✅ API 요청 성공")
                     let networkResultType = self.returnErrorType(response.response?.statusCode ?? 0)
-                    complitionHandler(result, networkResultType)
+                    completionHandler(result, networkResultType)
                 case .failure(let error):
-                    print("failure\n", error)
+                    print("❌ API 요청 실패\n", error)
+                    let t = FailureErrorType.handleNetworkError(error)
+                    failHandler(t.message)
                 }
             }
     }
+
     
 }
+
+
 

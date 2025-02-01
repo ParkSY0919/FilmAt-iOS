@@ -83,6 +83,10 @@ private extension CinemaViewController {
     }
     
     func bindViewModel() {
+        viewModel.onAlert = { [weak self] alert in
+            self?.present(alert, animated: true)
+        }
+        
         viewModel.recentSearchList.bind { [weak self] data in
             guard let data else { return }
             
@@ -189,6 +193,10 @@ extension CinemaViewController: UICollectionViewDelegate {
                     let vc = DetailViewController(viewModel: detailViewModel)
                     self.viewTransition(viewController: vc, transitionStyle: .push)
                 }
+            }
+            
+            detailViewModel.onAlert = { [weak self] alert in
+                self?.present(alert, animated: true)
             }
             
             detailViewModel.likedMovieListChange = { likeMovieListDic in
