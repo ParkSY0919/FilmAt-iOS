@@ -105,9 +105,11 @@ final class ProfileBox: BaseView {
     func changeProfileBoxData() {
         let nickname = UserDefaultsManager.shared.nickname
         let image = UserDefaultsManager.shared.profileImage
+        let saveCnt = UserDefaultsManager.shared.saveMovieCount
 
         nicknameLabel.text = nickname
         profileImageView.image = image
+        archiveLabel.text = "\(saveCnt)개의 무비박스 보관중"
     }
     
 }

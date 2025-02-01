@@ -27,13 +27,12 @@ final class CinemaViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        cinemaView.profileBox.changeProfileBoxData()
+        setUserDefaultsData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setUserDefaultsData()
         setDelegate()
         setAddTarget()
         bindViewModel()
@@ -63,6 +62,8 @@ private extension CinemaViewController {
     func setUserDefaultsData() {
         viewModel.recentSearchList.value = UserDefaultsManager.shared.recentSearchList
         viewModel.likeMovieListDic = UserDefaultsManager.shared.likeMovieListDic
+        UserDefaultsManager.shared.saveMovieCount = viewModel.likeMovieListDic.count
+        cinemaView.profileBox.changeProfileBoxData()
     }
     
     func setDelegate() {
@@ -237,6 +238,8 @@ extension CinemaViewController: UICollectionViewDataSource {
                     self.viewModel.likeMovieListDic[String(item.id)] = nil
                 }
                 UserDefaultsManager.shared.likeMovieListDic = self.viewModel.likeMovieListDic
+                UserDefaultsManager.shared.saveMovieCount = self.viewModel.likeMovieListDic.count
+                cinemaView.profileBox.changeProfileBoxData()
             }
             
             let imageURL = item.posterPath
