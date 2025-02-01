@@ -39,6 +39,7 @@ extension SearchViewModel {
     }
     
     func getSearchData(searchText: String, page: Int) {
+        LoadingIndicatorManager.showLoading()
         let request = SearchRequestModel(query: searchText, page: page)
         NetworkManager.shared.getTMDBAPI(apiHandler: .getSearchAPI(request: request), responseModel: SearchResponseModel.self) { result, networkResultType in
             switch networkResultType {
@@ -52,6 +53,7 @@ extension SearchViewModel {
                 if result.totalResults - (self.page * 20) < 0 {
                     self.isEnd = true
                 }
+                LoadingIndicatorManager.hideLoading()
             case .badRequest:
                 print("badRequest")
             case .unauthorized:

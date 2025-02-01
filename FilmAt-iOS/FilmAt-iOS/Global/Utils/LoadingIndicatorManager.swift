@@ -30,7 +30,7 @@ final class LoadingIndicatorManager {
     }
     
     static func hideLoading() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             guard let window = UIApplication.shared.windows.last else { return }
             window.subviews.filter({ $0 is UIActivityIndicatorView }).forEach { $0.removeFromSuperview() }
         }

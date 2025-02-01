@@ -137,6 +137,8 @@ extension SearchViewController: UITableViewDataSourcePrefetching {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        LoadingIndicatorManager.showLoading()
+        
         let row = viewModel.searchResultList[indexPath.row]
         guard let date = row.releaseDate,
               let genreIDs = row.genreIDS else { return }

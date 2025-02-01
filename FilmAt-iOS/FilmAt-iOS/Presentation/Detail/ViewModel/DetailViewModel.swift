@@ -40,11 +40,13 @@ final class DetailViewModel {
 extension DetailViewModel {
     
     func getImageData(movieID: Int) {
+        LoadingIndicatorManager.showLoading()
         NetworkManager.shared.getTMDBAPI(apiHandler: .getImageAPI(movieID: movieID), responseModel: ImageResponseModel.self) { result, resultType in
             switch resultType {
             case .success:
                 self.imageResponseData = result
                 self.getCreditData(movieID: movieID)
+                LoadingIndicatorManager.hideLoading()
             case .badRequest:
                 print("badRequest")
             case .unauthorized:
@@ -62,11 +64,13 @@ extension DetailViewModel {
     }
     
     func getCreditData(movieID: Int) {
+        LoadingIndicatorManager.showLoading()
         NetworkManager.shared.getTMDBAPI(apiHandler: .getCreditAPI(movieID: movieID), responseModel: CreditResponseModel.self) { result, resultType in
             switch resultType {
             case .success:
                 self.castData = result.cast
                 self.endDataLoading?()
+                LoadingIndicatorManager.hideLoading()
             case .badRequest:
                 print("badRequest")
             case .unauthorized:
