@@ -19,7 +19,6 @@ final class ProfileBox: BaseView {
     private let archiveContainer = UIView()
     private let archiveLabel = UILabel()
     
-    
     override func setHierarchy() {
         self.addSubviews(profileImageView,
                          nicknameLabel,
@@ -77,7 +76,9 @@ final class ProfileBox: BaseView {
         }
         
         let nickname = UserDefaultsManager.shared.nickname
-        nicknameLabel.setLabelUI(nickname, font: .filmAtFont(.title_bold_16), textColor: .title)
+        nicknameLabel.setLabelUI(nickname,
+                                 font: .filmAtFont(.title_bold_16),
+                                 textColor: .title)
         
         let joinDate = UserDefaultsManager.shared.joinDate
         joinDateLabel.setLabelUI("\(joinDate) 가입",

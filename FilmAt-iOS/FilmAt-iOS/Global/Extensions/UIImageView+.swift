@@ -29,12 +29,8 @@ extension UIImageView {
             self.setEmptyImageView()
         case false:
             guard let urlString else { return }
-            switch loadImageType {
-            case .thumb:
-                url = "https://image.tmdb.org/t/p/w300" + urlString
-            case .original:
-                url = "https://image.tmdb.org/t/p/original" + urlString
-            }
+            url = loadImageType.pathUrl + urlString
+            
             let processor = DownsamplingImageProcessor(size: self.bounds.size)
             self.kf.indicatorType = .activity
             self.kf.setImage(

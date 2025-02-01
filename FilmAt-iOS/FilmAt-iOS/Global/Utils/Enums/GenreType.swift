@@ -78,5 +78,4 @@ enum GenreType: Int {
         }
         return strArr
     }
-    
 }

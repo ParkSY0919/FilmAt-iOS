@@ -42,8 +42,9 @@ final class CinemaViewController: BaseViewController {
         print(#function)
         
         let searchViewModel = SearchViewModel()
-        searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
         searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
+        searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
+        
         
         let vc = SearchViewController(viewModel: searchViewModel)
         viewTransition(viewController: vc, transitionStyle: .push)
@@ -83,6 +84,10 @@ private extension CinemaViewController {
     }
     
     func bindViewModel() {
+        viewModel.onAlert = { [weak self] alert in
+            self?.present(alert, animated: true)
+        }
+        
         viewModel.recentSearchList.bind { [weak self] data in
             guard let data else { return }
             
@@ -152,15 +157,14 @@ extension CinemaViewController: UICollectionViewDelegate {
             let recentSeachText = (viewModel.recentSearchList.value ?? [])[indexPath.item]
             
             let searchViewModel = SearchViewModel()
+            searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
             searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
-            viewModel.getSearchData(recentSearchText: recentSeachText) { result in
-                searchViewModel.searchResultList = result
-                searchViewModel.currentSearchText = recentSeachText
-                searchViewModel.searchAPIResult.value = true
-                
-                DispatchQueue.main.async {
+            
+            searchViewModel.getSearchData(searchText: recentSeachText, page: 1, isFromCinema: true)
+            searchViewModel.isSuccessResponse = {
+                DispatchQueue.main.async { [weak self] in
                     let vc = SearchViewController(viewModel: searchViewModel)
-                    self.viewTransition(viewController: vc, transitionStyle: .push)
+                    self?.viewTransition(viewController: vc, transitionStyle: .push)
                 }
             }
         case .todayMovie:
@@ -184,11 +188,15 @@ extension CinemaViewController: UICollectionViewDelegate {
             detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
             detailViewModel.getImageData(movieID: selectedTodayMovie.id)
             
-            detailViewModel.endDataLoading = {
+            detailViewModel.endDataLoading = { [weak self] in
                 DispatchQueue.main.async {
                     let vc = DetailViewController(viewModel: detailViewModel)
-                    self.viewTransition(viewController: vc, transitionStyle: .push)
+                    self?.viewTransition(viewController: vc, transitionStyle: .push)
                 }
+            }
+            
+            detailViewModel.onAlert = { [weak self] alert in
+                self?.present(alert, animated: true)
             }
             
             detailViewModel.likedMovieListChange = { likeMovieListDic in

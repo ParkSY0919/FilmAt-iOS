@@ -17,7 +17,7 @@ final class CinemaViewModel {
     
     var todayMovieList: [TrendingResult] = []
     var todayMovieAPIResult: ObservablePattern<Bool> = ObservablePattern(nil)
-    
+    var onAlert: ((UIAlertController) -> Void)?
 }
 
 extension CinemaViewModel {
@@ -32,44 +32,17 @@ extension CinemaViewModel {
             case .success:
                 self.todayMovieList = result.results
                 self.todayMovieAPIResult.value = true
-                LoadingIndicatorManager.hideLoading()
-            case .badRequest:
-                print("badRequest")
-            case .unauthorized:
-                print("unauthorized")
-            case .forbidden:
-                print("forbidden")
-            case .notFound:
-                print("notFound")
-            case .serverError:
-                print("serverError")
-            case .anotherError:
-                print("anotherError")
+                
+            default :
+                let alert = UIAlertManager.showAlert(title: networkErrorType.message, message: "확인 이후 다시 시도해주세요.")
+                self.onAlert?(alert)
             }
+        } failHandler: { str in
+            let alert = UIAlertManager.showAlert(title: str, message: "확인 이후 다시 시도해주세요.")
+            self.onAlert?(alert)
         }
-    }
-    
-    func getSearchData(recentSearchText: String, complition: @escaping ([SearchResult]) -> Void) {
-        LoadingIndicatorManager.showLoading()
-        let request = SearchRequestModel(query: recentSearchText, page: self.page)
-        NetworkManager.shared.getTMDBAPI(apiHandler: .getSearchAPI(request: request), responseModel: SearchResponseModel.self) { result, resultType in
-            switch resultType {
-            case .success:
-                complition(result.results)
-                LoadingIndicatorManager.hideLoading()
-            case .badRequest:
-                print("badRequest")
-            case .unauthorized:
-                print("unauthorized")
-            case .forbidden:
-                print("forbidden")
-            case .notFound:
-                print("notFound")
-            case .serverError:
-                print("serverError")
-            case .anotherError:
-                print("anotherError")
-            }
+        DispatchQueue.main.async {
+            LoadingIndicatorManager.hideLoading()
         }
     }
     

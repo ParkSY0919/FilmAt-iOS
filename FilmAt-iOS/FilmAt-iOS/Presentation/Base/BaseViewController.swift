@@ -26,6 +26,14 @@ class BaseViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !NWPathMonitorManager.shared.isMonitoring {
+            NWPathMonitorManager.shared.startNetworkTracking()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,23 +75,21 @@ class BaseViewController: UIViewController {
             let likeBtn = LikeButton()
             self.likeBtnComponent = likeBtn
             
-            // 🔹 크기를 버튼에 맞게 설정
             let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 44))
             likeBtn.frame = containerView.bounds
             
             containerView.addSubview(likeBtn)
-            containerView.isUserInteractionEnabled = true // 🔹 터치 활성화
+            containerView.isUserInteractionEnabled = true
 
             let navRightItem = UIBarButtonItem(customView: containerView)
-            navigationItem.rightBarButtonItem = navRightItem
-
+            let tipBtnItem = UIBarButtonItem(image: UIImage(systemName: "wand.and.rays"), style: .done, target: self, action: #selector(tipBtnTapped))
+            navigationItem.setRightBarButtonItems([navRightItem, tipBtnItem], animated: true)
         case .save:
             let navRightItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(saveBtnTapped))
             navigationItem.rightBarButtonItem = navRightItem
         case .none:
             print("navRight Btn None")
         }
-        
     }
     
     func setHierarchy() {}
@@ -153,7 +159,7 @@ class BaseViewController: UIViewController {
     }
     
     @objc
-    func likeBtnTapped() {
+    func tipBtnTapped() {
         print(#function)
     }
     

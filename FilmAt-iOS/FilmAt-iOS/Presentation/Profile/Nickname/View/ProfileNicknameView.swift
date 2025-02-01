@@ -85,10 +85,7 @@ final class ProfileNicknameView: BaseView {
         
         nicknameTextField.do {
             $0.textColor = UIColor(resource: .title)
-//            $0.placeholder = "닉네임을 입력해주세요"
             $0.setPlaceholder(placeholder: "닉네임을 입력해주세요", fontColor: .gray1, font: .filmAtFont(.body_regular_16))
-//            $0.setPlaceholder(color: .gray1)
-//            $0.font = .filmAtFont(.body_regular_16)
         }
         
         stateLabel.do {

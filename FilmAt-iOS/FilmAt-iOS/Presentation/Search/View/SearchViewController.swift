@@ -59,6 +59,10 @@ private extension SearchViewController {
     }
     
     func bindViewModel() {
+        viewModel.onAlert = { [weak self] alert in
+            self?.present(alert, animated: true)
+        }
+        
         viewModel.searchAPIResult.bind { [weak self] flag in
             print("viewModel.searchAPIResult.bind 호출 중")
             guard let flag,
@@ -102,8 +106,15 @@ extension SearchViewController: UITextFieldDelegate {
         case true:
             print("이전 검색어와 현재 검색어가 일치합니다.")
         case false:
-            var list = self.viewModel.cinemaRecentSearchList?.reversed() ?? []
-            list.append(self.viewModel.currentSearchText)
+            guard let researchList = viewModel.cinemaRecentSearchList else { return true }
+            
+            if let index = researchList.firstIndex(of: viewModel.currentSearchText) {
+                //현재 검색어가 list에 있을 때
+                viewModel.cinemaRecentSearchList?.remove(at: index)
+            }
+            
+            var list = viewModel.cinemaRecentSearchList?.reversed() ?? []
+            list.append(viewModel.currentSearchText)
             UserDefaultsManager.shared.recentSearchList = list.reversed()
             self.viewModel.cinemaRecentSearchList = list.reversed()
             
@@ -159,11 +170,15 @@ extension SearchViewController: UITableViewDelegate {
         detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
         detailViewModel.getImageData(movieID: row.id)
         
-        detailViewModel.endDataLoading = {
+        detailViewModel.endDataLoading = { [weak self] in
             DispatchQueue.main.async {
                 let vc = DetailViewController(viewModel: detailViewModel)
-                self.viewTransition(viewController: vc, transitionStyle: .push)
+                self?.viewTransition(viewController: vc, transitionStyle: .push)
             }
+        }
+        
+        detailViewModel.onAlert = { [weak self] alert in
+            self?.present(alert, animated: true)
         }
         
         detailViewModel.likedMovieListChange = { likeMovieListDic in

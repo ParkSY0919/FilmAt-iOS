@@ -30,6 +30,12 @@ final class DetailViewController: BaseViewController {
         bindViewModel()
     }
     
+    override func tipBtnTapped() {
+        print(#function)
+        let alert = UIAlertManager.showAlert(title: "🥳 Tip 🥳", message: "메인 사진과 포스터 사진 터치 시, 각 사진을 확대하여 볼 수 있어요!\n확대 화면을 닫으시려면 좌측 상단 x 버튼을 클릭하시면 돼요!")
+        viewTransition(viewController: alert, transitionStyle: .present)
+    }
+    
 }
 
 private extension DetailViewController {
@@ -72,12 +78,34 @@ private extension DetailViewController {
 
 extension DetailViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch viewModel.sectionTypes[indexPath.section] {
+        case .backDrop:
+            let item = viewModel.imageResponseData?.backdrops[indexPath.item]
+            let imageView = UIImageView()
+            
+            imageView.setImageKfDownSampling(with: item?.filePath ?? "", loadImageType: .original, cornerRadius: 0)
+            
+            let zoomVC = UtilZoomViewController(imageView: imageView)
+            present(zoomVC, animated: true)
+        case .poster:
+            let item = viewModel.imageResponseData?.posters[indexPath.item]
+            let imageView = UIImageView()
+            
+            imageView.setImageKfDownSampling(with: item?.filePath ?? "", loadImageType: .original, cornerRadius: 0)
+            
+            let zoomVC = UtilZoomViewController(imageView: imageView)
+            present(zoomVC, animated: true)
+        case .synopsis, .cast:
+            print("이 친구는 기능이 없습니다!")
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard viewModel.sectionTypes.first == .backDrop,
               indexPath.section == 0,
               let backdropCell = cell as? BackDropCollectionViewCell else { return }
         
-        // 현재 페이지를 정확하게 계산
         let currentPage = indexPath.item
         
         // 페이지 컨트롤 업데이트
@@ -178,19 +206,23 @@ extension DetailViewController: UICollectionViewDataSource {
             }
             
             return cell
+            
         case .cast:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CastCollectionViewCell.cellIdentifier, for: indexPath) as! CastCollectionViewCell
+            
             let item = viewModel.castData?[indexPath.item]
             guard let name = item?.name,
                   let character = item?.character else { return UICollectionViewCell() }
             cell.configureCaseCell(imageUrlPath: item?.profilePath, name: name, engName: character)
             return cell
+            
         case .poster:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.cellIdentifier, for: indexPath) as! PosterCollectionViewCell
             guard let posterCnt = viewModel.imageResponseData?.posters.count else {return UICollectionViewCell()}
             switch posterCnt == 0 {
             case true:
                 cell.imageView.setEmptyImageView()
+                cell.isUserInteractionEnabled = false
                 return cell
             case false:
                 let item = viewModel.imageResponseData?.posters[indexPath.item]

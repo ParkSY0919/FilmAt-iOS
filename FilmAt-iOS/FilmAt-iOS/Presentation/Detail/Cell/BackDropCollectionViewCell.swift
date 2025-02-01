@@ -12,7 +12,7 @@ import Then
 
 final class BackDropCollectionViewCell: BaseCollectionViewCell {
     
-    private let imageView = UIImageView()
+    let imageView = UIImageView()
     let pageControl = UIPageControl()
     
     override func prepareForReuse() {
@@ -44,6 +44,7 @@ final class BackDropCollectionViewCell: BaseCollectionViewCell {
         imageView.do {
             $0.layer.borderWidth = 0
             $0.contentMode = .scaleAspectFill
+            $0.isUserInteractionEnabled = true
         }
         
         pageControl.do {
@@ -58,9 +59,10 @@ final class BackDropCollectionViewCell: BaseCollectionViewCell {
     func configureBackDropCell(imageUrlPath: String, backDropImageCnt: Int) {
         print(#function, "imageUrlPath : \(imageUrlPath)")
         imageView.setImageKfDownSampling(with: imageUrlPath,
-                                            loadImageType: .original,
-                                            cornerRadius: 0)
+                                         loadImageType: .backdrop,
+                                         cornerRadius: 0)
         pageControl.numberOfPages = backDropImageCnt
+        self.isUserInteractionEnabled = backDropImageCnt == 0 ? false : true
     }
     
     func updatePageControl(currentPage: Int) {

@@ -52,7 +52,6 @@ final class ProfileImageView: BaseView {
             $0.horizontalEdges.equalToSuperview().inset(15)
             $0.height.equalTo(300)
         }
-        
     }
     
     override func setStyle() {
@@ -87,4 +86,5 @@ final class ProfileImageView: BaseView {
         
         return layout
     }
+    
 }

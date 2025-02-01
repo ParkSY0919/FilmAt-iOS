@@ -144,7 +144,7 @@ final class SearchTableViewCell: BaseTableViewCell {
     
     func setCellUI(posterUrlPth: String, title: String, releaseDate: String) {
         posterImageView.setImageKfDownSampling(with: posterUrlPth,
-                                               loadImageType: .thumb,
+                                               loadImageType: .poster,
                                                cornerRadius: 8)
         movieTitleLabel.text = title
         releaseDateLabel.text = releaseDate == "" ? "제공된 날짜가 없습니다." : releaseDate

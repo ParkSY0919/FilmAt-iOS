@@ -35,8 +35,9 @@ final class PosterCollectionViewCell: BaseCollectionViewCell {
     }
     
     func configurePosterCell(imageUrlPath: String?) {
+        self.isUserInteractionEnabled = true
         imageView.setImageKfDownSampling(with: imageUrlPath,
-                                         loadImageType: .thumb,
+                                         loadImageType: .poster,
                                          cornerRadius: 0)
     }
     
