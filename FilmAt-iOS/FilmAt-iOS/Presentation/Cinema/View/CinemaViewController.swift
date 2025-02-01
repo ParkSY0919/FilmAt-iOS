@@ -42,8 +42,9 @@ final class CinemaViewController: BaseViewController {
         print(#function)
         
         let searchViewModel = SearchViewModel()
-        searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
         searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
+        searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
+        
         
         let vc = SearchViewController(viewModel: searchViewModel)
         viewTransition(viewController: vc, transitionStyle: .push)
@@ -156,6 +157,7 @@ extension CinemaViewController: UICollectionViewDelegate {
             let recentSeachText = (viewModel.recentSearchList.value ?? [])[indexPath.item]
             
             let searchViewModel = SearchViewModel()
+            searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
             searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
             
             searchViewModel.getSearchData(searchText: recentSeachText, page: 1, isFromCinema: true)
