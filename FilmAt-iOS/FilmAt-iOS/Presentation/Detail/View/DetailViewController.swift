@@ -73,12 +73,30 @@ private extension DetailViewController {
 extension DetailViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard viewModel.sectionTypes[indexPath.section] == .backDrop,
-              let cell = collectionView.cellForItem(at: indexPath) as? BackDropCollectionViewCell,
-              let image = cell.imageView.image else { return }
-        
-        let zoomVC = ImageZoomViewController(image: image)
-        present(zoomVC, animated: true)
+        switch viewModel.sectionTypes[indexPath.section] {
+        case .backDrop:
+            guard let cell = collectionView.cellForItem(at: indexPath) as? BackDropCollectionViewCell else { return }
+            
+            let item = viewModel.imageResponseData?.backdrops[indexPath.item]
+            let imageView = UIImageView()
+            
+            imageView.setImageKfDownSampling(with: item?.filePath ?? "", loadImageType: .original, cornerRadius: 0)
+            
+            let zoomVC = UtilZoomViewController(imageView: imageView)
+            present(zoomVC, animated: true)
+        case .poster:
+            guard let cell = collectionView.cellForItem(at: indexPath) as? PosterCollectionViewCell else { return }
+            
+            let item = viewModel.imageResponseData?.posters[indexPath.item]
+            let imageView = UIImageView()
+            
+            imageView.setImageKfDownSampling(with: item?.filePath ?? "", loadImageType: .original, cornerRadius: 0)
+            
+            let zoomVC = UtilZoomViewController(imageView: imageView)
+            present(zoomVC, animated: true)
+        case .synopsis, .cast:
+            print("이 친구는 기능이 없습니다!")
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

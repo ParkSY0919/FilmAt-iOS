@@ -10,25 +10,26 @@ import UIKit
 import SnapKit
 import Then
 
-final class ImageZoomViewController: BaseViewController {
+final class UtilZoomViewController: BaseViewController {
     
     private let scrollView = UIScrollView()
-    private let imageView = UIImageView()
-    let closeButton = UIButton()
+    private weak var imageView: UIImageView?
+    private let closeButton = UIButton()
     
-    init(image: UIImage?) {
-        imageView.image = image
+    init(imageView: UIImageView) {
+        self.imageView = imageView
         super.init()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setImageView()
     }
     
     override func setHierarchy() {
         view.addSubviews(scrollView, closeButton)
-        scrollView.addSubview(imageView)
+        
     }
     
     override func setLayout() {
@@ -36,14 +37,9 @@ final class ImageZoomViewController: BaseViewController {
             $0.edges.equalToSuperview()
         }
         
-        imageView.snp.makeConstraints {
-            $0.size.equalToSuperview()
-            $0.center.equalToSuperview()
-        }
-        
         closeButton.snp.makeConstraints {
             $0.top.leading.equalTo(view.safeAreaLayoutGuide).inset(16)
-            $0.width.height.equalTo(44)
+            $0.width.height.equalTo(30)
         }
     }
     
@@ -56,13 +52,26 @@ final class ImageZoomViewController: BaseViewController {
             $0.delegate = self
         }
         
-        imageView.contentMode = .scaleAspectFit
-        
         closeButton.do {
-            $0.setImage(UIImage(systemName: "xmark"), for: .normal)
-            $0.tintColor = UIColor(resource: .gray2)
+            $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+            $0.tintColor = UIColor(resource: .point)
             $0.addTarget(self, action: #selector(closeBtnTapped), for: .touchUpInside)
+            $0.imageView?.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
         }
+    }
+    
+    private func setImageView() {
+        guard let imageView else { return }
+        scrollView.addSubview(imageView)
+        
+        imageView.snp.makeConstraints {
+            $0.size.equalToSuperview()
+            $0.center.equalToSuperview()
+        }
+        
+        imageView.contentMode = .scaleAspectFit
     }
     
     @objc
@@ -72,7 +81,7 @@ final class ImageZoomViewController: BaseViewController {
     
 }
 
-extension ImageZoomViewController: UIScrollViewDelegate {
+extension UtilZoomViewController: UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView

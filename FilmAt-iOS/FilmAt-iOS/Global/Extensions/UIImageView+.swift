@@ -31,7 +31,7 @@ extension UIImageView {
             guard let urlString else { return }
             switch loadImageType {
             case .thumb:
-                url = "https://image.tmdb.org/t/p/w300" + urlString
+                url = "https://image.tmdb.org/t/p/w342" + urlString
             case .backdrop:
                 url = "https://image.tmdb.org/t/p/w780" + urlString
             case .cast:
