@@ -9,7 +9,6 @@ import UIKit
 
 final class CinemaViewController: BaseViewController {
     
-    private let dummyArr = ["스파이더만", "현빈", "록시땅", "액션가면", "케케몬"]
     private let viewModel: CinemaViewModel
     
     private let cinemaView = CinemaView()
@@ -23,6 +22,12 @@ final class CinemaViewController: BaseViewController {
     override func loadView() {
         view = cinemaView
         viewModel.getTodayMovieData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        cinemaView.profileBox.changeProfileBoxData()
     }
 
     override func viewDidLoad() {
@@ -58,7 +63,6 @@ private extension CinemaViewController {
     func setUserDefaultsData() {
         viewModel.recentSearchList.value = UserDefaultsManager.shared.recentSearchList
         viewModel.likeMovieListDic = UserDefaultsManager.shared.likeMovieListDic
-        cinemaView.profileBox.changeProfileBoxData()
     }
     
     func setDelegate() {

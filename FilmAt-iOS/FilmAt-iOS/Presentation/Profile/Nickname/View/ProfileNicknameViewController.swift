@@ -55,7 +55,6 @@ final class ProfileNicknameViewController: BaseViewController {
         print(#function)
         
         saveUserDefaults(isPushType: false)
-        onChange?()
         super.saveBtnTapped()
     }
 
@@ -125,6 +124,7 @@ private extension ProfileNicknameViewController {
               UserDefaultsManager.shared.profileImage,
               UserDefaultsManager.shared.currentImageIndex)
         print("UserDefaultsManager.shared.currentImageIndex : \(UserDefaultsManager.shared.currentImageIndex)")
+        onChange?()
     }
     
 }
