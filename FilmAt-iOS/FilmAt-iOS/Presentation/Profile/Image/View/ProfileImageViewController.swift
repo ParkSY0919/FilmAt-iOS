@@ -91,8 +91,12 @@ extension ProfileImageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileImageCollectionViewCell.cellIdentifier, for: indexPath) as! ProfileImageCollectionViewCell
         cell.profileImageView.tag = indexPath.item
-        
-        let isSame = UIImage(named: viewModel.imageStr) == profileImageArr[indexPath.item]
+        var isSame: Bool = false
+        if viewModel.isPush ?? false {
+            isSame = (viewModel.currentImage.value == profileImageArr[indexPath.item])
+        } else {
+            isSame = UIImage(named: viewModel.imageStr) == profileImageArr[indexPath.item]
+        }
         
         DispatchQueue.main.async {
             cell.setProfileCellUI(image: self.profileImageArr[indexPath.item], isSame: isSame)

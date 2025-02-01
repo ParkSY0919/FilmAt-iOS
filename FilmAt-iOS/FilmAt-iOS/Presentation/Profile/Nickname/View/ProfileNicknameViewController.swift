@@ -135,11 +135,10 @@ private extension ProfileNicknameViewController {
     @objc
     func profileContainerTapped() {
         print(#function, "profile Image 설정화면으로 고우!")
-        let imageIndex = self.viewModel.currentImageIndex
         let index = self.viewModel.currentImageIndex ?? 0
         let str = "profile_\(index)"
         let image = (isPushType ?
-                     profileNicknameView.profileImageView.image ?? UIImage() : UIImage(named: str)) ?? UIImage()
+                     profileNicknameView.profileImageView.image : UIImage(named: str)) ?? UIImage()
         
         
         
