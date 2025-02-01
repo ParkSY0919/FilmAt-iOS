@@ -40,7 +40,7 @@ final class ProfileImageCollectionViewCell: BaseCollectionViewCell {
             profileImageView.layer.borderColor = UIColor(resource: .point).cgColor
             profileImageView.alpha = 1.0
         } else {
-            profileImageView.layer.borderWidth = 1.5
+            profileImageView.layer.borderWidth = 1
             profileImageView.layer.borderColor = UIColor.lightGray.cgColor
             profileImageView.alpha = 0.5
         }

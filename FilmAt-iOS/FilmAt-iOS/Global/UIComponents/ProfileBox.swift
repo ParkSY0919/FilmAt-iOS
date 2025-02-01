@@ -71,7 +71,7 @@ final class ProfileBox: BaseView {
         profileImageView.do {
             let image = UserDefaultsManager.shared.profileImage
             $0.setImageView(image: image, cornerRadius: 55/2)
-            $0.layer.borderWidth = 4.5
+            $0.layer.borderWidth = 3
             $0.layer.borderColor = UIColor(resource: .point).cgColor
             $0.alpha = 1.0
         }
