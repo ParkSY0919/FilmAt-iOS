@@ -32,6 +32,12 @@ extension UIImageView {
             switch loadImageType {
             case .thumb:
                 url = "https://image.tmdb.org/t/p/w300" + urlString
+            case .backdrop:
+                url = "https://image.tmdb.org/t/p/w780" + urlString
+            case .cast:
+                url = "https://image.tmdb.org/t/p/w92" + urlString
+            case .poster:
+                url = "https://image.tmdb.org/t/p/w185" + urlString
             case .original:
                 url = "https://image.tmdb.org/t/p/original" + urlString
             }

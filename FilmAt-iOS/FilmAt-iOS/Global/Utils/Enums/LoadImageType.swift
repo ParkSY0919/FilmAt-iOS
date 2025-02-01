@@ -9,5 +9,8 @@ import Foundation
 
 enum LoadImageType {
     case thumb
+    case backdrop
+    case cast
+    case poster
     case original
 }

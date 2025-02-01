@@ -62,7 +62,9 @@ final class CastCollectionViewCell: BaseCollectionViewCell {
         if imageUrlPath == nil {
             imageView.setEmptyImageView(imageStr: "person.circle")
         } else {
-            imageView.setImageKfDownSampling(with: imageUrlPath, loadImageType: .thumb, cornerRadius: 25)
+            imageView.setImageKfDownSampling(with: imageUrlPath,
+                                             loadImageType: .cast,
+                                             cornerRadius: 25)
         }
         nameLabel.text = name
         engNameLabel.text = engName

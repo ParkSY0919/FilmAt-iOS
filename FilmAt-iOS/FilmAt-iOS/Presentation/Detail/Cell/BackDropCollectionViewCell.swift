@@ -59,8 +59,8 @@ final class BackDropCollectionViewCell: BaseCollectionViewCell {
     func configureBackDropCell(imageUrlPath: String, backDropImageCnt: Int) {
         print(#function, "imageUrlPath : \(imageUrlPath)")
         imageView.setImageKfDownSampling(with: imageUrlPath,
-                                            loadImageType: .original,
-                                            cornerRadius: 0)
+                                         loadImageType: .backdrop,
+                                         cornerRadius: 0)
         pageControl.numberOfPages = backDropImageCnt
     }
     

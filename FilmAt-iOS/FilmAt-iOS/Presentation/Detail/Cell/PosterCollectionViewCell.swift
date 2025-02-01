@@ -36,7 +36,7 @@ final class PosterCollectionViewCell: BaseCollectionViewCell {
     
     func configurePosterCell(imageUrlPath: String?) {
         imageView.setImageKfDownSampling(with: imageUrlPath,
-                                         loadImageType: .thumb,
+                                         loadImageType: .poster,
                                          cornerRadius: 0)
     }
     
