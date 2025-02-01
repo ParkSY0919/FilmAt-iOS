@@ -81,8 +81,6 @@ extension DetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch viewModel.sectionTypes[indexPath.section] {
         case .backDrop:
-            guard let cell = collectionView.cellForItem(at: indexPath) as? BackDropCollectionViewCell else { return }
-            
             let item = viewModel.imageResponseData?.backdrops[indexPath.item]
             let imageView = UIImageView()
             
@@ -91,8 +89,6 @@ extension DetailViewController: UICollectionViewDelegate {
             let zoomVC = UtilZoomViewController(imageView: imageView)
             present(zoomVC, animated: true)
         case .poster:
-            guard let cell = collectionView.cellForItem(at: indexPath) as? PosterCollectionViewCell else { return }
-            
             let item = viewModel.imageResponseData?.posters[indexPath.item]
             let imageView = UIImageView()
             
@@ -210,19 +206,23 @@ extension DetailViewController: UICollectionViewDataSource {
             }
             
             return cell
+            
         case .cast:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CastCollectionViewCell.cellIdentifier, for: indexPath) as! CastCollectionViewCell
+            
             let item = viewModel.castData?[indexPath.item]
             guard let name = item?.name,
                   let character = item?.character else { return UICollectionViewCell() }
             cell.configureCaseCell(imageUrlPath: item?.profilePath, name: name, engName: character)
             return cell
+            
         case .poster:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.cellIdentifier, for: indexPath) as! PosterCollectionViewCell
             guard let posterCnt = viewModel.imageResponseData?.posters.count else {return UICollectionViewCell()}
             switch posterCnt == 0 {
             case true:
                 cell.imageView.setEmptyImageView()
+                cell.isUserInteractionEnabled = false
                 return cell
             case false:
                 let item = viewModel.imageResponseData?.posters[indexPath.item]

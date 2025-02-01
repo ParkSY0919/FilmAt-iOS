@@ -13,4 +13,19 @@ enum LoadImageType {
     case cast
     case poster
     case original
+    
+    var pathUrl: String {
+        switch self {
+        case .thumb:
+            return "https://image.tmdb.org/t/p/w342"
+        case .backdrop:
+            return "https://image.tmdb.org/t/p/w780"
+        case .cast:
+            return "https://image.tmdb.org/t/p/w92"
+        case .poster:
+            return "https://image.tmdb.org/t/p/w185"
+        case .original:
+            return "https://image.tmdb.org/t/p/original"
+        }
+    }
 }

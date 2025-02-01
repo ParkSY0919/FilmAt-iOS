@@ -62,6 +62,7 @@ final class BackDropCollectionViewCell: BaseCollectionViewCell {
                                          loadImageType: .backdrop,
                                          cornerRadius: 0)
         pageControl.numberOfPages = backDropImageCnt
+        self.isUserInteractionEnabled = backDropImageCnt == 0 ? false : true
     }
     
     func updatePageControl(currentPage: Int) {

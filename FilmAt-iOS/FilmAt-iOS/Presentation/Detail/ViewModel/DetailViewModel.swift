@@ -40,7 +40,7 @@ final class DetailViewModel {
 
 extension DetailViewModel {
     
-    //왜 무한 인디케이터에서 못 나올까
+    //왜 네트워크를 끊으면 무한 인디케이터에서 못 나올까
     
     func getImageData(movieID: Int) {
         LoadingIndicatorManager.showLoading()
