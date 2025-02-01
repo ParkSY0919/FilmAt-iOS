@@ -40,8 +40,15 @@ final class CinemaViewController: BaseViewController {
         let searchViewModel = SearchViewModel()
         searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
         searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
+        
         let vc = SearchViewController(viewModel: searchViewModel)
         viewTransition(viewController: vc, transitionStyle: .push)
+        
+        searchViewModel.likedMovieListChange = { likeMovieListDic in
+            print("searchViewModel.likedMovieListChange = { likeMovieListDic in")
+            self.viewModel.likeMovieListDic = likeMovieListDic
+            self.viewModel.todayMovieAPIResult.value = true
+        }
     }
 
 }

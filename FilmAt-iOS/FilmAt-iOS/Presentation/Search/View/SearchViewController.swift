@@ -169,6 +169,7 @@ extension SearchViewController: UITableViewDelegate {
             
             // reloadData하기위해 값 설정
             self.viewModel.searchAPIResult.value = true
+            self.viewModel.likedMovieListChange?(likeMovieListDic)
         }
     }
     
@@ -204,6 +205,7 @@ extension SearchViewController: UITableViewDataSource {
                 self.viewModel.likeMovieListDic[String(item.id)] = nil
             }
             UserDefaultsManager.shared.likeMovieListDic = self.viewModel.likeMovieListDic
+            viewModel.likedMovieListChange?(viewModel.likeMovieListDic)
         }
         
         return cell

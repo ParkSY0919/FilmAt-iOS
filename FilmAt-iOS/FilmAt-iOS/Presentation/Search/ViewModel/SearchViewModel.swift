@@ -10,6 +10,7 @@ import Foundation
 final class SearchViewModel {
     
     var cinemaRecentSearchList: [String]?
+    var likedMovieListChange: (([String: Bool]) -> Void)?
     var onChange: ((String) -> Void)?
     var beforeSearchText = ""
     var currentSearchText = ""
