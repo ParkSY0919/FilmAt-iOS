@@ -300,6 +300,7 @@
 				9E61BB0E2D451C1F007B6910 /* UIAlertManager.swift */,
 				9E328E2C2D4DADC6001282FD /* LoadingIndicatorManager.swift */,
 				9EBABB372D4DE03D002FC3B7 /* NWPathMonitorManager.swift */,
+				9EBABB3B2D4E072B002FC3B7 /* UtilZoomViewController.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -317,7 +318,6 @@
 				9EC78D852D49067200248B19 /* GenreType.swift */,
 				9EC78D9F2D4B84A900248B19 /* DetailViewSectionType.swift */,
 				9EC78DAD2D4BE14A00248B19 /* LoadImageType.swift */,
-				9EBABB3B2D4E072B002FC3B7 /* UtilZoomViewController.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";

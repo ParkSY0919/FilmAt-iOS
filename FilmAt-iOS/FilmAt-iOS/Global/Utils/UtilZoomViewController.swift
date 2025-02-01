@@ -38,8 +38,6 @@ final class ImageZoomViewController: BaseViewController {
         
         imageView.snp.makeConstraints {
             $0.size.equalToSuperview()
-//            $0.width.equalTo(view.frame.width)
-//            $0.height.equalTo(view.frame.height)
             $0.center.equalToSuperview()
         }
         
