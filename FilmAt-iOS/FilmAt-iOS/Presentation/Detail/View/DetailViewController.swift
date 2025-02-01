@@ -72,6 +72,15 @@ private extension DetailViewController {
 
 extension DetailViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard viewModel.sectionTypes[indexPath.section] == .backDrop,
+              let cell = collectionView.cellForItem(at: indexPath) as? BackDropCollectionViewCell,
+              let image = cell.imageView.image else { return }
+        
+        let zoomVC = ImageZoomViewController(image: image)
+        present(zoomVC, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard viewModel.sectionTypes.first == .backDrop,
               indexPath.section == 0,
