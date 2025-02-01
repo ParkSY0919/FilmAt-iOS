@@ -14,9 +14,10 @@ final class DetailView: BaseView {
     
     private let sectionTypes = DetailViewSectionType.allCases
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
+    let tipButton = UIButton()
     
     override func setHierarchy() {
-        self.addSubview(collectionView)
+        self.addSubviews(collectionView, tipButton)
     }
     
     override func setLayout() {

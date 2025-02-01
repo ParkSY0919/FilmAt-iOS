@@ -82,7 +82,8 @@ class BaseViewController: UIViewController {
             containerView.isUserInteractionEnabled = true
 
             let navRightItem = UIBarButtonItem(customView: containerView)
-            navigationItem.rightBarButtonItem = navRightItem
+            let tipBtnItem = UIBarButtonItem(image: UIImage(systemName: "wand.and.rays"), style: .done, target: self, action: #selector(tipBtnTapped))
+            navigationItem.setRightBarButtonItems([navRightItem, tipBtnItem], animated: true)
         case .save:
             let navRightItem = UIBarButtonItem(title: "저장", style: .done, target: self, action: #selector(saveBtnTapped))
             navigationItem.rightBarButtonItem = navRightItem
@@ -158,7 +159,7 @@ class BaseViewController: UIViewController {
     }
     
     @objc
-    func likeBtnTapped() {
+    func tipBtnTapped() {
         print(#function)
     }
     
