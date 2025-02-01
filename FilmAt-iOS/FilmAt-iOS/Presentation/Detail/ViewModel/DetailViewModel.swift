@@ -31,7 +31,9 @@ final class DetailViewModel {
     }
     
     var isMoreState: ObservablePattern<Bool> = ObservablePattern(true)
-    var isTextTruncated: ObservablePattern<Bool> = ObservablePattern(nil)
+    
+    var isTextTruncated: Bool?
+    var isFirstLoad = true
     
 }
 

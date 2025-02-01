@@ -43,21 +43,15 @@ private extension DetailViewController {
         self.likeBtnComponent?.likeButton.isSelected = viewModel
             .likeMovieListDic[String(viewModel.detailMovieInfoModel.moviewId)] ?? false
         
-        //한번왕복하면 사라짐
         viewModel.isMoreState.bind { [weak self] flag in
             guard let flag else { return }
             DispatchQueue.main.async {
                 self?.viewModel.synopsisNumberOfLines = flag ? 3 : 0
+                
+                // collectionView Section load시 깜빡거림 없애면서 애니메이션 어떻게 줘야할까
+                // performbatch 실패..
                 UIView.performWithoutAnimation {
                     self?.detailView.collectionView.reloadSections(IndexSet(integer: 1))
-                }
-            }
-        }
-        
-        viewModel.isTextTruncated.bind { [weak self] flag in
-            DispatchQueue.main.async {
-                UIView.performWithoutAnimation {
-                    self?.detailView.collectionView.reloadSections(IndexSet(integer: 0))
                 }
             }
         }
@@ -126,8 +120,10 @@ extension DetailViewController: UICollectionViewDelegate {
             
             var isMoreHidden: Bool = (indexPath.section != 1)
             if indexPath.section == 1 {
-                isMoreHidden = !(viewModel.isTextTruncated.value ?? false)
+                isMoreHidden = !(viewModel.isTextTruncated ?? false)
+                print("현재 isMoreHidden : \(isMoreHidden)\n")
             }
+            
             header.configureHeaderView(headerTitle: viewModel.sectionHeaderTitles[indexPath.section], isMoreHidden: isMoreHidden)
             
             return header
@@ -174,8 +170,13 @@ extension DetailViewController: UICollectionViewDataSource {
             cell.configureCell(contentText: viewModel.detailMovieInfoModel.overview, numberOfLines: viewModel.synopsisNumberOfLines)
             DispatchQueue.main.async {
                 print("텍스트 잘림 여부:", cell.contentLabel.isTruncated)
-                self.viewModel.isTextTruncated.value = cell.contentLabel.isTruncated
+                if self.viewModel.isFirstLoad {
+                    self.viewModel.isTextTruncated = cell.contentLabel.isTruncated
+                    // 분기처리 로직 isFirstLoad 수정 필요
+                    self.viewModel.isFirstLoad = false
+                }
             }
+            
             return cell
         case .cast:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CastCollectionViewCell.cellIdentifier, for: indexPath) as! CastCollectionViewCell
