@@ -146,8 +146,15 @@ extension SearchViewController: UITableViewDelegate {
         let voteAverage = row.voteAverage ?? Double(0.0)
         let overView = row.overview
         
-        let detailViewModel = DetailViewModel(moviewTitle: row.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr, overview: overView))
+        let detailViewModel = DetailViewModel(moviewTitle: row.title,
+                                              sectionCount: DetailViewSectionType.allCases.count,
+                                              detailMovieInfoModel: DetailMovieInfoModel(moviewId: row.id,
+                                                                                         releaseDate: releaseDate,
+                                                                                         voteAverage: voteAverage,
+                                                                                         genreIDs: genreIDsStrArr,
+                                                                                         overview: overView))
         
+        detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
         detailViewModel.getImageData(movieID: row.id)
         
         detailViewModel.endDataLoading = {
@@ -155,6 +162,13 @@ extension SearchViewController: UITableViewDelegate {
                 let vc = DetailViewController(viewModel: detailViewModel)
                 self.viewTransition(viewController: vc, transitionStyle: .push)
             }
+        }
+        
+        detailViewModel.likedMovieListChange = { likeMovieListDic in
+            self.viewModel.likeMovieListDic = likeMovieListDic
+            
+            // reloadData하기위해 값 설정
+            self.viewModel.searchAPIResult.value = true
         }
     }
     

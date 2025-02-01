@@ -8,6 +8,7 @@
 import Foundation
 
 struct DetailMovieInfoModel {
+    let moviewId: Int
     let releaseDate: String
     let voteAverage: Double
     let genreIDs: [String]

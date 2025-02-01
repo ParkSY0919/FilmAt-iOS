@@ -28,7 +28,6 @@ final class DetailViewController: BaseViewController {
         
         setDelegate()
         bindViewModel()
-        print("Delegate set: \(detailView.collectionView.delegate === self)")
     }
     
 }
@@ -41,6 +40,10 @@ private extension DetailViewController {
     }
     
     func bindViewModel() {
+        self.likeBtnComponent?.likeButton.isSelected = viewModel
+            .likeMovieListDic[String(viewModel.detailMovieInfoModel.moviewId)] ?? false
+        
+        //한번왕복하면 사라짐
         viewModel.isMoreState.bind { [weak self] flag in
             guard let flag else { return }
             DispatchQueue.main.async {
@@ -57,6 +60,17 @@ private extension DetailViewController {
                     self?.detailView.collectionView.reloadSections(IndexSet(integer: 0))
                 }
             }
+        }
+        
+        self.likeBtnComponent?.onTapLikeButton = { [weak self] isSelected in
+            guard let self = self else { return }
+            if isSelected {
+                self.viewModel.likeMovieListDic[String(viewModel.detailMovieInfoModel.moviewId)] = true
+            } else {
+                self.viewModel.likeMovieListDic[String(viewModel.detailMovieInfoModel.moviewId)] = nil
+            }
+            UserDefaultsManager.shared.likeMovieListDic = self.viewModel.likeMovieListDic
+            viewModel.likedMovieListChange?(self.viewModel.likeMovieListDic)
         }
     }
     

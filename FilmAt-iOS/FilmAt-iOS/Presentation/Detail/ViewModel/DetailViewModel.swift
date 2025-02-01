@@ -15,12 +15,14 @@ final class DetailViewModel {
     
     let sectionTypes = DetailViewSectionType.allCases
     let sectionHeaderTitles = ["", "Synopsis", "Cast", "Poster"]
+    var likeMovieListDic = [String: Bool]()
+    
     var synopsisNumberOfLines = 3
     var endDataLoading: (() -> Void)?
-    var callEndDataLoading = 0
+    var likedMovieListChange: (([String: Bool]) -> Void)?
+    
     var imageResponseData: ImageResponseModel?
     var castData: [Cast]?
-    let dispatchGroup = DispatchGroup()
     
     init(moviewTitle: String, sectionCount: Int, detailMovieInfoModel: DetailMovieInfoModel) {
         self.moviewTitle = moviewTitle

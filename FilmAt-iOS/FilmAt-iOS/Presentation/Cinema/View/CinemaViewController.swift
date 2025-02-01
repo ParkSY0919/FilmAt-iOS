@@ -24,17 +24,11 @@ final class CinemaViewController: BaseViewController {
         view = cinemaView
         viewModel.getTodayMovieData()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        viewModel.recentSearchList.value = UserDefaultsManager.shared.recentSearchList
-        viewModel.likeMovieListDic = UserDefaultsManager.shared.likeMovieListDic
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setUserDefaultsData()
         setDelegate()
         setAddTarget()
         bindViewModel()
@@ -53,6 +47,11 @@ final class CinemaViewController: BaseViewController {
 }
 
 private extension CinemaViewController {
+    
+    func setUserDefaultsData() {
+        viewModel.recentSearchList.value = UserDefaultsManager.shared.recentSearchList
+        viewModel.likeMovieListDic = UserDefaultsManager.shared.likeMovieListDic
+    }
     
     func setDelegate() {
         cinemaView.recentSearchCollectionView.delegate = self
@@ -159,7 +158,15 @@ extension CinemaViewController: UICollectionViewDelegate {
             let voteAverage = selectedTodayMovie.voteAverage ?? Double(0.0)
             let overView = selectedTodayMovie.overview
             
-            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title, sectionCount: DetailViewSectionType.allCases.count, detailMovieInfoModel: DetailMovieInfoModel(releaseDate: releaseDate, voteAverage: voteAverage, genreIDs: genreIDsStrArr, overview: overView))
+            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title,
+                                                  sectionCount: DetailViewSectionType.allCases.count,
+                                                  detailMovieInfoModel: DetailMovieInfoModel(moviewId: selectedTodayMovie.id,
+                                                                                             releaseDate: releaseDate,
+                                                                                             voteAverage: voteAverage,
+                                                                                             genreIDs: genreIDsStrArr,
+                                                                                             overview: overView))
+            
+            detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
             detailViewModel.getImageData(movieID: selectedTodayMovie.id)
             
             detailViewModel.endDataLoading = {
@@ -167,6 +174,11 @@ extension CinemaViewController: UICollectionViewDelegate {
                     let vc = DetailViewController(viewModel: detailViewModel)
                     self.viewTransition(viewController: vc, transitionStyle: .push)
                 }
+            }
+            
+            detailViewModel.likedMovieListChange = { likeMovieListDic in
+                self.viewModel.likeMovieListDic = likeMovieListDic
+                self.viewModel.todayMovieAPIResult.value = true
             }
         }
     }
