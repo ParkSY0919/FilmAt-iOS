@@ -65,7 +65,9 @@ private extension ProfileImageViewController {
             guard let image else {return}
             DispatchQueue.main.async {
                 self?.profileImageView.profileImageView.image = image
-                self?.profileImageView.collectionView.reloadData()
+                self?.profileImageView.collectionView.performBatchUpdates {
+                    self?.profileImageView.collectionView.reloadSections(IndexSet(integer: 0))
+                }
             }
         }
     }
