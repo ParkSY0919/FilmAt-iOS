@@ -73,7 +73,11 @@ final class ProfileNicknameView: BaseView {
     }
     
     override func setStyle() {
-        setRandomProfileImage()
+        profileImageView.do {
+            $0.setImageView(image: UIImage(), cornerRadius: 120/2)
+            $0.layer.borderColor = UIColor(resource: .point).cgColor
+            $0.layer.borderWidth = 3
+        }
         
         cameraImageView.do {
             $0.setImageView(image: UIImage(systemName: "camera.fill") ?? UIImage(), cornerRadius: 35/2)
@@ -98,21 +102,6 @@ final class ProfileNicknameView: BaseView {
         }
         
         doneButtonComponent.isUserInteractionEnabled = false
-    }
-    
-    private func setRandomProfileImage() {
-        var imageArr: [UIImage] = []
-        for i in 0...11 {
-            imageArr.append(UIImage(named: "profile_\(i)") ?? UIImage())
-        }
-        
-        let randomProfileImage = imageArr.randomElement() ?? UIImage()
-        
-        profileImageView.do {
-            $0.setImageView(image: randomProfileImage, cornerRadius: 120/2)
-            $0.layer.borderColor = UIColor(resource: .point).cgColor
-            $0.layer.borderWidth = 3
-        }
     }
     
     func changeProfileNicknameState(stateLabelType: StateLabelType) {
