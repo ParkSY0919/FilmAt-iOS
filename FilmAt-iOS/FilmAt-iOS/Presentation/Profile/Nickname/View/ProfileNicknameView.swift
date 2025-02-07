@@ -19,7 +19,9 @@ final class ProfileNicknameView: BaseView {
     private let underLine = UIView()
     let nicknameTextField = UITextField()
     private let stateLabel = UILabel()
-    let doneButtonComponent = DoneButton(title: "완료", doneBtnState: .unsatisfied)
+    let doneButtonComponent = DoneButton(title: "완료",
+                                         doneBtnState: .unsatisfied,
+                                         isProfileBtn: true)
     
     override func setHierarchy() {
         self.addSubviews(profileContainer,

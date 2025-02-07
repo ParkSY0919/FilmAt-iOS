@@ -20,6 +20,15 @@ enum DoneButtonState {
         }
     }
     
+    var backgroundColor: UIColor {
+        switch self {
+        case .unsatisfied:
+            return UIColor(resource: .notValidDoneBtn)
+        case .satisfied:
+            return UIColor(resource: .validDoneBtn)
+        }
+    }
+    
     var titleColor: UIColor {
         switch self {
         case .unsatisfied:

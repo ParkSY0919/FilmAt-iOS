@@ -15,10 +15,12 @@ final class DoneButton: BaseView {
     let doneButton = UIButton()
     private let title: String
     var doneBtnState: DoneButtonState
+    var isProfileBtn: Bool
     
-    init(title: String, doneBtnState: DoneButtonState) {
+    init(title: String, doneBtnState: DoneButtonState, isProfileBtn: Bool = false) {
         self.title = title
         self.doneBtnState = doneBtnState
+        self.isProfileBtn = isProfileBtn
         
         super.init(frame: .zero)
     }
@@ -39,15 +41,19 @@ final class DoneButton: BaseView {
             $0.layer.borderWidth = 1
             $0.layer.cornerRadius = 45/2
             $0.layer.borderColor = doneBtnState.borderColor
+            $0.backgroundColor = isProfileBtn ? doneBtnState.backgroundColor : .clear
             $0.setTitle(title, for: .normal)
-            $0.setTitleColor(doneBtnState.titleColor, for: .normal)
+            let titleColor = isProfileBtn ? UIColor(resource: .title) : doneBtnState.titleColor
+            $0.setTitleColor(titleColor, for: .normal)
         }
     }
     
     func changeDoneBtnState() {
         doneButton.do {
             $0.layer.borderColor = doneBtnState.borderColor
-            $0.setTitleColor(doneBtnState.titleColor, for: .normal)
+            $0.backgroundColor = isProfileBtn ? doneBtnState.backgroundColor : .clear
+            let titleColor = isProfileBtn ? UIColor(resource: .title) : doneBtnState.titleColor
+            $0.setTitleColor(titleColor, for: .normal)
         }
     }
     
