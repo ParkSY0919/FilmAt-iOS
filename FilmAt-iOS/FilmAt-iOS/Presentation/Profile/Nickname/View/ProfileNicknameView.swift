@@ -19,6 +19,9 @@ final class ProfileNicknameView: BaseView {
     private let underLine = UIView()
     let nicknameTextField = UITextField()
     private let stateLabel = UILabel()
+    
+    private let mbtiTtielLabel = UILabel()
+    
     let doneButtonComponent = DoneButton(title: "완료",
                                          doneBtnState: .unsatisfied,
                                          isProfileBtn: true)
@@ -28,6 +31,7 @@ final class ProfileNicknameView: BaseView {
                          underLine,
                          nicknameTextField,
                          stateLabel,
+                         mbtiTtielLabel,
                          doneButtonComponent)
         
         profileContainer.addSubviews(profileImageView, cameraImageView)
@@ -65,8 +69,13 @@ final class ProfileNicknameView: BaseView {
             $0.leading.equalTo(nicknameTextField.snp.leading)
         }
         
+        mbtiTtielLabel.snp.makeConstraints {
+            $0.top.equalTo(stateLabel.snp.bottom).offset(40)
+            $0.leading.equalToSuperview().inset(10)
+        }
+        
         doneButtonComponent.snp.makeConstraints {
-            $0.top.equalTo(stateLabel.snp.bottom).offset(20)
+            $0.bottom.equalTo(keyboardLayoutGuide.snp.top).offset(-10)
             $0.horizontalEdges.equalTo(underLine)
             $0.height.equalTo(45)
         }
@@ -100,6 +109,8 @@ final class ProfileNicknameView: BaseView {
                           textColor: UIColor(resource: .point))
             $0.isHidden = true
         }
+        
+        mbtiTtielLabel.setLabelUI("MBTI", font: .filmAtFont(.title_heavy_16))
         
         doneButtonComponent.isUserInteractionEnabled = false
     }
