@@ -21,6 +21,7 @@ final class ProfileNicknameView: BaseView {
     private let stateLabel = UILabel()
     
     private let mbtiTtielLabel = UILabel()
+    private let mbtiView = MBTIView(overBtnTitle: "E", underBtnTitle: "I")
     
     let doneButtonComponent = DoneButton(title: "완료",
                                          doneBtnState: .unsatisfied,
@@ -32,6 +33,7 @@ final class ProfileNicknameView: BaseView {
                          nicknameTextField,
                          stateLabel,
                          mbtiTtielLabel,
+                         mbtiView,
                          doneButtonComponent)
         
         profileContainer.addSubviews(profileImageView, cameraImageView)
@@ -72,6 +74,11 @@ final class ProfileNicknameView: BaseView {
         mbtiTtielLabel.snp.makeConstraints {
             $0.top.equalTo(stateLabel.snp.bottom).offset(40)
             $0.leading.equalToSuperview().inset(10)
+        }
+        
+        mbtiView.snp.makeConstraints {
+            $0.top.equalTo(mbtiTtielLabel.snp.top)
+            $0.leading.equalTo(mbtiTtielLabel.snp.trailing).offset(40)
         }
         
         doneButtonComponent.snp.makeConstraints {
