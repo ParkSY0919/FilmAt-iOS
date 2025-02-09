@@ -12,7 +12,7 @@ import Then
 
 final class MBTIView: BaseView {
     
-    var overBtnTitle: String = "키"
+    let overBtnTitle: String
     let underBtnTitle: String
     
     let stackView = UIStackView()
@@ -52,44 +52,48 @@ final class MBTIView: BaseView {
             $0.spacing = 10
         }
         
-        
-        
+        [overBtn, underBtn].forEach { (i: UIButton) in
+            setMBTIBtnStyle(btn: i)
+        }
+    }
+    
+    private func setMBTIBtnStyle(btn: UIButton) {
         let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
-            var updatedConfig = button.configuration // 현재 설정 가져오기
             switch button.state {
             case .normal:
-                updatedConfig?.baseBackgroundColor = UIColor.white
-                updatedConfig?.baseForegroundColor = UIColor(resource: .notValidDoneBtn)
+                button.layer.backgroundColor = UIColor.white.cgColor
+                button.configuration?.baseForegroundColor = UIColor(resource: .notValidDoneBtn)
             case .selected:
-                updatedConfig?.baseBackgroundColor = UIColor(resource: .validDoneBtn)
-                updatedConfig?.baseForegroundColor = UIColor(resource: .title)
+                button.layer.backgroundColor = UIColor(resource: .validDoneBtn).cgColor
+                button.configuration?.baseForegroundColor = UIColor(resource: .title)
             default:
                 return
             }
-            button.configuration = updatedConfig // 수정된 설정 적용
         }
+        
+        var config = UIButton.Configuration.plain()
+        config.title = (btn == overBtn) ? overBtnTitle : underBtnTitle
 
-        
-        
-        [overBtn, underBtn].forEach { (i: UIButton) in
-            i.do {
-                $0.layer.cornerRadius = 65/2
-                $0.layer.borderWidth = 2
-                $0.layer.borderColor = UIColor(resource: .notValidDoneBtn).cgColor
-                var config = UIButton.Configuration.plain()
-                config.title = (i == overBtn) ? overBtnTitle : underBtnTitle
-                config.baseBackgroundColor = .white
-                config.baseForegroundColor = UIColor(resource: .notValidDoneBtn)
-                $0.configuration = config
-                $0.configurationUpdateHandler = buttonStateHandler
-                $0.addTarget(self, action: #selector(settt), for: .touchUpInside)
-            }
+        btn.configuration = config
+        btn.configurationUpdateHandler = buttonStateHandler
+
+        btn.do {
+            $0.layer.cornerRadius = 65/2
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = UIColor(resource: .notValidDoneBtn).cgColor
+            $0.layer.masksToBounds = true
+            $0.addTarget(self,
+                         action: #selector(mbtiBtnTapped),
+                         for: .touchUpInside)
         }
     }
     
     @objc
-    func settt(_ sender: UIButton) {
-        sender.isSelected = true
+    func mbtiBtnTapped(_ sender: UIButton) {
+        let isOverBtn = (sender == overBtn)
+        overBtn.isSelected = isOverBtn
+        underBtn.isSelected = !isOverBtn
+        print("sender.title: \(sender.configuration?.title)")
     }
     
 }
