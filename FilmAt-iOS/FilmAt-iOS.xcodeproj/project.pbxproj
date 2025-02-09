@@ -95,6 +95,7 @@
 		9EC790E12D4D325300248B19 /* DetailMovieInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC790E02D4D322600248B19 /* DetailMovieInfoModel.swift */; };
 		9EC790E32D4D429800248B19 /* PosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC790E22D4D429800248B19 /* PosterCollectionViewCell.swift */; };
 		9EC790E52D4D498500248B19 /* CastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC790E42D4D498500248B19 /* CastCollectionViewCell.swift */; };
+		9ED79EBE2D58F0B3006107D7 /* MBTIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED79EBD2D58F0B3006107D7 /* MBTIButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,6 +184,7 @@
 		9EC790E02D4D322600248B19 /* DetailMovieInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMovieInfoModel.swift; sourceTree = "<group>"; };
 		9EC790E22D4D429800248B19 /* PosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC790E42D4D498500248B19 /* CastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCollectionViewCell.swift; sourceTree = "<group>"; };
+		9ED79EBD2D58F0B3006107D7 /* MBTIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +294,7 @@
 				9EC78D3F2D466CF400248B19 /* DoneButton.swift */,
 				9EC78D672D479A8300248B19 /* ProfileBox.swift */,
 				9EC78D732D48A82D00248B19 /* LikeButton.swift */,
+				9ED79EBD2D58F0B3006107D7 /* MBTIButton.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -857,6 +860,7 @@
 				9EC78D742D48A82D00248B19 /* LikeButton.swift in Sources */,
 				9EC78D332D45511500248B19 /* SearchRequestModel.swift in Sources */,
 				9EC78DAC2D4BA7EB00248B19 /* DetailCollectionHeaderView.swift in Sources */,
+				9ED79EBE2D58F0B3006107D7 /* MBTIButton.swift in Sources */,
 				9EC78D4A2D47240500248B19 /* ProfileNicknameView.swift in Sources */,
 				9EC78D3E2D466B5400248B19 /* OnBoardingView.swift in Sources */,
 				9EC78D8E2D49D4C600248B19 /* SettingView.swift in Sources */,

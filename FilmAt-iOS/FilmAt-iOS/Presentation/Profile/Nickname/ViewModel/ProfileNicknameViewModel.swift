@@ -8,22 +8,49 @@
 import Foundation
 
 final class ProfileNicknameViewModel {
-    
-    var nicknameText: ObservablePattern<String> = ObservablePattern(nil)
-    var isValidNickname: ObservablePattern<StateLabelType> = ObservablePattern(nil)
+
+    var mbti = [String]()
     var currentImageName: String = ""
+    var nicknameText: ObservablePattern<String> = ObservablePattern(nil)
+    var inputMbti: ObservablePattern<[String]> = ObservablePattern(Array(repeating: "", count: 4))
+    
+    var isValidNickname: ObservablePattern<StateLabelType> = ObservablePattern(StateLabelType.success)
+    var outputMbtiisValid = false
+    
+    var outputIsDoneValid: ObservablePattern<Bool> = ObservablePattern(false)
+    
+    init() {
+        bindViewModel()
+    }
+    
+    func bindViewModel() {
+        inputMbti.lazyBind { [weak self] mbti in
+            guard let self, let mbti else {return}
+            self.mbti = mbti
+            self.outputMbtiisValid = (!self.mbti.contains("")) ? true : false
+            self.isDoneState()
+        }
+    }
     
     func validateNickname(_ nickname: String) {
         if nickname.count < 2 || nickname.count > 9 {
-            return isValidNickname.value = StateLabelType.textCountError
+            isValidNickname.value = StateLabelType.textCountError
+            return isDoneState()
         }
         if nickname.range(of: "[@#$%]", options: .regularExpression) != nil {
-            return isValidNickname.value = StateLabelType.specialCharacterError
+            isValidNickname.value = StateLabelType.specialCharacterError
+            return isDoneState()
         }
         if nickname.range(of: "[0-9]", options: .regularExpression) != nil {
-            return isValidNickname.value = StateLabelType.numberError
+            isValidNickname.value = StateLabelType.numberError
+            return isDoneState()
         }
-        return isValidNickname.value = StateLabelType.success
+        isValidNickname.value = StateLabelType.success
+        return isDoneState()
+    }
+    
+    func isDoneState() {
+        outputIsDoneValid.value = (isValidNickname.value == .success && outputMbtiisValid == true) ? true : false
     }
     
 }

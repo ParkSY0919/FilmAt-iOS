@@ -12,6 +12,7 @@ enum StateLabelType {
     case textCountError
     case specialCharacterError
     case numberError
+    case none
     
     var text: String {
         switch self {
@@ -23,6 +24,8 @@ enum StateLabelType {
             return "닉네임에 @, #, $, % 는 포함할 수 없어요"
         case .numberError:
             return "닉네임에 숫자는 포함할 수 없어요"
+        case .none:
+            return " "
         }
     }
     
@@ -30,7 +33,7 @@ enum StateLabelType {
         switch self {
         case .success:
             return UIColor(resource: .validDoneBtn)
-        case .textCountError, .specialCharacterError, .numberError:
+        default:
             return UIColor(resource: .notValidStateLabel)
         }
     }
