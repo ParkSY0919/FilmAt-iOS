@@ -91,9 +91,18 @@ private extension ProfileNicknameViewController {
             self?.viewModel.validateNickname(text)
         }
         
-        self.viewModel.isValidNickname.lazyBind { [weak self] state in
-            guard let state else { return }
-            self?.profileNicknameView.changeProfileNicknameState(stateLabelType: state)
+        //프로필 수정하러 들어왔을 땐 유효한 닉네임 stateLabel이 표시돼야 하기 때문
+        switch isPushType {
+        case true:
+            self.viewModel.isValidNickname.lazyBind { [weak self] state in
+                guard let state else { return }
+                self?.profileNicknameView.changeProfileNicknameState(stateLabelType: state)
+            }
+        case false:
+            self.viewModel.isValidNickname.bind { [weak self] state in
+                guard let state else { return }
+                self?.profileNicknameView.changeProfileNicknameState(stateLabelType: state)
+            }
         }
         
         self.viewModel.outputIsDoneValid.lazyBind { [weak self] state in

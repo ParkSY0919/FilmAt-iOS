@@ -14,7 +14,7 @@ final class ProfileNicknameViewModel {
     var nicknameText: ObservablePattern<String> = ObservablePattern(nil)
     var inputMbti: ObservablePattern<[String]> = ObservablePattern(Array(repeating: "", count: 4))
     
-    var isValidNickname: ObservablePattern<StateLabelType> = ObservablePattern(StateLabelType.none)
+    var isValidNickname: ObservablePattern<StateLabelType> = ObservablePattern(StateLabelType.success)
     var outputMbtiisValid = false
     
     var outputIsDoneValid: ObservablePattern<Bool> = ObservablePattern(false)
