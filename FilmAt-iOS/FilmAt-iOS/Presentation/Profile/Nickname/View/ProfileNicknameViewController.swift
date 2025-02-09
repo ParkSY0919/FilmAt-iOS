@@ -95,35 +95,31 @@ private extension ProfileNicknameViewController {
         switch isPushType {
         case true:
             profileNicknameView.doneButtonComponent.isHidden = false
+            
+            let randomImageName = "profile_\((0...11).randomElement() ?? 0)"
+            profileNicknameView.profileImageView.image = UIImage(named: randomImageName)
+            viewModel.currentImageName = randomImageName
         case false:
             profileNicknameView.doneButtonComponent.isHidden = true
             
             let nickname = UserDefaultsManager.shared.nickname
-            let profileImage = UserDefaultsManager.shared.profileImage
+            let profileImage = UserDefaultsManager.shared.profileImageName
             
             profileNicknameView.nicknameTextField.text = nickname
-            profileNicknameView.profileImageView.image = profileImage
+            profileNicknameView.profileImageView.image = UIImage(named: profileImage)
         }
     }
     
     func saveUserDefaults(isPushType: Bool) {
         guard let text = profileNicknameView.nicknameTextField.text else { return }
-        let image = profileNicknameView.profileImageView.image
-        let imageIndex = self.viewModel.currentImageIndex ?? 0
         UserDefaultsManager.shared.nickname = text
-        UserDefaultsManager.shared.profileImage = image ?? UIImage()
-        UserDefaultsManager.shared.currentImageIndex = imageIndex
+        UserDefaultsManager.shared.profileImageName = viewModel.currentImageName
         
         if isPushType {
             let joinDate = DateFormatterManager.shard.setDateStringFromDate(date: Date(), format: "yy.MM.dd")
             UserDefaultsManager.shared.joinDate = joinDate
             UserDefaultsManager.shared.isNotFirstLoading = true
         }
-        
-        print(UserDefaultsManager.shared.nickname,
-              UserDefaultsManager.shared.profileImage,
-              UserDefaultsManager.shared.currentImageIndex)
-        print("UserDefaultsManager.shared.currentImageIndex : \(UserDefaultsManager.shared.currentImageIndex)")
         onChange?()
     }
     
@@ -135,22 +131,16 @@ private extension ProfileNicknameViewController {
     @objc
     func profileContainerTapped() {
         print(#function, "profile Image 설정화면으로 고우!")
-        let index = self.viewModel.currentImageIndex ?? 0
-        let str = "profile_\(index)"
-        let image = (isPushType ?
-                     profileNicknameView.profileImageView.image : UIImage(named: str)) ?? UIImage()
+        let image = profileNicknameView.profileImageView.image
         
-        
-        
-        
-        let viewModel = ProfileImageViewModel(currentImage: image, imageStr: str)
-        viewModel.isPush = self.isPushType
+        let viewModel = ProfileImageViewModel(currentImage: image)
+        viewModel.currentImageName = self.viewModel.currentImageName
         let vc = ProfileImageViewController(viewModel: viewModel)
-        vc.onChange = { image, index in
+        vc.onChange = { [weak self] image, imageName in
             DispatchQueue.main.async {
-                self.profileNicknameView.profileImageView.image = image
-                self.viewModel.currentImageIndex = index
+                self?.profileNicknameView.profileImageView.image = image
             }
+            self?.viewModel.currentImageName = imageName
         }
         viewTransition(viewController: vc, transitionStyle: .push)
     }

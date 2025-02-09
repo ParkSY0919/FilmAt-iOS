@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E1701892D56025F006B0053 /* MBTIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1701882D56025F006B0053 /* MBTIView.swift */; };
 		9E328E2D2D4DADC6001282FD /* LoadingIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E328E2C2D4DADC6001282FD /* LoadingIndicatorManager.swift */; };
 		9E61BADD2D43DEF7007B6910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BAD32D43DEF7007B6910 /* AppDelegate.swift */; };
 		9E61BADE2D43DEF7007B6910 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61BADA2D43DEF7007B6910 /* SceneDelegate.swift */; };
@@ -97,6 +98,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E1701882D56025F006B0053 /* MBTIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIView.swift; sourceTree = "<group>"; };
 		9E328E2C2D4DADC6001282FD /* LoadingIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorManager.swift; sourceTree = "<group>"; };
 		9E61BA9B2D43D46C007B6910 /* FilmAt-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FilmAt-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E61BAD32D43DEF7007B6910 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 		9EC78D4D2D47378400248B19 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9E1701882D56025F006B0053 /* MBTIView.swift */,
 				9EC78D492D47240500248B19 /* ProfileNicknameView.swift */,
 				9EC78D452D471A9100248B19 /* ProfileNicknameViewController.swift */,
 			);
@@ -839,6 +842,7 @@
 				9E61BB492D45274E007B6910 /* TMDBTargetType.swift in Sources */,
 				9E61BB382D451DD9007B6910 /* DateFormatterManager.swift in Sources */,
 				9E61BB2E2D451C79007B6910 /* UILabel+.swift in Sources */,
+				9E1701892D56025F006B0053 /* MBTIView.swift in Sources */,
 				9EC78D7A2D48D78200248B19 /* SearchViewController.swift in Sources */,
 				9EC790E52D4D498500248B19 /* CastCollectionViewCell.swift in Sources */,
 				9E61BB3C2D451F11007B6910 /* ObservablePattern.swift in Sources */,

@@ -29,9 +29,9 @@ enum StateLabelType {
     var textColor: UIColor {
         switch self {
         case .success:
-            return UIColor(resource: .point)
+            return UIColor(resource: .validDoneBtn)
         case .textCountError, .specialCharacterError, .numberError:
-            return UIColor.red
+            return UIColor(resource: .notValidStateLabel)
         }
     }
 }

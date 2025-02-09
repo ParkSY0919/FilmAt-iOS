@@ -19,13 +19,21 @@ final class ProfileNicknameView: BaseView {
     private let underLine = UIView()
     let nicknameTextField = UITextField()
     private let stateLabel = UILabel()
-    let doneButtonComponent = DoneButton(title: "완료", doneBtnState: .unsatisfied)
+    
+    private let mbtiTtielLabel = UILabel()
+    private let mbtiView = MBTIView(overBtnTitle: "E", underBtnTitle: "I")
+    
+    let doneButtonComponent = DoneButton(title: "완료",
+                                         doneBtnState: .unsatisfied,
+                                         isProfileBtn: true)
     
     override func setHierarchy() {
         self.addSubviews(profileContainer,
                          underLine,
                          nicknameTextField,
                          stateLabel,
+                         mbtiTtielLabel,
+                         mbtiView,
                          doneButtonComponent)
         
         profileContainer.addSubviews(profileImageView, cameraImageView)
@@ -63,15 +71,29 @@ final class ProfileNicknameView: BaseView {
             $0.leading.equalTo(nicknameTextField.snp.leading)
         }
         
+        mbtiTtielLabel.snp.makeConstraints {
+            $0.top.equalTo(stateLabel.snp.bottom).offset(40)
+            $0.leading.equalToSuperview().inset(10)
+        }
+        
+        mbtiView.snp.makeConstraints {
+            $0.top.equalTo(mbtiTtielLabel.snp.top)
+            $0.leading.equalTo(mbtiTtielLabel.snp.trailing).offset(40)
+        }
+        
         doneButtonComponent.snp.makeConstraints {
-            $0.top.equalTo(stateLabel.snp.bottom).offset(20)
+            $0.bottom.equalTo(keyboardLayoutGuide.snp.top).offset(-10)
             $0.horizontalEdges.equalTo(underLine)
             $0.height.equalTo(45)
         }
     }
     
     override func setStyle() {
-        setRandomProfileImage()
+        profileImageView.do {
+            $0.setImageView(image: UIImage(), cornerRadius: 120/2)
+            $0.layer.borderColor = UIColor(resource: .point).cgColor
+            $0.layer.borderWidth = 3
+        }
         
         cameraImageView.do {
             $0.setImageView(image: UIImage(systemName: "camera.fill") ?? UIImage(), cornerRadius: 35/2)
@@ -95,22 +117,9 @@ final class ProfileNicknameView: BaseView {
             $0.isHidden = true
         }
         
+        mbtiTtielLabel.setLabelUI("MBTI", font: .filmAtFont(.title_heavy_16))
+        
         doneButtonComponent.isUserInteractionEnabled = false
-    }
-    
-    private func setRandomProfileImage() {
-        var imageArr: [UIImage] = []
-        for i in 0...11 {
-            imageArr.append(UIImage(named: "profile_\(i)") ?? UIImage())
-        }
-        
-        let randomProfileImage = imageArr.randomElement() ?? UIImage()
-        
-        profileImageView.do {
-            $0.setImageView(image: randomProfileImage, cornerRadius: 120/2)
-            $0.layer.borderColor = UIColor(resource: .point).cgColor
-            $0.layer.borderWidth = 3
-        }
     }
     
     func changeProfileNicknameState(stateLabelType: StateLabelType) {

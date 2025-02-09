@@ -54,7 +54,6 @@ private extension SettingViewController {
     func profileBoxTapped() {
         print(#function)
         let profileNicknameViewModel = ProfileNicknameViewModel()
-        profileNicknameViewModel.currentImageIndex = UserDefaultsManager.shared.currentImageIndex
         let vc = ProfileNicknameViewController(viewModel: profileNicknameViewModel, isPushType: false)
         vc.onChange = { [weak self] in
             self?.settingView.profileBox.changeProfileBoxData()

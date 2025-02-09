@@ -33,23 +33,35 @@ final class UserDefaultsManager {
         }
     }
     
-    //추후 저장하는 image 데이터가 커지면 터짐
-    var profileImage: UIImage {
+    var profileImageName: String {
         get {
-            guard let imageData = UserDefaults.standard.data(forKey: "profileImage"),
-                  let image = UIImage(data: imageData)
-            else {
-                return UIImage()
-            }
-            return image
+            return UserDefaults.standard.string(forKey: "profileImageName") ?? "profile_1"
         }
         set {
-            if let pngData = newValue.pngData() {
-                UserDefaults.standard.set(pngData, forKey: "profileImage")
-                saveChanges()
-            }
+            UserDefaults.standard.set(newValue, forKey: "profileImageName")
+            saveChanges()
         }
     }
+    
+    //추후 저장하는 image 데이터가 커지면 터짐
+    //assets에 저장된 이미지가 아닌 서버에서 보내주는 이미지를 다룰 때 해당 기능을 사용하자.
+      //=> 왜냐? 현재 사용하는 이미지인 profile 이미지들은 Assets에 없을리 없으니 그냥 string으로 이름 저장하고 불러오는게 낫다.
+//    var profileImage: UIImage {
+//        get {
+//            guard let imageData = UserDefaults.standard.data(forKey: "profileImage"),
+//                  let image = UIImage(data: imageData)
+//            else {
+//                return UIImage()
+//            }
+//            return image
+//        }
+//        set {
+//            if let pngData = newValue.pngData() {
+//                UserDefaults.standard.set(pngData, forKey: "profileImage")
+//                saveChanges()
+//            }
+//        }
+//    }
     
     var joinDate: String {
         get {
@@ -57,16 +69,6 @@ final class UserDefaultsManager {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "joinDate")
-            saveChanges()
-        }
-    }
-    
-    var currentImageIndex: Int {
-        get {
-            return UserDefaults.standard.integer(forKey: "currentImageIndex")
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: "currentImageIndex")
             saveChanges()
         }
     }
