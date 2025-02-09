@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ProfileNicknameViewControllerDelegate: AnyObject {
+    func bringCurrentMBTI(index: Int, currentMBTI: String)
+}
+
 final class ProfileNicknameViewController: BaseViewController {
     
     var onChange: (()->Void)?
@@ -64,6 +68,8 @@ private extension ProfileNicknameViewController {
     
     func setDelegate() {
         profileNicknameView.nicknameTextField.delegate = self
+        
+        profileNicknameView.mbtiView.delegate = self
     }
     
     func setAddTarget() {
@@ -85,9 +91,14 @@ private extension ProfileNicknameViewController {
             self?.viewModel.validateNickname(text)
         }
         
-        self.viewModel.isValidNickname.bind { [weak self] state in
+        self.viewModel.isValidNickname.lazyBind { [weak self] state in
             guard let state else { return }
             self?.profileNicknameView.changeProfileNicknameState(stateLabelType: state)
+        }
+        
+        self.viewModel.outputIsDoneValid.lazyBind { [weak self] state in
+            guard let state else { return }
+            self?.profileNicknameView.isDoneBtnValid(state: state)
         }
     }
     
@@ -157,6 +168,14 @@ private extension ProfileNicknameViewController {
         saveUserDefaults(isPushType: true)
         
         viewTransition(viewController: TabBarController(), transitionStyle: .resetRootVCwithoutNav)
+    }
+    
+}
+
+extension ProfileNicknameViewController: ProfileNicknameViewControllerDelegate {
+    
+    func bringCurrentMBTI(index: Int, currentMBTI: String) {
+        viewModel.inputMbti.value?[index] = currentMBTI
     }
     
 }
