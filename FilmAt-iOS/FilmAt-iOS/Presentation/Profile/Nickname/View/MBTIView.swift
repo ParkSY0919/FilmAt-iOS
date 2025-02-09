@@ -12,88 +12,50 @@ import Then
 
 final class MBTIView: BaseView {
     
-    let overBtnTitle: String
-    let underBtnTitle: String
+    weak var delegate: ProfileNicknameViewControllerDelegate?
     
-    let stackView = UIStackView()
-    let overBtn = UIButton()
-    let underBtn = UIButton()
+    private let mbtiStackView = UIStackView()
+    private let mbti1stView = MBTIButton(overBtnTitle: "E", underBtnTitle: "I")
+    private let mbti2ndView = MBTIButton(overBtnTitle: "S", underBtnTitle: "N")
+    private let mbti3rdView = MBTIButton(overBtnTitle: "T", underBtnTitle: "F")
+    private let mbti4thView = MBTIButton(overBtnTitle: "P", underBtnTitle: "J")
     
-    
-    init(overBtnTitle: String, underBtnTitle: String) {
-        self.overBtnTitle = overBtnTitle
-        self.underBtnTitle = underBtnTitle
-        
+    init() {
         super.init(frame: .zero)
+        bringCurrentMBTI()
     }
     
     override func setHierarchy() {
-        self.addSubview(stackView)
-        stackView.addArrangedSubviews(overBtn, underBtn)
+        self.addSubview(mbtiStackView)
+        
+        mbtiStackView.addArrangedSubviews(mbti1stView,
+                                          mbti2ndView,
+                                          mbti3rdView,
+                                          mbti4thView)
     }
     
     override func setLayout() {
-        stackView.snp.makeConstraints {
+        mbtiStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-        [overBtn, underBtn].forEach { i in
-            i.snp.makeConstraints {
-                $0.size.equalTo(65)
-            }
-        }
-        
     }
     
     override func setStyle() {
-        stackView.do {
-            $0.axis = .vertical
-            $0.distribution = .equalSpacing
+        mbtiStackView.do {
+            $0.axis = .horizontal
             $0.spacing = 10
-        }
-        
-        [overBtn, underBtn].forEach { (i: UIButton) in
-            setMBTIBtnStyle(btn: i)
+            $0.alignment = .trailing
+            $0.distribution = .equalSpacing
         }
     }
     
-    private func setMBTIBtnStyle(btn: UIButton) {
-        let buttonStateHandler: UIButton.ConfigurationUpdateHandler = { button in
-            switch button.state {
-            case .normal:
-                button.layer.backgroundColor = UIColor.white.cgColor
-                button.configuration?.baseForegroundColor = UIColor(resource: .notValidDoneBtn)
-            case .selected:
-                button.layer.backgroundColor = UIColor(resource: .validDoneBtn).cgColor
-                button.configuration?.baseForegroundColor = UIColor(resource: .title)
-            default:
-                return
+    func bringCurrentMBTI() {
+        let arr = [mbti1stView, mbti2ndView, mbti3rdView, mbti4thView]
+        for i in 0..<arr.count {
+            arr[i].onSelectionChanged = { [weak self] currentTitle in
+                self?.delegate?.bringCurrentMBTI(index: i, currentMBTI: currentTitle)
             }
         }
-        
-        var config = UIButton.Configuration.plain()
-        config.title = (btn == overBtn) ? overBtnTitle : underBtnTitle
-
-        btn.configuration = config
-        btn.configurationUpdateHandler = buttonStateHandler
-
-        btn.do {
-            $0.layer.cornerRadius = 65/2
-            $0.layer.borderWidth = 2
-            $0.layer.borderColor = UIColor(resource: .notValidDoneBtn).cgColor
-            $0.layer.masksToBounds = true
-            $0.addTarget(self,
-                         action: #selector(mbtiBtnTapped),
-                         for: .touchUpInside)
-        }
-    }
-    
-    @objc
-    func mbtiBtnTapped(_ sender: UIButton) {
-        let isOverBtn = (sender == overBtn)
-        overBtn.isSelected = isOverBtn
-        underBtn.isSelected = !isOverBtn
-        print("sender.title: \(sender.configuration?.title)")
     }
     
 }

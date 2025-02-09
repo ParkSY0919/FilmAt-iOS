@@ -21,7 +21,7 @@ final class ProfileNicknameView: BaseView {
     private let stateLabel = UILabel()
     
     private let mbtiTtielLabel = UILabel()
-    private let mbtiView = MBTIView(overBtnTitle: "E", underBtnTitle: "I")
+    let mbtiView = MBTIView()
     
     let doneButtonComponent = DoneButton(title: "완료",
                                          doneBtnState: .unsatisfied,
@@ -37,6 +37,8 @@ final class ProfileNicknameView: BaseView {
                          doneButtonComponent)
         
         profileContainer.addSubviews(profileImageView, cameraImageView)
+        
+        
     }
     
     override func setLayout() {
@@ -76,6 +78,7 @@ final class ProfileNicknameView: BaseView {
             $0.leading.equalToSuperview().inset(10)
         }
         
+        //stackView를 품은 view라서 height을 설정해주지 않아도 bottom이 계산됨.
         mbtiView.snp.makeConstraints {
             $0.top.equalTo(mbtiTtielLabel.snp.top)
             $0.leading.equalTo(mbtiTtielLabel.snp.trailing).offset(40)
@@ -122,21 +125,18 @@ final class ProfileNicknameView: BaseView {
         doneButtonComponent.isUserInteractionEnabled = false
     }
     
+    func isDoneBtnValid(state: Bool) {
+        doneButtonComponent.doneBtnState = state ? .satisfied : .unsatisfied
+        doneButtonComponent.isUserInteractionEnabled = state
+        doneButtonComponent.changeDoneBtnState()
+    }
+    
     func changeProfileNicknameState(stateLabelType: StateLabelType) {
         stateLabel.do {
             $0.text = stateLabelType.text
             $0.textColor = stateLabelType.textColor
             $0.isHidden = false
         }
-        
-        if stateLabelType == .success {
-            doneButtonComponent.doneBtnState = .satisfied
-            doneButtonComponent.isUserInteractionEnabled = true
-        } else {
-            doneButtonComponent.doneBtnState = .unsatisfied
-            doneButtonComponent.isUserInteractionEnabled = false
-        }
-        doneButtonComponent.changeDoneBtnState()
     }
     
 }
