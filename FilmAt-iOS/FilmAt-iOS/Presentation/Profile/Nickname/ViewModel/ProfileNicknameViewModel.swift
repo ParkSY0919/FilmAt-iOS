@@ -26,8 +26,6 @@ final class ProfileNicknameViewModel: ViewModelProtocol {
     var currentImageName: String = ""
     var outputMbtiisValid = false
     
-    
-    
     init() {
         input = Input()
         output = Output()
@@ -62,7 +60,7 @@ final class ProfileNicknameViewModel: ViewModelProtocol {
         return isDoneState()
     }
     
-    func isDoneState() {
+    private func isDoneState() {
         output.isDoneValid.value = (output.isValidNickname.value == .success && outputMbtiisValid == true) ? true : false
     }
     

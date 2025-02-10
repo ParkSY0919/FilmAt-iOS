@@ -14,7 +14,6 @@ final class ProfileImageViewController: BaseViewController {
     
     private lazy var profileImageView = ProfileImageView(profileImage: viewModel.output.setCurrentImage.value ?? UIImage())
     
-    
     init(viewModel: ProfileImageViewModel) {
         self.viewModel = viewModel
         
