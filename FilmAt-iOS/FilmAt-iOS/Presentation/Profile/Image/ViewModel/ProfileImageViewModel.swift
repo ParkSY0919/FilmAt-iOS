@@ -7,13 +7,49 @@
 
 import UIKit
 
-final class ProfileImageViewModel {
+final class ProfileImageViewModel: ViewModelProtocol {
+    
+    private(set) var input: Input
+    private(set) var output: Output
+    
+    struct Input {
+        let loadCurrentImageIndex: ObservablePattern<Int> = ObservablePattern(nil)
+    }
+    
+    struct Output {
+        let setCurrentImage: ObservablePattern<UIImage> = ObservablePattern(nil)
+    }
     
     init(currentImage: UIImage?) {
-        self.currentImage.value = currentImage
+        input = Input()
+        output = Output()
+        self.output.setCurrentImage.value = currentImage
+        
+        transform()
     }
     
     var currentImageName: String = ""
-    var currentImage: ObservablePattern<UIImage> = ObservablePattern(nil)
+    let profileImageArr = [
+        UIImage(resource: .profile0),
+        UIImage(resource: .profile1),
+        UIImage(resource: .profile2),
+        UIImage(resource: .profile3),
+        UIImage(resource: .profile4),
+        UIImage(resource: .profile5),
+        UIImage(resource: .profile6),
+        UIImage(resource: .profile7),
+        UIImage(resource: .profile8),
+        UIImage(resource: .profile9),
+        UIImage(resource: .profile10),
+        UIImage(resource: .profile11)
+    ]
+    
+    internal func transform() {
+        input.loadCurrentImageIndex.lazyBind { [weak self] index in
+            guard let self, let index else {return}
+            output.setCurrentImage.value = profileImageArr[index]
+            currentImageName = "profile_\(index)"
+        }
+    }
     
 }

@@ -7,24 +7,34 @@
 
 import Foundation
 
-final class ProfileNicknameViewModel {
+final class ProfileNicknameViewModel: ViewModelProtocol {
+    
+    private(set) var input: Input
+    private(set) var output: Output
+    
+    struct Input {
+        var nicknameText: ObservablePattern<String> = ObservablePattern(nil)
+        var mbti: ObservablePattern<[String]> = ObservablePattern(Array(repeating: "", count: 4))
+    }
+    
+    struct Output {
+        var isValidNickname: ObservablePattern<StateLabelType> = ObservablePattern(StateLabelType.success)
+        var isDoneValid: ObservablePattern<Bool> = ObservablePattern(false)
+    }
 
     var mbti = [String]()
     var currentImageName: String = ""
-    var nicknameText: ObservablePattern<String> = ObservablePattern(nil)
-    var inputMbti: ObservablePattern<[String]> = ObservablePattern(Array(repeating: "", count: 4))
-    
-    var isValidNickname: ObservablePattern<StateLabelType> = ObservablePattern(StateLabelType.success)
     var outputMbtiisValid = false
     
-    var outputIsDoneValid: ObservablePattern<Bool> = ObservablePattern(false)
-    
     init() {
-        bindViewModel()
+        input = Input()
+        output = Output()
+        
+        transform()
     }
     
-    func bindViewModel() {
-        inputMbti.lazyBind { [weak self] mbti in
+    internal func transform() {
+        input.mbti.lazyBind { [weak self] mbti in
             guard let self, let mbti else {return}
             self.mbti = mbti
             self.outputMbtiisValid = (!self.mbti.contains("")) ? true : false
@@ -32,25 +42,26 @@ final class ProfileNicknameViewModel {
         }
     }
     
+    
     func validateNickname(_ nickname: String) {
         if nickname.count < 2 || nickname.count > 9 {
-            isValidNickname.value = StateLabelType.textCountError
+            output.isValidNickname.value = StateLabelType.textCountError
             return isDoneState()
         }
         if nickname.range(of: "[@#$%]", options: .regularExpression) != nil {
-            isValidNickname.value = StateLabelType.specialCharacterError
+            output.isValidNickname.value = StateLabelType.specialCharacterError
             return isDoneState()
         }
         if nickname.range(of: "[0-9]", options: .regularExpression) != nil {
-            isValidNickname.value = StateLabelType.numberError
+            output.isValidNickname.value = StateLabelType.numberError
             return isDoneState()
         }
-        isValidNickname.value = StateLabelType.success
+        output.isValidNickname.value = StateLabelType.success
         return isDoneState()
     }
     
-    func isDoneState() {
-        outputIsDoneValid.value = (isValidNickname.value == .success && outputMbtiisValid == true) ? true : false
+    private func isDoneState() {
+        output.isDoneValid.value = (output.isValidNickname.value == .success && outputMbtiisValid == true) ? true : false
     }
     
 }

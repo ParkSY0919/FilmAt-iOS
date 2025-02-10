@@ -86,7 +86,7 @@ private extension ProfileNicknameViewController {
     }
     
     func bindViewModel() {
-        self.viewModel.nicknameText.bind { [weak self] text in
+        self.viewModel.input.nicknameText.bind { [weak self] text in
             guard let text else { return }
             self?.viewModel.validateNickname(text)
         }
@@ -94,18 +94,18 @@ private extension ProfileNicknameViewController {
         //프로필 수정하러 들어왔을 땐 유효한 닉네임 stateLabel이 표시돼야 하기 때문
         switch isPushType {
         case true:
-            self.viewModel.isValidNickname.lazyBind { [weak self] state in
+            self.viewModel.output.isValidNickname.lazyBind { [weak self] state in
                 guard let state else { return }
                 self?.profileNicknameView.changeProfileNicknameState(stateLabelType: state)
             }
         case false:
-            self.viewModel.isValidNickname.bind { [weak self] state in
+            self.viewModel.output.isValidNickname.bind { [weak self] state in
                 guard let state else { return }
                 self?.profileNicknameView.changeProfileNicknameState(stateLabelType: state)
             }
         }
         
-        self.viewModel.outputIsDoneValid.lazyBind { [weak self] state in
+        self.viewModel.output.isDoneValid.lazyBind { [weak self] state in
             guard let state else { return }
             self?.profileNicknameView.isDoneBtnValid(state: state)
         }
@@ -168,7 +168,7 @@ private extension ProfileNicknameViewController {
     @objc
     func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        viewModel.nicknameText.value = text
+        viewModel.input.nicknameText.value = text
     }
     
     @objc
@@ -184,7 +184,7 @@ private extension ProfileNicknameViewController {
 extension ProfileNicknameViewController: ProfileNicknameViewControllerDelegate {
     
     func bringCurrentMBTI(index: Int, currentMBTI: String) {
-        viewModel.inputMbti.value?[index] = currentMBTI
+        viewModel.input.mbti.value?[index] = currentMBTI
     }
     
 }
