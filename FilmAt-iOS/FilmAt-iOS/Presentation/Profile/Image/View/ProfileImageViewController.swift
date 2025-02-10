@@ -12,21 +12,8 @@ final class ProfileImageViewController: BaseViewController {
     var onChange: ((UIImage, String)->Void)?
     private let viewModel: ProfileImageViewModel
     
-    private lazy var profileImageView = ProfileImageView(profileImage: viewModel.currentImage.value ?? UIImage())
-    private var profileImageArr = [
-        UIImage(resource: .profile0),
-        UIImage(resource: .profile1),
-        UIImage(resource: .profile2),
-        UIImage(resource: .profile3),
-        UIImage(resource: .profile4),
-        UIImage(resource: .profile5),
-        UIImage(resource: .profile6),
-        UIImage(resource: .profile7),
-        UIImage(resource: .profile8),
-        UIImage(resource: .profile9),
-        UIImage(resource: .profile10),
-        UIImage(resource: .profile11)
-    ]
+    private lazy var profileImageView = ProfileImageView(profileImage: viewModel.output.setCurrentImage.value ?? UIImage())
+    
     
     init(viewModel: ProfileImageViewModel) {
         self.viewModel = viewModel
@@ -46,7 +33,7 @@ final class ProfileImageViewController: BaseViewController {
     }
     
     override func popBtnTapped() {
-        onChange?(viewModel.currentImage.value ?? UIImage(), viewModel.currentImageName)
+        onChange?(viewModel.output.setCurrentImage.value ?? UIImage(), viewModel.currentImageName)
         
         super.popBtnTapped()
     }
@@ -61,7 +48,7 @@ private extension ProfileImageViewController {
     }
     
     func bindViewModel() {
-        viewModel.currentImage.bind { [weak self] image in
+        viewModel.output.setCurrentImage.lazyBind { [weak self] image in
             guard let image else {return}
             DispatchQueue.main.async {
                 self?.profileImageView.profileImageView.image = image
@@ -77,8 +64,7 @@ private extension ProfileImageViewController {
 extension ProfileImageViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.currentImage.value = profileImageArr[indexPath.item]
-        self.viewModel.currentImageName = "profile_\(indexPath.item)"
+        viewModel.input.loadCurrentImageIndex.value = indexPath.item
     }
     
 }
@@ -86,20 +72,16 @@ extension ProfileImageViewController: UICollectionViewDelegate {
 extension ProfileImageViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return profileImageArr.count
+        return viewModel.profileImageArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileImageCollectionViewCell.cellIdentifier, for: indexPath) as! ProfileImageCollectionViewCell
-        cell.profileImageView.tag = indexPath.item
-        var isSame: Bool = false
-        if profileImageView.profileImageView.image == profileImageArr[indexPath.item] {
-            print("같다!")
-            isSame = true
-        }
+        
+        let isSame = (profileImageView.profileImageView.image == viewModel.profileImageArr[indexPath.item]) ? true : false
         
         DispatchQueue.main.async {
-            cell.setProfileCellUI(image: self.profileImageArr[indexPath.item], isSame: isSame)
+            cell.setProfileCellUI(image: self.viewModel.profileImageArr[indexPath.item], isSame: isSame)
         }
         
         return cell
