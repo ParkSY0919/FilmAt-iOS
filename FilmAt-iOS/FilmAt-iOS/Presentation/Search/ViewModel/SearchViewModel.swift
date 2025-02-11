@@ -13,7 +13,7 @@ final class SearchViewModel: ViewModelProtocol {
     private(set) var output: Output
     
     struct Input {
-        
+        let isTextFieldReturn: Observable<Void> = Observable(())
     }
     
     struct Output {
@@ -30,7 +30,8 @@ final class SearchViewModel: ViewModelProtocol {
     var cinemaRecentSearchList: [String]?
     var likedMovieListChange: (([String: Bool]) -> Void)?
     var onChange: ((String) -> Void)?
-    var beforeSearchText = ""
+    
+    private var beforeSearchText = ""
     var currentSearchText = ""
     var page = 1
     var isEnd = false
@@ -41,22 +42,36 @@ final class SearchViewModel: ViewModelProtocol {
     var isSearchAPICallSuccessful: ObservablePattern<String> = ObservablePattern("")
     
     internal func transform() {
-        
+        input.isTextFieldReturn.lazyBind { [weak self] _ in
+            guard let self else {return}
+            self.checkDuplicateSearchText()
+        }
     }
     
 }
 
 extension SearchViewModel {
     
-    func checkDuplicateSearchText() -> Bool {
-        if beforeSearchText == currentSearchText {
-            return true
-        } else {
-            return false
+    private func checkDuplicateSearchText() {
+        if beforeSearchText != currentSearchText {
+            guard let researchList = cinemaRecentSearchList else { return }
+            
+            //최근 검색어 관리 로직
+            if let index = researchList.firstIndex(of: currentSearchText) {
+                //현재 검색어가 list에 있을 때
+                cinemaRecentSearchList?.remove(at: index)
+            }
+            var list = cinemaRecentSearchList?.reversed() ?? []
+            list.append(currentSearchText)
+            UserDefaultsManager.shared.recentSearchList = list.reversed()
+            self.cinemaRecentSearchList = list.reversed()
+            
+            resetSearchListWithPage()
+            getSearchData(searchText: currentSearchText, page: page)
         }
     }
     
-    func resetSearchListWithPage() {
+    private func resetSearchListWithPage() {
         self.searchResultList.removeAll()
         self.page = 1
     }

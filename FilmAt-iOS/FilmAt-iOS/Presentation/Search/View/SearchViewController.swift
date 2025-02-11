@@ -103,26 +103,28 @@ private extension SearchViewController {
 extension SearchViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch viewModel.checkDuplicateSearchText() {
-        case true:
-            print("이전 검색어와 현재 검색어가 일치합니다.")
-        case false:
-            guard let researchList = viewModel.cinemaRecentSearchList else { return true }
-            
-            if let index = researchList.firstIndex(of: viewModel.currentSearchText) {
-                //현재 검색어가 list에 있을 때
-                viewModel.cinemaRecentSearchList?.remove(at: index)
-            }
-            
-            var list = viewModel.cinemaRecentSearchList?.reversed() ?? []
-            list.append(viewModel.currentSearchText)
-            UserDefaultsManager.shared.recentSearchList = list.reversed()
-            self.viewModel.cinemaRecentSearchList = list.reversed()
-            
-            viewModel.resetSearchListWithPage()
-            
-            viewModel.getSearchData(searchText: viewModel.currentSearchText, page: viewModel.page)
-        }
+        
+        viewModel.input.isTextFieldReturn.value = ()
+//        switch viewModel.checkDuplicateSearchText() {
+//        case true:
+//            print("이전 검색어와 현재 검색어가 일치합니다.")
+//        case false:
+//            guard let researchList = viewModel.cinemaRecentSearchList else { return true }
+//            
+//            if let index = researchList.firstIndex(of: viewModel.currentSearchText) {
+//                //현재 검색어가 list에 있을 때
+//                viewModel.cinemaRecentSearchList?.remove(at: index)
+//            }
+//            
+//            var list = viewModel.cinemaRecentSearchList?.reversed() ?? []
+//            list.append(viewModel.currentSearchText)
+//            UserDefaultsManager.shared.recentSearchList = list.reversed()
+//            self.viewModel.cinemaRecentSearchList = list.reversed()
+//            
+//            viewModel.resetSearchListWithPage()
+//            
+//            viewModel.getSearchData(searchText: viewModel.currentSearchText, page: viewModel.page)
+//        }
         self.searchView.searchTextField.resignFirstResponder()
         
         return true
