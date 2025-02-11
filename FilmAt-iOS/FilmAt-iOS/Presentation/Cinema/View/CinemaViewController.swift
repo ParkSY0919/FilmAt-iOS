@@ -41,10 +41,9 @@ final class CinemaViewController: BaseViewController {
     override func searchBtnTapped() {
         print(#function)
         
-        let searchViewModel = SearchViewModel()
-        searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
-        searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
-        
+        let cinemaRecentSearchList = viewModel.recentSearchList.value ?? []
+        let likeMovieListDic = viewModel.likeMovieListDic
+        let searchViewModel = SearchViewModel(cinemaRecentSearchList: cinemaRecentSearchList, likeMovieListDic: likeMovieListDic)
         
         let vc = SearchViewController(viewModel: searchViewModel)
         viewTransition(viewController: vc, transitionStyle: .push)
@@ -155,17 +154,18 @@ extension CinemaViewController: UICollectionViewDelegate {
         case .recentSearch:
             let recentSeachText = (viewModel.recentSearchList.value ?? [])[indexPath.item]
             
-            let searchViewModel = SearchViewModel()
-            searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
-            searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
+            let cinemaRecentSearchList = viewModel.recentSearchList.value ?? []
+            let likeMovieListDic = viewModel.likeMovieListDic
+            let searchViewModel = SearchViewModel(cinemaRecentSearchList: cinemaRecentSearchList, likeMovieListDic: likeMovieListDic)
             
-            searchViewModel.getSearchData(searchText: recentSeachText, page: 1, isFromCinema: true)
-            searchViewModel.isSuccessResponse = {
-                DispatchQueue.main.async { [weak self] in
+            searchViewModel.isSuccessResponse = { [weak self] in
+                DispatchQueue.main.async {
                     let vc = SearchViewController(viewModel: searchViewModel)
                     self?.viewTransition(viewController: vc, transitionStyle: .push)
                 }
             }
+            searchViewModel.getSearchData(searchText: recentSeachText, page: 1, isFromCinema: true)
+            
         case .todayMovie:
             let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
             guard let date = selectedTodayMovie.releaseDate,

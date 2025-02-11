@@ -12,6 +12,9 @@ final class SearchViewModel: ViewModelProtocol {
     private(set) var input: Input
     private(set) var output: Output
     
+    private var cinemaRecentSearchList: [String]
+    var likeMovieListDic: [String: Bool]
+    
     struct Input {
         let textFieldText: Observable<String?> = Observable("")
         let isTextFieldReturn: Observable<Void> = Observable(())
@@ -26,7 +29,9 @@ final class SearchViewModel: ViewModelProtocol {
         let isSearchAPICallSuccessful: ObservablePattern<String> = ObservablePattern("")
     }
     
-    init() {
+    init(cinemaRecentSearchList: [String], likeMovieListDic: [String: Bool]) {
+        self.cinemaRecentSearchList = cinemaRecentSearchList
+        self.likeMovieListDic = likeMovieListDic
         input = Input()
         output = Output()
         
@@ -40,8 +45,7 @@ final class SearchViewModel: ViewModelProtocol {
     private var isEnd = false
     
     var detailViewMoviewID = 0
-    var cinemaRecentSearchList: [String]?
-    var likeMovieListDic = [String: Bool]()
+    
     var likedMovieListChange: (([String: Bool]) -> Void)?
     var onChange: ((String) -> Void)?
     //Cinema에서 사용
@@ -108,14 +112,14 @@ extension SearchViewModel {
     
     private func checkDuplicateSearchText() {
         if beforeSearchText != currentSearchText {
-            guard let researchList = cinemaRecentSearchList else { return }
+            let researchList = cinemaRecentSearchList
             
             //최근 검색어 관리 로직
             if let index = researchList.firstIndex(of: currentSearchText) {
                 //현재 검색어가 list에 있을 때
-                cinemaRecentSearchList?.remove(at: index)
+                cinemaRecentSearchList.remove(at: index)
             }
-            var list = cinemaRecentSearchList?.reversed() ?? []
+            var list = Array(cinemaRecentSearchList.reversed())
             list.append(currentSearchText)
             UserDefaultsManager.shared.recentSearchList = list.reversed()
             self.cinemaRecentSearchList = list.reversed()
@@ -138,13 +142,20 @@ extension SearchViewModel {
             case .success(let success):
                 print("!!!success: \(success)")
                 self.searchResultList.append(contentsOf: success.results.filter { $0.id != 1401402 })
+                
                 if isFromCinema == true {
-                    self.currentSearchText = searchText
+                    self.input.textFieldText.value = searchText
                     self.isSuccessResponse?()
                 } else {
                     self.beforeSearchText = searchText
                 }
-                self.output.isSearchAPICallSuccessful.value = "true"
+                
+                //CinemaVC에서 isSuccessResponse의 클로저가 동작하여 SearchVC로 이동한 이후에 아래 dispatch 속 코드가 실행돼야 하는데,
+                //어떻게 해야 타이밍 계산을 하지 않을 수 있을까?
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                    self.output.isSearchAPICallSuccessful.value = "true"
+                }
+                
                 //호출 오버 방지
                 if success.totalResults - (self.page * 20) < 0 {
                     self.isEnd = true
