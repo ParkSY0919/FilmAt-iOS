@@ -59,17 +59,14 @@ private extension SearchViewController {
     }
     
     func bindViewModel() {
-        viewModel.onAlert = { [weak self] alert in
-            self?.present(alert, animated: true)
-        }
-        
-        viewModel.searchAPIResult.bind { [weak self] flag in
-            print("viewModel.searchAPIResult.bind 호출 중")
-            guard let flag,
-                  let isEmpty = self?.viewModel.searchResultList.isEmpty
+        viewModel.isSearchAPICallSuccessful.lazyBind { [weak self] isSuccessful in
+            print("viewModel.isSearchAPICallSuccessful.bind 호출 중")
+            guard
+                let isSuccessful,
+                let isEmpty = self?.viewModel.searchResultList.isEmpty
             else {return}
             
-            if flag {
+            if isSuccessful == "true" {
                 DispatchQueue.main.async {
                     self?.searchView.searchTextField.text = self?.viewModel.currentSearchText
                     self?.searchView.setHiddenUI(isEmpty: isEmpty)
@@ -79,7 +76,11 @@ private extension SearchViewController {
                     }
                 }
             } else {
-                print("searchAPIResult.value = false")
+                print("isSearchAPICallSuccessful.value = false")
+                DispatchQueue.main.async {
+                    let alert = UIAlertManager.showAlert(title: "에러 발생", message: isSuccessful)
+                    self?.present(alert, animated: true)
+                }
             }
         }
     }
@@ -185,7 +186,7 @@ extension SearchViewController: UITableViewDelegate {
             self.viewModel.likeMovieListDic = likeMovieListDic
             
             // reloadData하기위해 값 설정
-            self.viewModel.searchAPIResult.value = true
+            self.viewModel.isSearchAPICallSuccessful.value = "true"
             self.viewModel.likedMovieListChange?(likeMovieListDic)
         }
     }

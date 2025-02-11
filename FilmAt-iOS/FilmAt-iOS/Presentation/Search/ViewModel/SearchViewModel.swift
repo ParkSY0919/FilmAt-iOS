@@ -7,7 +7,25 @@
 
 import UIKit
 
-final class SearchViewModel {
+final class SearchViewModel: ViewModelProtocol {
+    
+    private(set) var input: Input
+    private(set) var output: Output
+    
+    struct Input {
+        
+    }
+    
+    struct Output {
+        
+    }
+    
+    init() {
+        input = Input()
+        output = Output()
+        
+        transform()
+    }
     
     var cinemaRecentSearchList: [String]?
     var likedMovieListChange: (([String: Bool]) -> Void)?
@@ -20,8 +38,11 @@ final class SearchViewModel {
     var isSuccessResponse: (() -> Void)?
     
     var searchResultList: [SearchResult] = []
-    var searchAPIResult: ObservablePattern<Bool> = ObservablePattern(nil)
-    var onAlert: ((UIAlertController) -> Void)?
+    var isSearchAPICallSuccessful: ObservablePattern<String> = ObservablePattern("")
+    
+    internal func transform() {
+        
+    }
     
 }
 
@@ -41,34 +62,28 @@ extension SearchViewModel {
     }
     
     func getSearchData(searchText: String, page: Int, isFromCinema: Bool? = false) {
-        LoadingIndicatorManager.showLoading()
         let request = SearchRequestModel(query: searchText, page: page)
-        NetworkManager.shared.getTMDBAPI(apiHandler: .getSearchAPI(request: request), responseModel: SearchResponseModel.self) { result, networkResultType in
-            switch networkResultType {
-            case .success:
-                //id: 1401402 예외처리
-                self.searchResultList.append(contentsOf: result.results.filter { $0.id != 1401402 })
+        
+        NetworkManager.shared.getTMDBAPIRefactor(apiHandler: .getSearchAPI(request: request), responseModel: SearchResponseModel.self) { response in
+            switch response {
+            case .success(let success):
+                print("!!!success: \(success)")
+                self.searchResultList.append(contentsOf: success.results.filter { $0.id != 1401402 })
                 if isFromCinema == true {
                     self.currentSearchText = searchText
                     self.isSuccessResponse?()
                 } else {
                     self.beforeSearchText = searchText
                 }
-                self.searchAPIResult.value = true
+                self.isSearchAPICallSuccessful.value = "true"
                 //호출 오버 방지
-                if result.totalResults - (self.page * 20) < 0 {
+                if success.totalResults - (self.page * 20) < 0 {
                     self.isEnd = true
                 }
-            default :
-                let alert = UIAlertManager.showAlert(title: networkResultType.message, message: "확인 이후 다시 시도해주세요.")
-                self.onAlert?(alert)
+            case .failure(let failure):
+                print("!!!failure: \(failure)")
+                self.isSearchAPICallSuccessful.value = failure.localizedDescription
             }
-        } failHandler: { str in
-            let alert = UIAlertManager.showAlert(title: str, message: "확인 이후 다시 시도해주세요.")
-            self.onAlert?(alert)
-        }
-        DispatchQueue.main.async {
-            LoadingIndicatorManager.hideLoading()
         }
     }
     
