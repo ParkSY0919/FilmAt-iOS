@@ -15,10 +15,12 @@ final class SearchViewModel: ViewModelProtocol {
     struct Input {
         let textFieldText: Observable<String?> = Observable("")
         let isTextFieldReturn: Observable<Void> = Observable(())
+        let isCallPrefetch: Observable<Void> = Observable(())
+        let prepareDetailViewModel: Observable<Int> = Observable(0)
     }
     
     struct Output {
-        
+        let setDetailViewModel: Observable<DetailViewModel?> = Observable(nil)
     }
     
     init() {
@@ -34,10 +36,13 @@ final class SearchViewModel: ViewModelProtocol {
     
     private var beforeSearchText = ""
     var currentSearchText = ""
+    var detailViewMoviewID = 0
     
     var page = 1
-    var isEnd = false
+    private var isEnd = false
     var likeMovieListDic = [String: Bool]()
+    
+    //Cinema에서 사용
     var isSuccessResponse: (() -> Void)?
     
     var searchResultList: [SearchResult] = []
@@ -52,6 +57,40 @@ final class SearchViewModel: ViewModelProtocol {
         input.textFieldText.lazyBind { [weak self] text in
             guard let self, let text else {return}
             currentSearchText = text
+        }
+        
+        input.isCallPrefetch.lazyBind { [weak self] _ in
+            guard let self else {return}
+            if isEnd == false {
+                page += 1
+                getSearchData(searchText: currentSearchText, page: page)
+            } else {
+                print("현재 isEnd 아마 true: \(isEnd)")
+            }
+        }
+        
+        input.prepareDetailViewModel.lazyBind { [weak self] index in
+            guard let self else {return}
+            
+            let row = self.searchResultList[index]
+            self.detailViewMoviewID = row.id
+            guard let date = row.releaseDate,
+                  let genreIDs = row.genreIDS else { return }
+            
+            let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
+            let genreIDsStrArr = GenreType.returnGenreName(from: genreIDs) ?? ["실패"]
+            let voteAverage = row.voteAverage ?? Double(0.0)
+            let overView = row.overview
+            
+            let detailViewModel = DetailViewModel(moviewTitle: row.title,
+                                                  sectionCount: DetailViewSectionType.allCases.count,
+                                                  detailMovieInfoModel: DetailMovieInfoModel(moviewId: row.id,
+                                                                                             releaseDate: releaseDate,
+                                                                                             voteAverage: voteAverage,
+                                                                                             genreIDs: genreIDsStrArr,
+                                                                                             overview: overView))
+            
+            output.setDetailViewModel.value = detailViewModel
         }
     }
     

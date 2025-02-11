@@ -82,6 +82,31 @@ private extension SearchViewController {
                 }
             }
         }
+        
+        viewModel.output.setDetailViewModel.lazyBind { [weak self] detailViewModel in
+            guard let self, let detailViewModel else {return}
+            detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
+            detailViewModel.getImageData(movieID: self.viewModel.detailViewMoviewID)
+            
+            detailViewModel.endDataLoading = { [weak self] in
+                DispatchQueue.main.async {
+                    let vc = DetailViewController(viewModel: detailViewModel)
+                    self?.viewTransition(viewController: vc, transitionStyle: .push)
+                }
+            }
+            
+            detailViewModel.onAlert = { [weak self] alert in
+                self?.present(alert, animated: true)
+            }
+            
+            detailViewModel.likedMovieListChange = { likeMovieListDic in
+                self.viewModel.likeMovieListDic = likeMovieListDic
+                
+                // reloadData하기위해 값 설정
+                self.viewModel.isSearchAPICallSuccessful.value = "true"
+                self.viewModel.likedMovieListChange?(likeMovieListDic)
+            }
+        }
     }
     
     func setScrollToTop() {
@@ -112,12 +137,9 @@ extension SearchViewController: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         for i in indexPaths {
-            if (viewModel.searchResultList.count - 4) == i.item && viewModel.isEnd == false  {
-                viewModel.page += 1
+            if (viewModel.searchResultList.count - 4) == i.item {
                 print("추가호출")
-                viewModel.getSearchData(searchText: viewModel.currentSearchText, page: viewModel.page)
-            } else {
-                print("현재 isEnd: \(viewModel.isEnd)")
+                viewModel.input.isCallPrefetch.value = ()
             }
         }
     }
@@ -127,46 +149,7 @@ extension SearchViewController: UITableViewDataSourcePrefetching {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        LoadingIndicatorManager.showLoading()
-        
-        let row = viewModel.searchResultList[indexPath.row]
-        guard let date = row.releaseDate,
-              let genreIDs = row.genreIDS else { return }
-        
-        let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
-        let genreIDsStrArr = GenreType.returnGenreName(from: genreIDs) ?? ["실패"]
-        let voteAverage = row.voteAverage ?? Double(0.0)
-        let overView = row.overview
-        
-        let detailViewModel = DetailViewModel(moviewTitle: row.title,
-                                              sectionCount: DetailViewSectionType.allCases.count,
-                                              detailMovieInfoModel: DetailMovieInfoModel(moviewId: row.id,
-                                                                                         releaseDate: releaseDate,
-                                                                                         voteAverage: voteAverage,
-                                                                                         genreIDs: genreIDsStrArr,
-                                                                                         overview: overView))
-        
-        detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
-        detailViewModel.getImageData(movieID: row.id)
-        
-        detailViewModel.endDataLoading = { [weak self] in
-            DispatchQueue.main.async {
-                let vc = DetailViewController(viewModel: detailViewModel)
-                self?.viewTransition(viewController: vc, transitionStyle: .push)
-            }
-        }
-        
-        detailViewModel.onAlert = { [weak self] alert in
-            self?.present(alert, animated: true)
-        }
-        
-        detailViewModel.likedMovieListChange = { likeMovieListDic in
-            self.viewModel.likeMovieListDic = likeMovieListDic
-            
-            // reloadData하기위해 값 설정
-            self.viewModel.isSearchAPICallSuccessful.value = "true"
-            self.viewModel.likedMovieListChange?(likeMovieListDic)
-        }
+        viewModel.input.prepareDetailViewModel.value = indexPath.row
     }
     
 }
