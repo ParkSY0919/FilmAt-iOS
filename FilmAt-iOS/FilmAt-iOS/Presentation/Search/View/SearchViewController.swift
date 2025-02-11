@@ -59,6 +59,10 @@ private extension SearchViewController {
     }
     
     func bindViewModel() {
+        viewModel.output.showScrollToTop.lazyBind { [weak self] _ in
+            self?.setScrollToTop()
+        }
+        
         viewModel.isSearchAPICallSuccessful.lazyBind { [weak self] isSuccessful in
             print("viewModel.isSearchAPICallSuccessful.bind 호출 중")
             guard
@@ -70,10 +74,8 @@ private extension SearchViewController {
                 DispatchQueue.main.async {
                     self?.searchView.setHiddenUI(isEmpty: isEmpty)
                     self?.searchView.searchTableView.reloadData()
-                    if self?.viewModel.page == 1 {
-                        self?.setScrollToTop()
-                    }
                 }
+                self?.viewModel.input.isFirstPage.value = ()
             } else {
                 print("isSearchAPICallSuccessful.value = false")
                 DispatchQueue.main.async {

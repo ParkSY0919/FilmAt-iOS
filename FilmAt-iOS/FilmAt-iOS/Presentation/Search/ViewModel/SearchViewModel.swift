@@ -16,10 +16,12 @@ final class SearchViewModel: ViewModelProtocol {
         let textFieldText: Observable<String?> = Observable("")
         let isTextFieldReturn: Observable<Void> = Observable(())
         let isCallPrefetch: Observable<Void> = Observable(())
+        let isFirstPage: Observable<Void> = Observable(())
         let prepareDetailViewModel: Observable<Int> = Observable(0)
     }
     
     struct Output {
+        let showScrollToTop: Observable<Void> = Observable(())
         let setDetailViewModel: Observable<DetailViewModel?> = Observable(nil)
     }
     
@@ -38,7 +40,7 @@ final class SearchViewModel: ViewModelProtocol {
     var currentSearchText = ""
     var detailViewMoviewID = 0
     
-    var page = 1
+    private var page = 1
     private var isEnd = false
     var likeMovieListDic = [String: Bool]()
     
@@ -57,6 +59,13 @@ final class SearchViewModel: ViewModelProtocol {
         input.textFieldText.lazyBind { [weak self] text in
             guard let self, let text else {return}
             currentSearchText = text
+        }
+        
+        input.isFirstPage.lazyBind { [weak self] _ in
+            guard let self else {return}
+            if page == 1 {
+                output.showScrollToTop.value = ()
+            }
         }
         
         input.isCallPrefetch.lazyBind { [weak self] _ in
