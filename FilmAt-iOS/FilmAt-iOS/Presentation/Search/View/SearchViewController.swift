@@ -68,7 +68,6 @@ private extension SearchViewController {
             
             if isSuccessful == "true" {
                 DispatchQueue.main.async {
-                    self?.searchView.searchTextField.text = self?.viewModel.currentSearchText
                     self?.searchView.setHiddenUI(isEmpty: isEmpty)
                     self?.searchView.searchTableView.reloadData()
                     if self?.viewModel.page == 1 {
@@ -93,9 +92,8 @@ private extension SearchViewController {
     
     @objc
     func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        print(#function, text)
-        viewModel.currentSearchText = text
+        print(#function, textField.text ?? "")
+        viewModel.input.textFieldText.value = textField.text
     }
     
 }

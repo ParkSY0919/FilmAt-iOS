@@ -13,6 +13,7 @@ final class SearchViewModel: ViewModelProtocol {
     private(set) var output: Output
     
     struct Input {
+        let textFieldText: Observable<String?> = Observable("")
         let isTextFieldReturn: Observable<Void> = Observable(())
     }
     
@@ -33,6 +34,7 @@ final class SearchViewModel: ViewModelProtocol {
     
     private var beforeSearchText = ""
     var currentSearchText = ""
+    
     var page = 1
     var isEnd = false
     var likeMovieListDic = [String: Bool]()
@@ -45,6 +47,11 @@ final class SearchViewModel: ViewModelProtocol {
         input.isTextFieldReturn.lazyBind { [weak self] _ in
             guard let self else {return}
             self.checkDuplicateSearchText()
+        }
+        
+        input.textFieldText.lazyBind { [weak self] text in
+            guard let self, let text else {return}
+            currentSearchText = text
         }
     }
     
