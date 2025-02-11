@@ -63,8 +63,7 @@ private extension SearchViewController {
             self?.setScrollToTop()
         }
         
-        viewModel.isSearchAPICallSuccessful.lazyBind { [weak self] isSuccessful in
-            print("viewModel.isSearchAPICallSuccessful.bind 호출 중")
+        viewModel.output.isSearchAPICallSuccessful.lazyBind { [weak self] isSuccessful in
             guard
                 let isSuccessful,
                 let isEmpty = self?.viewModel.searchResultList.isEmpty
@@ -77,7 +76,6 @@ private extension SearchViewController {
                 }
                 self?.viewModel.input.isFirstPage.value = ()
             } else {
-                print("isSearchAPICallSuccessful.value = false")
                 DispatchQueue.main.async {
                     let alert = UIAlertManager.showAlert(title: "에러 발생", message: isSuccessful)
                     self?.present(alert, animated: true)
@@ -105,7 +103,7 @@ private extension SearchViewController {
                 self.viewModel.likeMovieListDic = likeMovieListDic
                 
                 // reloadData하기위해 값 설정
-                self.viewModel.isSearchAPICallSuccessful.value = "true"
+                self.viewModel.output.isSearchAPICallSuccessful.value = "true"
                 self.viewModel.likedMovieListChange?(likeMovieListDic)
             }
         }

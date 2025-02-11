@@ -23,6 +23,7 @@ final class SearchViewModel: ViewModelProtocol {
     struct Output {
         let showScrollToTop: Observable<Void> = Observable(())
         let setDetailViewModel: Observable<DetailViewModel?> = Observable(nil)
+        let isSearchAPICallSuccessful: ObservablePattern<String> = ObservablePattern("")
     }
     
     init() {
@@ -32,23 +33,21 @@ final class SearchViewModel: ViewModelProtocol {
         transform()
     }
     
-    var cinemaRecentSearchList: [String]?
-    var likedMovieListChange: (([String: Bool]) -> Void)?
-    var onChange: ((String) -> Void)?
-    
+    var searchResultList: [SearchResult] = []
     private var beforeSearchText = ""
-    var currentSearchText = ""
-    var detailViewMoviewID = 0
-    
+    private var currentSearchText = ""
     private var page = 1
     private var isEnd = false
-    var likeMovieListDic = [String: Bool]()
     
+    var detailViewMoviewID = 0
+    var cinemaRecentSearchList: [String]?
+    var likeMovieListDic = [String: Bool]()
+    var likedMovieListChange: (([String: Bool]) -> Void)?
+    var onChange: ((String) -> Void)?
     //Cinema에서 사용
     var isSuccessResponse: (() -> Void)?
     
-    var searchResultList: [SearchResult] = []
-    var isSearchAPICallSuccessful: ObservablePattern<String> = ObservablePattern("")
+    
     
     internal func transform() {
         input.isTextFieldReturn.lazyBind { [weak self] _ in
@@ -145,14 +144,14 @@ extension SearchViewModel {
                 } else {
                     self.beforeSearchText = searchText
                 }
-                self.isSearchAPICallSuccessful.value = "true"
+                self.output.isSearchAPICallSuccessful.value = "true"
                 //호출 오버 방지
                 if success.totalResults - (self.page * 20) < 0 {
                     self.isEnd = true
                 }
             case .failure(let failure):
                 print("!!!failure: \(failure)")
-                self.isSearchAPICallSuccessful.value = failure.localizedDescription
+                self.output.isSearchAPICallSuccessful.value = failure.localizedDescription
             }
         }
     }
