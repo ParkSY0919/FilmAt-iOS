@@ -177,6 +177,7 @@ extension SearchViewController: UITableViewDataSource {
         
         cell.likeBtnComponent.configureLikeBtn(isLiked: viewModel.likeMovieListDic[String(item.id)] ?? false)
         
+        //추후 LikeButtonManager로 대체
         cell.likeBtnComponent.onTapLikeButton = { [weak self] isSelected in
             guard let self = self else { return }
             if isSelected {
