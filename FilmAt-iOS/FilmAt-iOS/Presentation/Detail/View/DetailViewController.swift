@@ -32,7 +32,7 @@ final class DetailViewController: BaseViewController {
     
     override func tipBtnTapped() {
         print(#function)
-        let alert = UIAlertManager.showAlert(title: "🥳 Tip 🥳", message: "메인 사진과 포스터 사진 터치 시, 각 사진을 확대하여 볼 수 있어요!\n확대 화면을 닫으시려면 좌측 상단 x 버튼을 클릭하시면 돼요!")
+        let alert = UIAlertManager.showAlert(title: StringLiterals.Detail.tipAlertTitle, message: StringLiterals.Detail.tipAlertMessage)
         viewTransition(viewController: alert, transitionStyle: .present)
     }
     
@@ -46,8 +46,9 @@ private extension DetailViewController {
     }
     
     func bindViewModel() {
-        self.likeBtnComponent?.likeButton.isSelected = viewModel
-            .likeMovieListDic[String(viewModel.detailMovieInfoModel.moviewId)] ?? false
+        //추후 LikeButtonManager로 대체
+        self.likeBtnComponent?.likeButton.isSelected
+            = viewModel.likeMovieListDic[String(viewModel.detailMovieInfoModel.moviewId)] ?? false
         
         viewModel.isMoreState.bind { [weak self] flag in
             guard let flag else { return }
@@ -55,13 +56,14 @@ private extension DetailViewController {
                 self?.viewModel.synopsisNumberOfLines = flag ? 3 : 0
                 
                 // collectionView Section load시 깜빡거림 없애면서 애니메이션 어떻게 줘야할까
-                // performbatch 실패..
+                //performWithoutAnimation이걸 쓰지않았을 때에는 스무스한게 아닌 깜빡 거렸음.
                 UIView.performWithoutAnimation {
                     self?.detailView.collectionView.reloadSections(IndexSet(integer: 1))
                 }
             }
         }
         
+        //추후 LikeButtonManager로 대체
         self.likeBtnComponent?.onTapLikeButton = { [weak self] isSelected in
             guard let self = self else { return }
             if isSelected {
@@ -72,6 +74,12 @@ private extension DetailViewController {
             UserDefaultsManager.shared.likeMovieListDic = self.viewModel.likeMovieListDic
             viewModel.likedMovieListChange?(self.viewModel.likeMovieListDic)
         }
+        
+        viewModel.output.setZoomImage.lazyBind { [weak self] imageView in
+            guard let self else {return}
+            let zoomVC = UtilZoomViewController(imageView: imageView)
+            viewTransition(viewController: zoomVC, transitionStyle: .present)
+        }
     }
     
 }
@@ -81,23 +89,11 @@ extension DetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch viewModel.sectionTypes[indexPath.section] {
         case .backDrop:
-            let item = viewModel.imageResponseData?.backdrops[indexPath.item]
-            let imageView = UIImageView()
-            
-            imageView.setImageKfDownSampling(with: item?.filePath ?? "", loadImageType: .original, cornerRadius: 0)
-            
-            let zoomVC = UtilZoomViewController(imageView: imageView)
-            present(zoomVC, animated: true)
+            viewModel.input.prepareZoomBackDropImage.value = indexPath.item
         case .poster:
-            let item = viewModel.imageResponseData?.posters[indexPath.item]
-            let imageView = UIImageView()
-            
-            imageView.setImageKfDownSampling(with: item?.filePath ?? "", loadImageType: .original, cornerRadius: 0)
-            
-            let zoomVC = UtilZoomViewController(imageView: imageView)
-            present(zoomVC, animated: true)
+            viewModel.input.prepareZoomPosterImage.value = indexPath.item
         case .synopsis, .cast:
-            print("이 친구는 기능이 없습니다!")
+            print("이 친구들은 기능이 없습니다!")
         }
     }
     
@@ -106,19 +102,15 @@ extension DetailViewController: UICollectionViewDelegate {
               indexPath.section == 0,
               let backdropCell = cell as? BackDropCollectionViewCell else { return }
         
-        let currentPage = indexPath.item
-        
         // 페이지 컨트롤 업데이트
-        backdropCell.pageControl.currentPage = currentPage
-        
-        print("현재 페이지: \(currentPage)")
+        backdropCell.pageControl.currentPage = indexPath.item
+        print("현재 페이지: \(indexPath.item)")
     }
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.sectionTypes.count
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch viewModel.sectionTypes[indexPath.section] {
@@ -149,23 +141,22 @@ extension DetailViewController: UICollectionViewDelegate {
             var isMoreHidden: Bool = (indexPath.section != 1)
             if indexPath.section == 1 {
                 isMoreHidden = !(viewModel.isTextTruncated ?? false)
-                print("현재 isMoreHidden : \(isMoreHidden)\n")
             }
             
             header.configureHeaderView(headerTitle: viewModel.sectionHeaderTitles[indexPath.section], isMoreHidden: isMoreHidden)
             
             return header
         }
-        
     }
+    
 }
 
 extension DetailViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         switch viewModel.sectionTypes[section] {
         case .backDrop:
-            guard let backDropCnt = viewModel.imageResponseData?.backdrops.count else { return 0 }
+            guard let backDropCnt = viewModel.imageData?.backdrops.count else { return 0 }
             return min(max(backDropCnt, 1), 5)
         case .synopsis:
             return 1
@@ -173,7 +164,7 @@ extension DetailViewController: UICollectionViewDataSource {
             guard let castCnt = viewModel.castData?.count else {return 0}
             return castCnt
         case .poster:
-            guard let posterCnt = viewModel.imageResponseData?.posters.count else {return 0}
+            guard let posterCnt = viewModel.imageData?.posters.count else {return 0}
             return max(1, posterCnt)
         }
     }
@@ -182,27 +173,27 @@ extension DetailViewController: UICollectionViewDataSource {
         switch viewModel.sectionTypes[indexPath.section] {
         case .backDrop:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackDropCollectionViewCell.cellIdentifier, for: indexPath) as! BackDropCollectionViewCell
-            guard let backDropCnt = viewModel.imageResponseData?.backdrops.count else {return UICollectionViewCell()}
+            guard let backDropCnt = viewModel.imageData?.backdrops.count else {return UICollectionViewCell()}
             
             switch backDropCnt == 0 {
             case true:
                 cell.configureBackDropCell(imageUrlPath: "", backDropImageCnt: backDropCnt)
                 return cell
             case false:
-                let item = viewModel.imageResponseData?.backdrops[indexPath.item]
+                let item = viewModel.imageData?.backdrops[indexPath.item]
                 cell.configureBackDropCell(imageUrlPath: item?.filePath ?? "", backDropImageCnt: min(max(backDropCnt, 1), 5))
                 return cell
             }
         case .synopsis:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SynopsisCollectionViewCell.cellIdentifier, for: indexPath) as! SynopsisCollectionViewCell
             cell.configureCell(contentText: viewModel.detailMovieInfoModel.overview, numberOfLines: viewModel.synopsisNumberOfLines)
+            
+            //async를 사용하여 위 cell이 3줄 넘는 내용인지 판별
             DispatchQueue.main.async {
+                print(Thread.isMainThread, "Thread.isMainThread")
                 print("텍스트 잘림 여부:", cell.contentLabel.isTruncated)
-                if self.viewModel.isFirstLoad {
-                    self.viewModel.isTextTruncated = cell.contentLabel.isTruncated
-                    // 분기처리 로직 isFirstLoad 수정 필요
-                    self.viewModel.isFirstLoad = false
-                }
+                
+                self.viewModel.input.checkTextTruncated.value = cell.contentLabel.isTruncated
             }
             
             return cell
@@ -218,20 +209,19 @@ extension DetailViewController: UICollectionViewDataSource {
             
         case .poster:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PosterCollectionViewCell.cellIdentifier, for: indexPath) as! PosterCollectionViewCell
-            guard let posterCnt = viewModel.imageResponseData?.posters.count else {return UICollectionViewCell()}
+            guard let posterCnt = viewModel.imageData?.posters.count else {return UICollectionViewCell()}
             switch posterCnt == 0 {
             case true:
                 cell.imageView.setEmptyImageView()
                 cell.isUserInteractionEnabled = false
                 return cell
             case false:
-                let item = viewModel.imageResponseData?.posters[indexPath.item]
+                let item = viewModel.imageData?.posters[indexPath.item]
                 cell.configurePosterCell(imageUrlPath: item?.filePath)
                 return cell
             }
             
         }
     }
-    
     
 }

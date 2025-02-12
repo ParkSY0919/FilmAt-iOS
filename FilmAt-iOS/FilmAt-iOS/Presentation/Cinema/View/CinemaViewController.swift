@@ -126,18 +126,12 @@ private extension CinemaViewController {
             guard let self, let detailVM else {return}
             let detailViewModel = detailVM
             detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
-            detailViewModel.getImageData(movieID: viewModel.detailViewMoviewID)
-            
-            detailViewModel.endDataLoading = { [weak self] in
+            detailViewModel.fetchDetailData(movieID: viewModel.detailViewMoviewID) {
                 DispatchQueue.main.async {
                     let vc = DetailViewController(viewModel: detailViewModel)
-                    self?.viewTransition(viewController: vc, transitionStyle: .push)
+                    self.viewTransition(viewController: vc, transitionStyle: .push)
                 }
             }
-            
-//            detailViewModel.onAlert = { [weak self] alert in
-//                self?.present(alert, animated: true)
-//            }
             
             detailViewModel.likedMovieListChange = { likeMovieListDic in
                 self.viewModel.likeMovieListDic = likeMovieListDic

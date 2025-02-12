@@ -87,17 +87,11 @@ private extension SearchViewController {
         viewModel.output.setDetailViewModel.lazyBind { [weak self] detailViewModel in
             guard let self, let detailViewModel else {return}
             detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
-            detailViewModel.getImageData(movieID: self.viewModel.detailViewMoviewID)
-            
-            detailViewModel.endDataLoading = { [weak self] in
+            detailViewModel.fetchDetailData(movieID: viewModel.detailViewMoviewID) {
                 DispatchQueue.main.async {
                     let vc = DetailViewController(viewModel: detailViewModel)
-                    self?.viewTransition(viewController: vc, transitionStyle: .push)
+                    self.viewTransition(viewController: vc, transitionStyle: .push)
                 }
-            }
-            
-            detailViewModel.onAlert = { [weak self] alert in
-                self?.present(alert, animated: true)
             }
             
             detailViewModel.likedMovieListChange = { likeMovieListDic in
