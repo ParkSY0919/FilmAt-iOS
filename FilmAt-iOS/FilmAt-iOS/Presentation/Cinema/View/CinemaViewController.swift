@@ -153,19 +153,16 @@ extension CinemaViewController: UICollectionViewDelegate {
         switch returnCinemaCollectionType(collectionView: collectionView) {
         case .recentSearch:
             let recentSeachText = (viewModel.recentSearchList.value ?? [])[indexPath.item]
-            
             let cinemaRecentSearchList = viewModel.recentSearchList.value ?? []
-            let likeMovieListDic = viewModel.likeMovieListDic
-            let searchViewModel = SearchViewModel(cinemaRecentSearchList: cinemaRecentSearchList, likeMovieListDic: likeMovieListDic)
             
-            searchViewModel.isSuccessResponse = { [weak self] in
-                DispatchQueue.main.async {
-                    let vc = SearchViewController(viewModel: searchViewModel)
-                    self?.viewTransition(viewController: vc, transitionStyle: .push)
-                }
-            }
-            searchViewModel.getSearchData(searchText: recentSeachText, page: 1, isFromCinema: true)
+            let searchViewModel = SearchViewModel(cinemaRecentSearchList: cinemaRecentSearchList,
+                                                  likeMovieListDic: viewModel.likeMovieListDic,
+                                                  isThroughRecentBtn: true)
             
+            searchViewModel.getSearchData(searchText: recentSeachText, page: 1)
+            
+            let vc = SearchViewController(viewModel: searchViewModel)
+            self.viewTransition(viewController: vc, transitionStyle: .push)
         case .todayMovie:
             let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
             guard let date = selectedTodayMovie.releaseDate,
