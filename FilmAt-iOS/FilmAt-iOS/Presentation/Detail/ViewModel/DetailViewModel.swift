@@ -7,82 +7,123 @@
 
 import UIKit
 
-final class DetailViewModel {
+final class DetailViewModel: ViewModelProtocol {
+    
+    let sectionTypes = DetailViewSectionType.allCases
+    let sectionHeaderTitles = ["", "Synopsis", "Cast", "Poster"]
+    var likeMovieListDic = [String: Bool]()
+    var synopsisNumberOfLines = 3
+    var likedMovieListChange: (([String: Bool]) -> Void)?
+    
+    var castData: [Cast]?
+    var imageData: ImageResponseModel?
+    var isMoreState: ObservablePattern<Bool> = ObservablePattern(true)
+    var isTextTruncated: Bool?
+    var isFirstLoad = true
+    
+    private(set) var input: Input
+    private(set) var output: Output
+    
+    struct Input {
+        let prepareZoomBackDropImage: Observable<Int> = Observable(-1)
+        let prepareZoomPosterImage: Observable<Int> = Observable(-1)
+        let checkTextTruncated: Observable<Bool> = Observable(false)
+    }
+    struct Output {
+        let setZoomImage: Observable<UIImageView> = Observable(UIImageView())
+    }
     
     let moviewTitle: String
     let sectionCount: Int
     let detailMovieInfoModel: DetailMovieInfoModel
     
-    let sectionTypes = DetailViewSectionType.allCases
-    let sectionHeaderTitles = ["", "Synopsis", "Cast", "Poster"]
-    var likeMovieListDic = [String: Bool]()
-    
-    var synopsisNumberOfLines = 3
-    var endDataLoading: (() -> Void)?
-    var likedMovieListChange: (([String: Bool]) -> Void)?
-    var onAlert: ((UIAlertController) -> Void)?
-    
-    var imageResponseData: ImageResponseModel?
-    var castData: [Cast]?
-    
     init(moviewTitle: String, sectionCount: Int, detailMovieInfoModel: DetailMovieInfoModel) {
         self.moviewTitle = moviewTitle
         self.sectionCount = sectionCount
         self.detailMovieInfoModel = detailMovieInfoModel
+        
+        self.input = Input()
+        self.output = Output()
+        
+        transform()
     }
     
-    var isMoreState: ObservablePattern<Bool> = ObservablePattern(true)
-    
-    var isTextTruncated: Bool?
-    var isFirstLoad = true
+    internal func transform() {
+        input.prepareZoomBackDropImage.lazyBind { [weak self] index in
+            guard let self else {return}
+            let item = imageData?.backdrops[index]
+            let imageView = UIImageView()
+            imageView.setImageKfDownSampling(with: item?.filePath, loadImageType: .original, cornerRadius: 0)
+            
+            output.setZoomImage.value = imageView
+        }
+        
+        input.prepareZoomPosterImage.lazyBind { [weak self] index in
+            guard let self else {return}
+            let item = imageData?.posters[index]
+            let imageView = UIImageView()
+            imageView.setImageKfDownSampling(with: item?.filePath, loadImageType: .original, cornerRadius: 0)
+            
+            output.setZoomImage.value = imageView
+        }
+        
+        input.checkTextTruncated.lazyBind { [weak self] isTruncated in
+            guard let self else {return}
+            if isFirstLoad {
+                isTextTruncated = isTruncated
+                isFirstLoad = false
+            }
+        }
+    }
     
 }
 
 extension DetailViewModel {
     
-    //왜 네트워크를 끊으면 무한 인디케이터에서 못 나올까
+    func fetchDetailData(movieID: Int, completion: @escaping () -> Void) {
+        let group = DispatchGroup()
+        
+        group.enter()
+        getImageData(movieID: movieID) {
+            group.leave()
+        }
+        
+        group.enter()
+        getCreditData(movieID: movieID) {
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            completion()
+        }
+    }
     
-    func getImageData(movieID: Int) {
-        LoadingIndicatorManager.showLoading()
-        NetworkManager.shared.getTMDBAPI(apiHandler: .getImageAPI(movieID: movieID), responseModel: ImageResponseModel.self) { result, resultType in
-            switch resultType {
-            case .success:
-                self.imageResponseData = result
-                self.getCreditData(movieID: movieID)
-            default :
-                let alert = UIAlertManager.showAlert(title: resultType.message, message: "확인 이후 다시 시도해주세요.")
-                self.onAlert?(alert)
-            }
-        } failHandler: { str in
-            let alert = UIAlertManager.showAlert(title: str, message: "확인 이후 다시 시도해주세요.")
-            self.onAlert?(alert)
-            DispatchQueue.main.async {
-                LoadingIndicatorManager.hideLoading()
+    private func getImageData(movieID: Int, completion: @escaping () -> Void) {
+        NetworkManager.shared.getTMDBAPIRefactor(apiHandler: .getImageAPI(movieID: movieID), responseModel: ImageResponseModel.self) { response in
+            switch response {
+            case .success(let success):
+                self.imageData = success
+                completion()
+            case .failure(let failure):
+                print("에러 발생")
+                let error = failure.errorDescription
+                print(error ?? "")
             }
         }
     }
     
-    func getCreditData(movieID: Int) {
-        NetworkManager.shared.getTMDBAPI(apiHandler: .getCreditAPI(movieID: movieID), responseModel: CreditResponseModel.self) { result, resultType in
-            switch resultType {
-            case .success:
-                self.castData = result.cast
-                self.endDataLoading?()
-            default :
-                let alert = UIAlertManager.showAlert(title: resultType.message, message: "확인 이후 다시 시도해주세요.")
-                self.onAlert?(alert)
+    private func getCreditData(movieID: Int, completion: @escaping () -> Void) {
+        NetworkManager.shared.getTMDBAPIRefactor(apiHandler: .getCreditAPI(movieID: movieID), responseModel: CreditResponseModel.self) { response in
+            switch response {
+            case .success(let success):
+                self.castData = success.cast
+                completion()
+            case .failure(let failure):
+                print("에러 발생")
+                let error = failure.errorDescription
+                print(error ?? "")
             }
-        } failHandler: { str in
-            let alert = UIAlertManager.showAlert(title: str, message: "확인 이후 다시 시도해주세요.")
-            self.onAlert?(alert)
-        }
-        DispatchQueue.main.async {
-            LoadingIndicatorManager.hideLoading()
         }
     }
     
 }
-
-
-
-// 네트워크 끊긴 상태에서, cinemaVC에서 디테일 클릭 시 왜 무한 인디케이터일까

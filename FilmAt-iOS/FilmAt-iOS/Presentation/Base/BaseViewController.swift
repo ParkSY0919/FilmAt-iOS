@@ -143,6 +143,14 @@ class BaseViewController: UIViewController {
         }
     }
     
+//    func viewTransition<T: UIViewController>(viewController: T, transitionStyle: ViewTransitionType, completion: @escaping () -> Void) {
+//        switch transitionStyle {
+//        default:
+//            self.navigationController?.pushViewController(viewController, animated: true)
+//            completion()
+//        }
+//    }
+    
     @objc
     func popBtnTapped() {
         self.navigationController?.popViewController(animated: true)

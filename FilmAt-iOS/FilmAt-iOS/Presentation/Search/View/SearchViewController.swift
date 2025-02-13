@@ -59,27 +59,47 @@ private extension SearchViewController {
     }
     
     func bindViewModel() {
-        viewModel.onAlert = { [weak self] alert in
-            self?.present(alert, animated: true)
+        viewModel.output.showScrollToTop.lazyBind { [weak self] _ in
+            self?.setScrollToTop()
         }
         
-        viewModel.searchAPIResult.bind { [weak self] flag in
-            print("viewModel.searchAPIResult.bind 호출 중")
-            guard let flag,
-                  let isEmpty = self?.viewModel.searchResultList.isEmpty
+        viewModel.output.isSearchAPICallSuccessful.lazyBind { [weak self] isSuccessful in
+            guard
+                let isSuccessful,
+                let isEmpty = self?.viewModel.searchResultList.isEmpty
             else {return}
             
-            if flag {
+            if isSuccessful == "true" {
                 DispatchQueue.main.async {
-                    self?.searchView.searchTextField.text = self?.viewModel.currentSearchText
+                    self?.searchView.searchTextField.text = self?.viewModel.input.textFieldText.value
                     self?.searchView.setHiddenUI(isEmpty: isEmpty)
                     self?.searchView.searchTableView.reloadData()
-                    if self?.viewModel.page == 1 {
-                        self?.setScrollToTop()
-                    }
                 }
+                self?.viewModel.input.isFirstPage.value = ()
             } else {
-                print("searchAPIResult.value = false")
+                DispatchQueue.main.async {
+                    let alert = UIAlertManager.showAlert(title: "에러 발생", message: isSuccessful)
+                    self?.present(alert, animated: true)
+                }
+            }
+        }
+        
+        viewModel.output.setDetailViewModel.lazyBind { [weak self] detailViewModel in
+            guard let self, let detailViewModel else {return}
+            detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
+            detailViewModel.fetchDetailData(movieID: viewModel.detailViewMoviewID) {
+                DispatchQueue.main.async {
+                    let vc = DetailViewController(viewModel: detailViewModel)
+                    self.viewTransition(viewController: vc, transitionStyle: .push)
+                }
+            }
+            
+            detailViewModel.likedMovieListChange = { likeMovieListDic in
+                self.viewModel.likeMovieListDic = likeMovieListDic
+                
+                // reloadData하기위해 값 설정
+                self.viewModel.output.isSearchAPICallSuccessful.value = "true"
+                self.viewModel.likedMovieListChange?(likeMovieListDic)
             }
         }
     }
@@ -92,9 +112,8 @@ private extension SearchViewController {
     
     @objc
     func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        print(#function, text)
-        viewModel.currentSearchText = text
+        print(#function, textField.text ?? "")
+        viewModel.input.textFieldText.value = textField.text
     }
     
 }
@@ -102,28 +121,8 @@ private extension SearchViewController {
 extension SearchViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch viewModel.checkDuplicateSearchText() {
-        case true:
-            print("이전 검색어와 현재 검색어가 일치합니다.")
-        case false:
-            guard let researchList = viewModel.cinemaRecentSearchList else { return true }
-            
-            if let index = researchList.firstIndex(of: viewModel.currentSearchText) {
-                //현재 검색어가 list에 있을 때
-                viewModel.cinemaRecentSearchList?.remove(at: index)
-            }
-            
-            var list = viewModel.cinemaRecentSearchList?.reversed() ?? []
-            list.append(viewModel.currentSearchText)
-            UserDefaultsManager.shared.recentSearchList = list.reversed()
-            self.viewModel.cinemaRecentSearchList = list.reversed()
-            
-            viewModel.resetSearchListWithPage()
-            
-            viewModel.getSearchData(searchText: viewModel.currentSearchText, page: viewModel.page)
-        }
+        viewModel.input.isTextFieldReturn.value = ()
         self.searchView.searchTextField.resignFirstResponder()
-        
         return true
     }
     
@@ -133,12 +132,9 @@ extension SearchViewController: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         for i in indexPaths {
-            if (viewModel.searchResultList.count - 4) == i.item && viewModel.isEnd == false  {
-                viewModel.page += 1
+            if (viewModel.searchResultList.count - 4) == i.item {
                 print("추가호출")
-                viewModel.getSearchData(searchText: viewModel.currentSearchText, page: viewModel.page)
-            } else {
-                print("현재 isEnd: \(viewModel.isEnd)")
+                viewModel.input.isCallPrefetch.value = ()
             }
         }
     }
@@ -148,46 +144,7 @@ extension SearchViewController: UITableViewDataSourcePrefetching {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        LoadingIndicatorManager.showLoading()
-        
-        let row = viewModel.searchResultList[indexPath.row]
-        guard let date = row.releaseDate,
-              let genreIDs = row.genreIDS else { return }
-        
-        let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
-        let genreIDsStrArr = GenreType.returnGenreName(from: genreIDs) ?? ["실패"]
-        let voteAverage = row.voteAverage ?? Double(0.0)
-        let overView = row.overview
-        
-        let detailViewModel = DetailViewModel(moviewTitle: row.title,
-                                              sectionCount: DetailViewSectionType.allCases.count,
-                                              detailMovieInfoModel: DetailMovieInfoModel(moviewId: row.id,
-                                                                                         releaseDate: releaseDate,
-                                                                                         voteAverage: voteAverage,
-                                                                                         genreIDs: genreIDsStrArr,
-                                                                                         overview: overView))
-        
-        detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
-        detailViewModel.getImageData(movieID: row.id)
-        
-        detailViewModel.endDataLoading = { [weak self] in
-            DispatchQueue.main.async {
-                let vc = DetailViewController(viewModel: detailViewModel)
-                self?.viewTransition(viewController: vc, transitionStyle: .push)
-            }
-        }
-        
-        detailViewModel.onAlert = { [weak self] alert in
-            self?.present(alert, animated: true)
-        }
-        
-        detailViewModel.likedMovieListChange = { likeMovieListDic in
-            self.viewModel.likeMovieListDic = likeMovieListDic
-            
-            // reloadData하기위해 값 설정
-            self.viewModel.searchAPIResult.value = true
-            self.viewModel.likedMovieListChange?(likeMovieListDic)
-        }
+        viewModel.input.prepareDetailViewModel.value = indexPath.row
     }
     
 }
@@ -214,6 +171,7 @@ extension SearchViewController: UITableViewDataSource {
         
         cell.likeBtnComponent.configureLikeBtn(isLiked: viewModel.likeMovieListDic[String(item.id)] ?? false)
         
+        //추후 LikeButtonManager로 대체
         cell.likeBtnComponent.onTapLikeButton = { [weak self] isSelected in
             guard let self = self else { return }
             if isSelected {

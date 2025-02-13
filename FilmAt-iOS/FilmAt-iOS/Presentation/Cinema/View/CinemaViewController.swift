@@ -41,18 +41,18 @@ final class CinemaViewController: BaseViewController {
     override func searchBtnTapped() {
         print(#function)
         
-        let searchViewModel = SearchViewModel()
-        searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
-        searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
-        
+        let cinemaRecentSearchList = viewModel.output.recentSearchList.value
+        let likeMovieListDic = viewModel.likeMovieListDic
+        let searchViewModel = SearchViewModel(cinemaRecentSearchList: cinemaRecentSearchList, likeMovieListDic: likeMovieListDic)
         
         let vc = SearchViewController(viewModel: searchViewModel)
         viewTransition(viewController: vc, transitionStyle: .push)
         
+        //추후 LikeButtonManager로 대체
         searchViewModel.likedMovieListChange = { likeMovieListDic in
             print("searchViewModel.likedMovieListChange = { likeMovieListDic in")
             self.viewModel.likeMovieListDic = likeMovieListDic
-            self.viewModel.todayMovieAPIResult.value = true
+            self.viewModel.output.configureProfileBox.value = ()
         }
     }
 
@@ -61,10 +61,7 @@ final class CinemaViewController: BaseViewController {
 private extension CinemaViewController {
     
     func setUserDefaultsData() {
-        viewModel.recentSearchList.value = UserDefaultsManager.shared.recentSearchList
-        viewModel.likeMovieListDic = UserDefaultsManager.shared.likeMovieListDic
-        UserDefaultsManager.shared.saveMovieCount = viewModel.likeMovieListDic.count
-        cinemaView.profileBox.changeProfileBoxData()
+        viewModel.input.prepareUserDefaultsData.value = ()
     }
     
     func setDelegate() {
@@ -84,28 +81,61 @@ private extension CinemaViewController {
     }
     
     func bindViewModel() {
-        viewModel.onAlert = { [weak self] alert in
-            self?.present(alert, animated: true)
+        viewModel.output.configureProfileBox.lazyBind { [weak self] in
+            self?.cinemaView.profileBox.changeProfileBoxData()
         }
         
-        viewModel.recentSearchList.bind { [weak self] data in
-            guard let data else { return }
-            
+        viewModel.output.recentSearchList.lazyBind { [weak self] data in
             DispatchQueue.main.async {
                 self?.cinemaView.setRecentSearchListState(isEmpty: data.isEmpty)
                 self?.cinemaView.recentSearchCollectionView.reloadData()
             }
         }
         
-        viewModel.todayMovieAPIResult.bind { [weak self] flag in
-            guard let flag else { return }
-            switch flag {
-            case true:
+        viewModel.output.todayMovieList.lazyBind { [weak self] list in
+            if !list.isEmpty {
                 DispatchQueue.main.async {
                     self?.cinemaView.todayMovieCollectionView.reloadData()
                 }
+            }
+        }
+        
+        viewModel.output.isTodayMoviewAPICallError.lazyBind { [weak self] isError in
+            guard let self, let isError else {return}
+            switch isError == "false" {
+            case true:
+                DispatchQueue.main.async {
+                    self.cinemaView.todayMovieCollectionView.reloadData()
+                }
             case false:
-                print("todayMovieAPIResult false")
+                let alert = UIAlertManager.showAlert(title: "에러", message: isError)
+                self.viewTransition(viewController: alert, transitionStyle: .present)
+            }
+        }
+        
+        viewModel.output.setSearchViewModel.lazyBind { [weak self] searchVM in
+            guard let self, let searchVM else {return}
+            let searchViewModel = searchVM
+            searchViewModel.getSearchData(searchText: viewModel.recentSeachText, page: 1)
+            
+            let vc = SearchViewController(viewModel: searchViewModel)
+            self.viewTransition(viewController: vc, transitionStyle: .push)
+        }
+        
+        viewModel.output.setDetailViewModel.lazyBind { [weak self] detailVM in
+            guard let self, let detailVM else {return}
+            let detailViewModel = detailVM
+            detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
+            detailViewModel.fetchDetailData(movieID: viewModel.detailViewMoviewID) {
+                DispatchQueue.main.async {
+                    let vc = DetailViewController(viewModel: detailViewModel)
+                    self.viewTransition(viewController: vc, transitionStyle: .push)
+                }
+            }
+            
+            detailViewModel.likedMovieListChange = { likeMovieListDic in
+                self.viewModel.likeMovieListDic = likeMovieListDic
+                self.viewModel.output.isTodayMoviewAPICallError.value = "false"
             }
         }
     }
@@ -124,7 +154,8 @@ private extension CinemaViewController {
         let profileNicknameViewModel = ProfileNicknameViewModel()
         let vc = ProfileNicknameViewController(viewModel: profileNicknameViewModel, isPushType: false)
         vc.onChange = { [weak self] in
-            self?.cinemaView.profileBox.changeProfileBoxData()
+            //프로필 박스 새로고침
+            self?.viewModel.input.prepareProfileBox.value = ()
         }
         viewTransition(viewController: vc, transitionStyle: .presentWithNav)
     }
@@ -132,18 +163,15 @@ private extension CinemaViewController {
     @objc
     func recentSearchResetBtnTapped() {
         print(#function)
-        viewModel.recentSearchList.value?.removeAll()
-        UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
-        //UserDefaults.standard.synchronize() //역시 이건 효과 없군.
-        print("UserDefaultsManager.shared.recentSearchList : \(UserDefaultsManager.shared.recentSearchList)")
+        //reset은 index 범주에서 벗어난 -1 대입
+        viewModel.input.changeRecentSearchList.value = -1
     }
     
     @objc
     func xMarkBtnTapped(_ sender: UIButton) {
         print(#function, "sender.tag : \(sender.tag)")
-        viewModel.recentSearchList.value?.remove(at: sender.tag)
-        UserDefaultsManager.shared.recentSearchList = self.viewModel.recentSearchList.value ?? [""]
-        print("UserDefaultsManager.shared.recentSearchList : \(UserDefaultsManager.shared.recentSearchList)")
+        //reset이 아닌 경우 index 값 대입
+        viewModel.input.changeRecentSearchList.value = sender.tag
     }
     
 }
@@ -153,55 +181,9 @@ extension CinemaViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch returnCinemaCollectionType(collectionView: collectionView) {
         case .recentSearch:
-            let recentSeachText = (viewModel.recentSearchList.value ?? [])[indexPath.item]
-            
-            let searchViewModel = SearchViewModel()
-            searchViewModel.cinemaRecentSearchList = viewModel.recentSearchList.value
-            searchViewModel.likeMovieListDic = viewModel.likeMovieListDic
-            
-            searchViewModel.getSearchData(searchText: recentSeachText, page: 1, isFromCinema: true)
-            searchViewModel.isSuccessResponse = {
-                DispatchQueue.main.async { [weak self] in
-                    let vc = SearchViewController(viewModel: searchViewModel)
-                    self?.viewTransition(viewController: vc, transitionStyle: .push)
-                }
-            }
+            viewModel.input.prepareSearchViewModel.value = indexPath.item
         case .todayMovie:
-            let selectedTodayMovie = viewModel.todayMovieList[indexPath.item]
-            guard let date = selectedTodayMovie.releaseDate,
-                  let genreIDs = selectedTodayMovie.genreIDS else { return }
-            
-            let releaseDate = DateFormatterManager.shard.setDateString(strDate: date, format: "yy.MM.dd")
-            let genreIDsStrArr = GenreType.returnGenreName(from: genreIDs) ?? ["실패"]
-            let voteAverage = selectedTodayMovie.voteAverage ?? Double(0.0)
-            let overView = selectedTodayMovie.overview
-            
-            let detailViewModel = DetailViewModel(moviewTitle: selectedTodayMovie.title,
-                                                  sectionCount: DetailViewSectionType.allCases.count,
-                                                  detailMovieInfoModel: DetailMovieInfoModel(moviewId: selectedTodayMovie.id,
-                                                                                             releaseDate: releaseDate,
-                                                                                             voteAverage: voteAverage,
-                                                                                             genreIDs: genreIDsStrArr,
-                                                                                             overview: overView))
-            
-            detailViewModel.likeMovieListDic = viewModel.likeMovieListDic
-            detailViewModel.getImageData(movieID: selectedTodayMovie.id)
-            
-            detailViewModel.endDataLoading = { [weak self] in
-                DispatchQueue.main.async {
-                    let vc = DetailViewController(viewModel: detailViewModel)
-                    self?.viewTransition(viewController: vc, transitionStyle: .push)
-                }
-            }
-            
-            detailViewModel.onAlert = { [weak self] alert in
-                self?.present(alert, animated: true)
-            }
-            
-            detailViewModel.likedMovieListChange = { likeMovieListDic in
-                self.viewModel.likeMovieListDic = likeMovieListDic
-                self.viewModel.todayMovieAPIResult.value = true
-            }
+            viewModel.input.prepareDetailViewModel.value = indexPath.item
         }
     }
     
@@ -212,10 +194,9 @@ extension CinemaViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch returnCinemaCollectionType(collectionView: collectionView) {
         case .recentSearch:
-            guard let recentSearchList = viewModel.recentSearchList.value else { return 2 }
-            return recentSearchList.count
+            return viewModel.output.recentSearchList.value.count
         case .todayMovie:
-            return viewModel.todayMovieList.count
+            return viewModel.output.todayMovieList.value.count
         }
     }
     
@@ -226,7 +207,7 @@ extension CinemaViewController: UICollectionViewDataSource {
             
             cell.xMarkbutton.addTarget(self, action: #selector(xMarkBtnTapped), for: .touchUpInside)
             cell.xMarkbutton.tag = indexPath.item
-            let recentSeachList = viewModel.recentSearchList.value ?? []
+            let recentSeachList = viewModel.output.recentSearchList.value
             
             cell.setCellUI(titleText: recentSeachList[indexPath.item])
             
@@ -234,7 +215,7 @@ extension CinemaViewController: UICollectionViewDataSource {
         case .todayMovie:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.cellIdentifier, for: indexPath) as! TodayMovieCollectionViewCell
             
-            let item = viewModel.todayMovieList[indexPath.item]
+            let item = viewModel.output.todayMovieList.value[indexPath.item]
             cell.likeBtnComponent.configureLikeBtn(isLiked: viewModel.likeMovieListDic[String(item.id)] ?? false)
             
             cell.likeBtnComponent.onTapLikeButton = { [weak self] isSelected in

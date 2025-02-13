@@ -54,6 +54,23 @@ final class NetworkManager {
             }
     }
     
+    func getTMDBAPIRefactor<T: Decodable>(apiHandler: TMDBTargetType,
+                                          responseModel: T.Type,
+                                          completionHandler: @escaping (Result<T, AFError>) -> Void) {
+        AF.request(apiHandler)
+            .responseDecodable(of: T.self) { response in
+                debugPrint(response)
+                switch response.result {
+                case .success(let result):
+                    print("✅ API 요청 성공")
+                    completionHandler(.success(result))
+                case .failure(let error):
+                    print("❌ API 요청 실패\n", error)
+                    completionHandler(.failure(error))
+                }
+            }
+    }
+    
 }
 
 
