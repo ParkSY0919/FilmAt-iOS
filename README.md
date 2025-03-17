@@ -8,7 +8,7 @@
 
 ### 🎥 Made by
 
-<div align=center>
+<div align=left>
   
 | <img width="200px" src="https://avatars.githubusercontent.com/u/114901417?v=4"/> |
 |:-----:|
