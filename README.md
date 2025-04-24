@@ -1,14 +1,15 @@
-## 🎥 FilmAt - iOS 🎥
+# 🎥 FilmAt - iOS 🎥
 
 <p align="center">
   <br>
-<!--   KREAM 대문 사진 -->
+<!--  대문 사진 -->
   <br>
 </p>
 
-### 🎥 Made by
+## 🎥 Made by
+### 👨🏻‍💻 Contributor
 
-<div align=center>
+<div align=left>
   
 | <img width="200px" src="https://avatars.githubusercontent.com/u/114901417?v=4"/> |
 |:-----:|
