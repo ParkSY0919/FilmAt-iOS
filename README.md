@@ -19,7 +19,7 @@
 
 <br>
 
-## 🎥 Made by
+## 🎥 About Developer
 
 <div align=left>
 
